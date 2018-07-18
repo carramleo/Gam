@@ -15,6 +15,7 @@ import javax.faces.component.html.HtmlOutputText;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
+import org.primefaces.Pregunta.PreguntaCampoTexto;
 import org.primefaces.Pregunta.PreguntaCifras;
 import org.primefaces.Pregunta.PreguntaOpciones;
 
@@ -29,6 +30,8 @@ public class ButtonView implements Serializable {
 
     private List<PreguntaOpciones> Preguntas = new ArrayList<PreguntaOpciones>();
     private List<PreguntaCifras> PreguntasCifras = new ArrayList<PreguntaCifras>();
+    private List<PreguntaCampoTexto> PreguntasCampoTexto = new ArrayList<PreguntaCampoTexto>();
+    
     int number = 0;
     boolean hidden = false;
 
@@ -52,6 +55,26 @@ public class ButtonView implements Serializable {
     }
 
     @PostConstruct
+    public void init(){
+        
+        PreguntaOpciones pregAdd = new PreguntaOpciones(6,3);
+        this.number = Preguntas.size();
+        pregAdd.setId(number);
+        Preguntas.add(pregAdd);
+        
+        PreguntaCifras pregAdd2 = new PreguntaCifras(3);
+        this.number = PreguntasCifras.size();
+        pregAdd2.setId(number);
+        PreguntasCifras.add(pregAdd2);
+        
+        
+        PreguntaCampoTexto pregAdd3 = new PreguntaCampoTexto(3,3,1);
+        this.number = PreguntasCampoTexto.size();
+        pregAdd3.setId(number);
+        PreguntasCampoTexto.add(pregAdd3);
+        
+        
+    }
 
     public void addPregunta() {
         
@@ -70,6 +93,15 @@ public class ButtonView implements Serializable {
         pregAdd.setId(number);
         PreguntasCifras.add(pregAdd);
     }
+    
+    public void addPreguntaCampoTexto(){
+        PreguntaCampoTexto pregAdd3 = new PreguntaCampoTexto(3,3,1);
+        this.number = PreguntasCampoTexto.size();
+        pregAdd3.setId(number);
+        PreguntasCampoTexto.add(pregAdd3);
+        
+    }
+    
 
     public List<PreguntaOpciones> getPreguntas() {
         return Preguntas;
@@ -77,6 +109,14 @@ public class ButtonView implements Serializable {
 
     public List<PreguntaCifras> getPreguntasCifras() {
         return PreguntasCifras;
+    }
+
+    public List<PreguntaCampoTexto> getPreguntasCampoTexto() {
+        return PreguntasCampoTexto;
+    }
+
+    public void setPreguntasCampoTexto(List<PreguntaCampoTexto> PreguntasCampoTexto) {
+        this.PreguntasCampoTexto = PreguntasCampoTexto;
     }
 
 

@@ -73,12 +73,20 @@
                         </p:panelGrid> 
                         
                         <p:panelGrid id="panelesJuegoCifras" columns="1" style="width: 100%;" rendered="#{selectOneMenuView.tipo eq 'TipoCifras' or selectOneMenuView.tipoCifras}" >
-                            <c:forEach items="#{buttonView.preguntas}" var="pregunta"  >
+                            <c:forEach items="#{buttonView.preguntasCifras}" var="pregunta"  >
                                 <ui:include  src="TiposPreguntas/preguntasCifras.xhtml"/>
                             </c:forEach>
                             <p:commandButton value="Nueva Pregunta" actionListener="#{buttonView.addPreguntaCifras()}"  update=":juego:panelesJuegoCifras"/>
                             <p:commandButton value="Crear fichero" ajax="false" action="#" />
                         </p:panelGrid> 
+                        
+                        <p:panelGrid id="panelesJuegoCampoTexto" columns="1" style="width: 100%;" rendered="#{selectOneMenuView.tipo eq 'TipoCampoTexto' or selectOneMenuView.tipoCampoTexto}" >
+                            <c:forEach items="#{buttonView.preguntasCampoTexto}" var="pregunta"  >
+                                <ui:include  src="TiposPreguntas/preguntasCampoTexto.xhtml"/>
+                            </c:forEach>
+                            <p:commandButton value="Nueva Pregunta" actionListener="#{buttonView.addPreguntaCampoTexto()}"  update=":juego:panelesJuegoCampoTexto"/>
+                            <p:commandButton value="Crear fichero" ajax="false" action="#" />
+                        </p:panelGrid>
 
                     </h:form>
                 </p:layoutUnit>
