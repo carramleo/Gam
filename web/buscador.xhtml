@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>PrimeFaces</title>
+            </f:facet>
+        </h:head>
+
+        <h:body>
+
+            <p:layout fullPage="true" >
+
+                <p:layoutUnit position="north" style="text-align: center; font-size: xx-large;" size="100" resizable="true" closable="true" collapsible="true">
+                    <h:outputText value="Buscador de ficheros"></h:outputText>
+                </p:layoutUnit>
+
+                <p:layoutUnit position="south" style="text-align: center; font-size: x-large;" size="100" closable="true" collapsible="true">
+                    <h:outputText value="Aplicación de juegos didácticos en el aula"></h:outputText>
+                </p:layoutUnit>
+
+                <p:layoutUnit position="west" size="340"  header="Opciones" collapsible="true" >
+                    <h:form id="menu" >
+                        <p:menu style="width: auto !important;" >
+
+                            <p:submenu label="Nuevo búsqueda">
+                                <p:menuitem      >
+                                    <p:selectOneMenu id="tipo"   var="tipo"  widgetVar="tipo" value="#{selectOneMenuView.tipo}" effect="fold"   >
+                                        <f:selectItem itemLabel="Selecciona tipo" itemValue="" />
+                                        <f:selectItems   value="#{selectOneMenuView.tipos}" itemValue="#{tipo}"  />
+
+                                    </p:selectOneMenu>
+                                </p:menuitem>  
+
+                            </p:submenu>
+                            <p:submenu label="Enlaces"  >
+                                
+                                <p:menuitem value="Generador de juegos" url="generador.xhtml" />
+
+                            </p:submenu>
+
+
+                        </p:menu>
+                    </h:form>
+                </p:layoutUnit>
+
+                <p:layoutUnit position="center">
+
+                    <h:form>      
+                        <p:panel id="panel" header="Search Form" style="margin-bottom:10px;">
+                            <p:messages id="messages" />
+
+                            <h:panelGrid columns="4" cellpadding="5">
+                                <h:outputLabel for="txt1" value="Text 1: *" />
+                                <p:inputText id="txt1" value="#{searchView.text1}" required="true" label="Text 1">
+                                    <f:validateLength minimum="2" />
+                                </p:inputText>
+                                <p:message for="txt1" />
+                                <h:outputText value="#{searchView.text1}" />
+
+                                <h:outputLabel for="txt2" value="Text 2: *" />
+                                <h:selectOneMenu id="txt2" value="#{searchView.text2}" required="true" label="Text 2">
+                                    <f:selectItem itemLabel="Select One" itemValue="" noSelectionOption="true" />
+                                    <f:selectItem itemLabel="Option 1" itemValue="1" />
+                                    <f:selectItem itemLabel="Option 2" itemValue="2" />
+                                    <f:selectItem itemLabel="Option 3" itemValue="3" />
+                                </h:selectOneMenu>
+                                <p:message for="@previous" />
+                                <h:outputText value="#{searchView.text2}" />
+                            </h:panelGrid>
+                        </p:panel>
+
+                       
+                    </h:form>
+
+                </p:layoutUnit>
+
+            </p:layout>
+
+        </h:body>
+
+    </f:view>
+</html>
+
