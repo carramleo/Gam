@@ -25,13 +25,14 @@ public class SelectOneMenuView {
     private Map<String, String> tiposSeleccionados = new HashMap<String, String>();
     private Map<String, Map<String, String>> data = new HashMap<String, Map<String, String>>();
 
-    boolean TipoOpciones = false;
-    boolean TipoCifras = false;
-    boolean TipoCampoTexto = false;
-    boolean TipoSiNo = false;
-    boolean TipoPanelesLetras = false;
-    boolean TipoRelacionar = false;
-    boolean TipoContarLetras = false;
+    private boolean TipoOpciones = false;
+    private boolean TipoCifras = false;
+    private boolean TipoCampoTexto = false;
+    private boolean TipoSiNo = false;
+    private boolean TipoPanelesLetras = false;
+    private boolean TipoRelacionar = false;
+    private boolean TipoContarLetras = false;
+    private boolean TipoRespAbierta = false;
 
     @PostConstruct
     public void init() {
@@ -99,12 +100,12 @@ public class SelectOneMenuView {
         map.put("Tipo De par en par", "TipoPar");
         map.put("Tipo Del tirón", "TipoDelTiron");
         data.put("TipoRelacionar", map);
-        
+
         map = new HashMap<String, String>();
         map.put("Tipo Jurado", "TipoJurado");
         map.put("Tipo 123", "Tipo123");
         data.put("TipoRespAbierta", map);
-        
+
         map = new HashMap<String, String>();
         map.put("Tipo Cuantas Letras", "TipoCuantasLetras");
         map.put("Tipo Letritas que faltan", "TipoLetritas");
@@ -129,10 +130,12 @@ public class SelectOneMenuView {
     }
 
     public void onTipoChange() {
-        if(tipo !=null && !tipo.equals(""))
+        if (tipo != null && !tipo.equals("")) {
             tiposSeleccionados = data.get(tipo);
-        else
+            setTipoBoolean();
+        } else {
             tiposSeleccionados = new HashMap<String, String>();
+        }
     }
 
     public String getTipoSeleccionado() {
@@ -159,8 +162,53 @@ public class SelectOneMenuView {
         this.data = data;
     }
 
-    
+    public void setTipoBoolean() {
 
-    
-    
+        if (tipo.equals("TipoOpciones")) {
+            TipoOpciones = true;
+        } else if (tipo.equals("TipoCifras")) {
+            TipoCifras = true;
+        } else if (tipo.equals("TipoCampoTexto")) {
+            TipoCampoTexto = true;
+        } else if (tipo.equals("TipoSiNo")) {
+            TipoSiNo = true;
+        } else if (tipo.equals("TipoPanelesLetras")) {
+            TipoPanelesLetras = true;
+        } else if (tipo.equals("TipoRelacionar")) {
+            TipoRelacionar = true;
+        } else if (tipo.equals("TipoRespAbierta")) {
+            TipoRespAbierta = true;
+        } else if (tipo.equals("TipoContarLetras")) {
+            TipoContarLetras = true;
+        }
+    }
+
+    public boolean isTipoOpciones() {
+        return TipoOpciones;
+    }
+
+    public boolean isTipoCifras() {
+        return TipoCifras;
+    }
+
+    public boolean isTipoCampoTexto() {
+        return TipoCampoTexto;
+    }
+
+    public boolean isTipoSiNo() {
+        return TipoSiNo;
+    }
+
+    public boolean isTipoPanelesLetras() {
+        return TipoPanelesLetras;
+    }
+
+    public boolean isTipoRelacionar() {
+        return TipoRelacionar;
+    }
+
+    public boolean isTipoContarLetras() {
+        return TipoContarLetras;
+    }
+
 }

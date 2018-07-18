@@ -61,14 +61,22 @@
                         <p:selectOneMenu id="tipoSeleccionado"   var="tipoSeleccionado"  widgetVar="tipoSel" value="#{selectOneMenuView.tipoSeleccionado}" effect="fold"   >
                             <f:selectItem itemLabel="Selecciona tipo" itemValue="" />
                             <f:selectItems   value="#{selectOneMenuView.tiposSeleccionados}" itemValue="#{tipoSeleccionado}"   />
-                                <p:ajax update=":juego:panelesJuego" />
+                                <p:ajax update=":juego:panelesJuego :juego:panelesJuegoCifras" />
                             
                         </p:selectOneMenu>
-                        <p:panelGrid id="panelesJuego" columns="1" style="width: 100%;" >
-                            <c:forEach items="#{buttonView.preguntas}" var="pregunta"  >
-                                <ui:include  src="preguntas.xhtml"/>
+                        <p:panelGrid id="panelesJuego"  columns="1" style="width: 100%;" rendered="#{selectOneMenuView.tipo eq 'TipoOpciones'}"  >
+                            <c:forEach items="#{buttonView.preguntas}" var="pregunta"  varStatus="preguntaLoop">
+                                <ui:include  src="TiposPreguntas/preguntas.xhtml"/>
                             </c:forEach>
-                            <p:commandButton value="Nueva Pregunta" actionListener="#{buttonView.addPregunta()}" update=":juego:panelesJuego"/>
+                            <p:commandButton value="Nueva Pregunta" actionListener="#{buttonView.addPregunta()}" update="panelesJuego" />
+                            <p:commandButton value="Crear fichero" ajax="false" action="#" />
+                        </p:panelGrid> 
+                        
+                        <p:panelGrid id="panelesJuegoCifras" columns="1" style="width: 100%;" rendered="#{selectOneMenuView.tipo eq 'TipoCifras' or selectOneMenuView.tipoCifras}" >
+                            <c:forEach items="#{buttonView.preguntas}" var="pregunta"  >
+                                <ui:include  src="TiposPreguntas/preguntasCifras.xhtml"/>
+                            </c:forEach>
+                            <p:commandButton value="Nueva Pregunta" actionListener="#{buttonView.addPreguntaCifras()}"  update=":juego:panelesJuegoCifras"/>
                             <p:commandButton value="Crear fichero" ajax="false" action="#" />
                         </p:panelGrid> 
 

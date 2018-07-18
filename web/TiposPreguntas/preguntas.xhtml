@@ -1,0 +1,45 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <body>
+        <ui:composition id="opciones" >
+            
+            <p:panel id="preg_#{pregunta.id}"  header="Pregunta" toggleable="true" closable="true"  toggleSpeed="500" closeSpeed="500" widgetVar="preg_#{pregunta.id}" >
+
+                <h:panelGrid columns = "2" border = "1" 
+                             cellpadding = "10" cellspacing = "1" style="width: 100%;">
+
+                    <f:facet name = "header">
+                        <h:outputText value = "Pregunta"/>
+                    </f:facet>
+                    <h:outputLabel value = "Enunciado:" />
+                    <h:inputText size="100" value="#{pregunta.enunciado}" />
+                    <c:forEach items="#{pregunta.respuestas}" var="resp" varStatus="loop">
+                        <h:outputLabel value = "Respuesta #{loop.index +1}:" />
+                        <h:inputText size="50"  value="#{resp}" />
+                    </c:forEach>
+
+                    <f:facet name = "footer">
+                        <h:selectOneRadio  label="Solución">
+                            <c:forEach items="#{pregunta.respuestas}" var="sol" varStatus="solLoop">
+                                <f:selectItem  itemValue = "#{sol}" itemLabel = "Respuesta #{solLoop.index +1}" />
+                            
+                            </c:forEach>
+                        </h:selectOneRadio>	
+                    </f:facet>                        
+
+
+                </h:panelGrid>
+            </p:panel>
+
+        </ui:composition>	
+    </body>
+</html>

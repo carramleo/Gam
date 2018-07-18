@@ -15,7 +15,8 @@ import javax.faces.component.html.HtmlOutputText;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
-import org.primefaces.Pregunta.Pregunta;
+import org.primefaces.Pregunta.PreguntaCifras;
+import org.primefaces.Pregunta.PreguntaOpciones;
 
 import org.primefaces.component.inputtext.InputText;
 import org.primefaces.component.inputtextarea.InputTextarea;
@@ -26,7 +27,8 @@ import org.primefaces.component.selectoneradio.SelectOneRadio;
 @ViewScoped
 public class ButtonView implements Serializable {
 
-    private List<Pregunta> Preguntas = new ArrayList<Pregunta>();
+    private List<PreguntaOpciones> Preguntas = new ArrayList<PreguntaOpciones>();
+    private List<PreguntaCifras> PreguntasCifras = new ArrayList<PreguntaCifras>();
     int number = 0;
     boolean hidden = false;
 
@@ -52,14 +54,33 @@ public class ButtonView implements Serializable {
     @PostConstruct
 
     public void addPregunta() {
-        Pregunta pregAdd = new Pregunta(1);
+        
+        
+        PreguntaOpciones pregAdd = new PreguntaOpciones(6,3);
         this.number = Preguntas.size();
         pregAdd.setId(number);
         Preguntas.add(pregAdd);
     }
+    
+    public void addPreguntaCifras() {
+        
+        
+        PreguntaCifras pregAdd = new PreguntaCifras(3);
+        this.number = PreguntasCifras.size();
+        pregAdd.setId(number);
+        PreguntasCifras.add(pregAdd);
+    }
 
-    public List<Pregunta> getPreguntas() {
+    public List<PreguntaOpciones> getPreguntas() {
         return Preguntas;
     }
+
+    public List<PreguntaCifras> getPreguntasCifras() {
+        return PreguntasCifras;
+    }
+
+
+    
+    
 
 }
