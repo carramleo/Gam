@@ -5,19 +5,22 @@
  */
 package org.primefaces.showcase.view.input;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 
 /**
  *
  * @author carlo
  */
 @ManagedBean
-public class SelectOneMenuView {
+@SessionScoped
+public class SelectOneMenuView implements Serializable{
 
     private String tipo;
     private Map<String, String> tipos = new HashMap<String, String>();
@@ -25,14 +28,6 @@ public class SelectOneMenuView {
     private Map<String, String> tiposSeleccionados = new HashMap<String, String>();
     private Map<String, Map<String, String>> data = new HashMap<String, Map<String, String>>();
 
-    private boolean TipoOpciones = false;
-    private boolean TipoCifras = false;
-    private boolean TipoCampoTexto = false;
-    private boolean TipoSiNo = false;
-    private boolean TipoPanelesLetras = false;
-    private boolean TipoRelacionar = false;
-    private boolean TipoContarLetras = false;
-    private boolean TipoRespAbierta = false;
 
     @PostConstruct
     public void init() {
@@ -132,7 +127,7 @@ public class SelectOneMenuView {
     public void onTipoChange() {
         if (tipo != null && !tipo.equals("")) {
             tiposSeleccionados = data.get(tipo);
-            setTipoBoolean();
+            
         } else {
             tiposSeleccionados = new HashMap<String, String>();
         }
@@ -162,53 +157,5 @@ public class SelectOneMenuView {
         this.data = data;
     }
 
-    public void setTipoBoolean() {
-
-        if (tipo.equals("TipoOpciones")) {
-            TipoOpciones = true;
-        } else if (tipo.equals("TipoCifras")) {
-            TipoCifras = true;
-        } else if (tipo.equals("TipoCampoTexto")) {
-            TipoCampoTexto = true;
-        } else if (tipo.equals("TipoSiNo")) {
-            TipoSiNo = true;
-        } else if (tipo.equals("TipoPanelesLetras")) {
-            TipoPanelesLetras = true;
-        } else if (tipo.equals("TipoRelacionar")) {
-            TipoRelacionar = true;
-        } else if (tipo.equals("TipoRespAbierta")) {
-            TipoRespAbierta = true;
-        } else if (tipo.equals("TipoContarLetras")) {
-            TipoContarLetras = true;
-        }
-    }
-
-    public boolean isTipoOpciones() {
-        return TipoOpciones;
-    }
-
-    public boolean isTipoCifras() {
-        return TipoCifras;
-    }
-
-    public boolean isTipoCampoTexto() {
-        return TipoCampoTexto;
-    }
-
-    public boolean isTipoSiNo() {
-        return TipoSiNo;
-    }
-
-    public boolean isTipoPanelesLetras() {
-        return TipoPanelesLetras;
-    }
-
-    public boolean isTipoRelacionar() {
-        return TipoRelacionar;
-    }
-
-    public boolean isTipoContarLetras() {
-        return TipoContarLetras;
-    }
-
+   
 }

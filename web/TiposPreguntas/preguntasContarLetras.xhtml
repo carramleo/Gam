@@ -1,0 +1,46 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <body>
+        <ui:composition id="cifras">
+
+            <p:panel id="pregPanelesLetras_#{pregunta.id}"  header="Pregunta" toggleable="true" closable="true"  toggleSpeed="500" closeSpeed="500" widgetVar="preg_#{pregunta.id}" >
+
+                <h:panelGrid columns = "2" border = "1" 
+                             cellpadding = "10" cellspacing = "1" style="width: 100%;">
+
+                    <f:facet name = "header">
+                        <h:outputText value = "Contar letras"/>
+                        <h:outputText value="&lt;br/&gt;" escape="false" />
+                        <h:outputLabel value = "Palabra: " />
+                        <h:inputText size="50" value="#{pregunta.palabra}"  />
+                    </f:facet>
+                    <h:outputText value="Letras" />
+                    <h:outputText value="Número de repeticiones" />
+
+                    <ui:repeat value="#{pregunta.letras}" var="letras" varStatus="let" >
+                        <h:inputText size="45" value="#{letras}"  />
+                        <h:outputText value="&#160;" />
+
+                    </ui:repeat> 
+                    <ui:repeat value="#{pregunta.numLetras}" var="letras" varStatus="let" >
+                        <h:inputText size="5" value="#{letras}"  />
+                        <h:outputText value="&#160;" />
+
+                    </ui:repeat> 
+
+
+                </h:panelGrid>
+            </p:panel>
+
+        </ui:composition>	
+    </body>
+</html>

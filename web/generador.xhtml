@@ -68,23 +68,63 @@
                             <c:forEach items="#{buttonView.preguntas}" var="pregunta"  varStatus="preguntaLoop">
                                 <ui:include  src="TiposPreguntas/preguntas.xhtml"/>
                             </c:forEach>
-                            <p:commandButton value="Nueva Pregunta" actionListener="#{buttonView.addPregunta()}" update="panelesJuego" />
+                            <p:commandButton value="Nueva Pregunta" action="#{buttonView.addPregunta()}" update="panelesJuego" />
                             <p:commandButton value="Crear fichero" ajax="false" action="#" />
                         </p:panelGrid> 
                         
-                        <p:panelGrid id="panelesJuegoCifras" columns="1" style="width: 100%;" rendered="#{selectOneMenuView.tipo eq 'TipoCifras' or selectOneMenuView.tipoCifras}" >
+                        <p:panelGrid id="panelesJuegoCifras" columns="1" style="width: 100%;" rendered="#{selectOneMenuView.tipo eq 'TipoCifras'}" >
                             <c:forEach items="#{buttonView.preguntasCifras}" var="pregunta"  >
                                 <ui:include  src="TiposPreguntas/preguntasCifras.xhtml"/>
                             </c:forEach>
-                            <p:commandButton value="Nueva Pregunta" actionListener="#{buttonView.addPreguntaCifras()}"  update=":juego:panelesJuegoCifras"/>
+                            <p:commandButton value="Nueva Pregunta" action="#{buttonView.addPreguntaCifras()}"  update=":juego:panelesJuegoCifras"/>
                             <p:commandButton value="Crear fichero" ajax="false" action="#" />
                         </p:panelGrid> 
                         
-                        <p:panelGrid id="panelesJuegoCampoTexto" columns="1" style="width: 100%;" rendered="#{selectOneMenuView.tipo eq 'TipoCampoTexto' or selectOneMenuView.tipoCampoTexto}" >
+                        <p:panelGrid id="panelesJuegoCampoTexto" columns="1" style="width: 100%;" rendered="#{selectOneMenuView.tipo eq 'TipoCampoTexto'}" >
                             <c:forEach items="#{buttonView.preguntasCampoTexto}" var="pregunta"  >
                                 <ui:include  src="TiposPreguntas/preguntasCampoTexto.xhtml"/>
                             </c:forEach>
-                            <p:commandButton value="Nueva Pregunta" actionListener="#{buttonView.addPreguntaCampoTexto()}"  update=":juego:panelesJuegoCampoTexto"/>
+                            <p:commandButton value="Nueva Pregunta" action="#{buttonView.addPreguntaCampoTexto()}"  update=":juego:panelesJuegoCampoTexto"/>
+                            <p:commandButton value="Crear fichero" ajax="false" action="#" />
+                        </p:panelGrid>
+                        
+                        <p:panelGrid id="panelesJuegoSiNo" columns="1" style="width: 100%;" rendered="#{selectOneMenuView.tipo eq 'TipoSiNo'}" >
+                            <c:forEach items="#{buttonView.preguntasSiNo}" var="pregunta"  >
+                                <ui:include  src="TiposPreguntas/preguntasSiNo.xhtml"/>
+                            </c:forEach>
+                            <p:commandButton value="Nueva Pregunta" action="#{buttonView.addPreguntaSiNo()}"  update=":juego:panelesJuegoSiNo"/>
+                            <p:commandButton value="Crear fichero" ajax="false" action="#" />
+                        </p:panelGrid>
+                        
+                        <p:panelGrid id="panelesJuegoPanelesLetras" columns="1" style="width: 100%;" rendered="#{selectOneMenuView.tipo eq 'TipoPanelesLetras'}" >
+                            <c:forEach items="#{buttonView.preguntasPanelesLetras}" var="pregunta"  >
+                                <ui:include  src="TiposPreguntas/preguntasPanelesLetras.xhtml"/>
+                            </c:forEach>
+                            <p:commandButton value="Nueva Pregunta" action="#{buttonView.addPreguntaPanelesLetras()}"  update=":juego:panelesJuegoPanelesLetras"/>
+                            <p:commandButton value="Crear fichero" ajax="false" action="#" />
+                        </p:panelGrid>
+                        
+                        <p:panelGrid id="panelesJuegoRelacionar" columns="1" style="width: 100%;" rendered="#{selectOneMenuView.tipo eq 'TipoRelacionar'}" >
+                            <c:forEach items="#{buttonView.preguntasRelacionar}" var="pregunta"  >
+                                <ui:include  src="TiposPreguntas/preguntasRelacionar.xhtml"/>
+                            </c:forEach>
+                            <p:commandButton value="Nueva Pregunta" action="#{buttonView.addPreguntaRelacionar()}"  update=":juego:panelesJuegoRelacionar"/>
+                            <p:commandButton value="Crear fichero" ajax="false" action="#" />
+                        </p:panelGrid>
+                        
+                        <p:panelGrid id="panelesJuegoRespAbierta" columns="1" style="width: 100%;" rendered="#{selectOneMenuView.tipo eq 'TipoRespAbierta'}" >
+                            <c:forEach items="#{buttonView.preguntasRespAbierta}" var="pregunta"  >
+                                <ui:include  src="TiposPreguntas/preguntasRespAbiertas.xhtml"/>
+                            </c:forEach>
+                            <p:commandButton value="Nueva Pregunta" action="#{buttonView.addPreguntaRespAbierta()}"  update=":juego:panelesJuegoRespAbierta"/>
+                            <p:commandButton value="Crear fichero" ajax="false" action="#" />
+                        </p:panelGrid>
+                        
+                        <p:panelGrid id="panelesJuegoContarLetras" columns="1" style="width: 100%;" rendered="#{selectOneMenuView.tipo eq 'TipoContarLetras'}" >
+                            <c:forEach items="#{buttonView.preguntasContarLetras}" var="pregunta"  >
+                                <ui:include  src="TiposPreguntas/preguntasContarLetras.xhtml"/>
+                            </c:forEach>
+                            <p:commandButton value="Nueva Pregunta" action="#{buttonView.addPreguntaContarLetras()}"  update=":juego:panelesJuegoContarLetras"/>
                             <p:commandButton value="Crear fichero" ajax="false" action="#" />
                         </p:panelGrid>
 
