@@ -42,6 +42,9 @@ public class ButtonView implements Serializable {
     private List<PreguntaRelacionar> PreguntasRelacionar = new ArrayList<PreguntaRelacionar>();
     private List<PreguntaRespAbierta> PreguntasRespAbierta = new ArrayList<PreguntaRespAbierta>();
     private List<PreguntaContarLetras> PreguntasContarLetras = new ArrayList<PreguntaContarLetras>();
+    private String autor;
+    private String titulo;
+    
     
     int number = 0;
     boolean hidden = false;
@@ -183,6 +186,22 @@ public class ButtonView implements Serializable {
 
     public void setPreguntasContarLetras(List<PreguntaContarLetras> PreguntasContarLetras) {
         this.PreguntasContarLetras = PreguntasContarLetras;
+    }
+
+    public String getAutor() {
+        return autor;
+    }
+
+    public void setAutor(String autor) {
+        this.autor = autor;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
     }
 
     

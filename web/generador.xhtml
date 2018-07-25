@@ -61,9 +61,18 @@
                         <p:selectOneMenu id="tipoSeleccionado"   var="tipoSeleccionado"  widgetVar="tipoSel" value="#{selectOneMenuView.tipoSeleccionado}" effect="fold"   >
                             <f:selectItem itemLabel="Selecciona tipo" itemValue="" />
                             <f:selectItems   value="#{selectOneMenuView.tiposSeleccionados}" itemValue="#{tipoSeleccionado}"   />
-                                <p:ajax update=":juego:panelesJuego :juego:panelesJuegoCifras" />
-                            
+                            <p:ajax update=":juego:panelesJuego :juego:panelesJuegoCifras" />
+
                         </p:selectOneMenu>
+
+                        <p:panelGrid id="datosJuego"  columns="2" style="width: auto;"   >
+
+                            <h:outputLabel value = "Autor" />
+                            <h:inputText size="50" value="#{buttonView.autor}" />
+                            <h:outputLabel value = "Título" />
+                            <h:inputText size="50" value="#{buttonView.titulo}" />
+                        </p:panelGrid>
+
                         <p:panelGrid id="panelesJuego"  columns="1" style="width: 100%;" rendered="#{selectOneMenuView.tipo eq 'TipoOpciones'}"  >
                             <c:forEach items="#{buttonView.preguntas}" var="pregunta"  varStatus="preguntaLoop">
                                 <ui:include  src="TiposPreguntas/preguntas.xhtml"/>
@@ -71,7 +80,7 @@
                             <p:commandButton value="Nueva Pregunta" action="#{buttonView.addPregunta()}" update="panelesJuego" />
                             <p:commandButton value="Crear fichero" ajax="false" action="#" />
                         </p:panelGrid> 
-                        
+
                         <p:panelGrid id="panelesJuegoCifras" columns="1" style="width: 100%;" rendered="#{selectOneMenuView.tipo eq 'TipoCifras'}" >
                             <c:forEach items="#{buttonView.preguntasCifras}" var="pregunta"  >
                                 <ui:include  src="TiposPreguntas/preguntasCifras.xhtml"/>
@@ -79,7 +88,7 @@
                             <p:commandButton value="Nueva Pregunta" action="#{buttonView.addPreguntaCifras()}"  update=":juego:panelesJuegoCifras"/>
                             <p:commandButton value="Crear fichero" ajax="false" action="#" />
                         </p:panelGrid> 
-                        
+
                         <p:panelGrid id="panelesJuegoCampoTexto" columns="1" style="width: 100%;" rendered="#{selectOneMenuView.tipo eq 'TipoCampoTexto'}" >
                             <c:forEach items="#{buttonView.preguntasCampoTexto}" var="pregunta"  >
                                 <ui:include  src="TiposPreguntas/preguntasCampoTexto.xhtml"/>
@@ -87,7 +96,7 @@
                             <p:commandButton value="Nueva Pregunta" action="#{buttonView.addPreguntaCampoTexto()}"  update=":juego:panelesJuegoCampoTexto"/>
                             <p:commandButton value="Crear fichero" ajax="false" action="#" />
                         </p:panelGrid>
-                        
+
                         <p:panelGrid id="panelesJuegoSiNo" columns="1" style="width: 100%;" rendered="#{selectOneMenuView.tipo eq 'TipoSiNo'}" >
                             <c:forEach items="#{buttonView.preguntasSiNo}" var="pregunta"  >
                                 <ui:include  src="TiposPreguntas/preguntasSiNo.xhtml"/>
@@ -95,7 +104,7 @@
                             <p:commandButton value="Nueva Pregunta" action="#{buttonView.addPreguntaSiNo()}"  update=":juego:panelesJuegoSiNo"/>
                             <p:commandButton value="Crear fichero" ajax="false" action="#" />
                         </p:panelGrid>
-                        
+
                         <p:panelGrid id="panelesJuegoPanelesLetras" columns="1" style="width: 100%;" rendered="#{selectOneMenuView.tipo eq 'TipoPanelesLetras'}" >
                             <c:forEach items="#{buttonView.preguntasPanelesLetras}" var="pregunta"  >
                                 <ui:include  src="TiposPreguntas/preguntasPanelesLetras.xhtml"/>
@@ -103,7 +112,7 @@
                             <p:commandButton value="Nueva Pregunta" action="#{buttonView.addPreguntaPanelesLetras()}"  update=":juego:panelesJuegoPanelesLetras"/>
                             <p:commandButton value="Crear fichero" ajax="false" action="#" />
                         </p:panelGrid>
-                        
+
                         <p:panelGrid id="panelesJuegoRelacionar" columns="1" style="width: 100%;" rendered="#{selectOneMenuView.tipo eq 'TipoRelacionar'}" >
                             <c:forEach items="#{buttonView.preguntasRelacionar}" var="pregunta"  >
                                 <ui:include  src="TiposPreguntas/preguntasRelacionar.xhtml"/>
@@ -111,7 +120,7 @@
                             <p:commandButton value="Nueva Pregunta" action="#{buttonView.addPreguntaRelacionar()}"  update=":juego:panelesJuegoRelacionar"/>
                             <p:commandButton value="Crear fichero" ajax="false" action="#" />
                         </p:panelGrid>
-                        
+
                         <p:panelGrid id="panelesJuegoRespAbierta" columns="1" style="width: 100%;" rendered="#{selectOneMenuView.tipo eq 'TipoRespAbierta'}" >
                             <c:forEach items="#{buttonView.preguntasRespAbierta}" var="pregunta"  >
                                 <ui:include  src="TiposPreguntas/preguntasRespAbiertas.xhtml"/>
@@ -119,7 +128,7 @@
                             <p:commandButton value="Nueva Pregunta" action="#{buttonView.addPreguntaRespAbierta()}"  update=":juego:panelesJuegoRespAbierta"/>
                             <p:commandButton value="Crear fichero" ajax="false" action="#" />
                         </p:panelGrid>
-                        
+
                         <p:panelGrid id="panelesJuegoContarLetras" columns="1" style="width: 100%;" rendered="#{selectOneMenuView.tipo eq 'TipoContarLetras'}" >
                             <c:forEach items="#{buttonView.preguntasContarLetras}" var="pregunta"  >
                                 <ui:include  src="TiposPreguntas/preguntasContarLetras.xhtml"/>
