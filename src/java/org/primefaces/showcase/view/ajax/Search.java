@@ -28,10 +28,18 @@ public class Search implements Serializable {
 
     @PostConstruct
     public void init() {
-        etapas.put("Educación infantil", "infantil");
-        etapas.put("Educación Primaria", "primaria");
-        etapas.put("Educación secundaria obligatoria", "eso");
+        etapas.put("Infantil", "infantil");
+        etapas.put("Educación Permanente", "permanente");
+        etapas.put("ESO", "eso");
         etapas.put("Bachillerato", "bachiller");
+        etapas.put("CFGM", "cfgm");
+        etapas.put("CFGS", "cfgs");
+        etapas.put("General", "general");
+        etapas.put("PCPI", "pcpi");
+        etapas.put("Primaria", "primaria");
+        etapas.put("Régimen especial Música", "musica");
+        etapas.put("Universidad", "universidad");
+        
 
         idiomas.put("Español", "esp");
         idiomas.put("Inglés", "ingl");
