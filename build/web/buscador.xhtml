@@ -25,58 +25,82 @@
                     <h:outputText value="Aplicación de juegos didácticos en el aula"></h:outputText>
                 </p:layoutUnit>
 
-                <p:layoutUnit position="west" size="340"  header="Opciones" collapsible="true" >
+                <p:layoutUnit position="west" size="250"  header="Opciones" collapsible="true" >
                     <h:form id="menu" >
                         <p:menu style="width: auto !important;" >
 
-                            <p:submenu label="Nuevo búsqueda">
-                                <p:menuitem      >
-                                    <p:selectOneMenu id="tipo"   var="tipo"  widgetVar="tipo" value="#{selectOneMenuView.tipo}" effect="fold"   >
-                                        <f:selectItem itemLabel="Selecciona tipo" itemValue="" />
-                                        <f:selectItems   value="#{selectOneMenuView.tipos}" itemValue="#{tipo}"  />
-
-                                    </p:selectOneMenu>
-                                </p:menuitem>  
-
-                            </p:submenu>
                             <p:submenu label="Enlaces"  >
-                                
                                 <p:menuitem value="Generador de juegos" url="generador.xhtml" />
-
                             </p:submenu>
-
-
                         </p:menu>
                     </h:form>
                 </p:layoutUnit>
 
-                <p:layoutUnit position="center">
+                <p:layoutUnit position="center" size="600">
 
                     <h:form>      
-                        <p:panel id="panel" header="Search Form" style="margin-bottom:10px;">
-                            <p:messages id="messages" />
+                        <p:panel id="panel" header="Nueva búsqueda" style="margin-bottom:10px; width: auto">
 
-                            <h:panelGrid columns="4" cellpadding="5">
-                                <h:outputLabel for="txt1" value="Text 1: *" />
-                                <p:inputText id="txt1" value="#{searchView.text1}" required="true" label="Text 1">
-                                    <f:validateLength minimum="2" />
-                                </p:inputText>
-                                <p:message for="txt1" />
-                                <h:outputText value="#{searchView.text1}" />
 
-                                <h:outputLabel for="txt2" value="Text 2: *" />
-                                <h:selectOneMenu id="txt2" value="#{searchView.text2}" required="true" label="Text 2">
-                                    <f:selectItem itemLabel="Select One" itemValue="" noSelectionOption="true" />
-                                    <f:selectItem itemLabel="Option 1" itemValue="1" />
-                                    <f:selectItem itemLabel="Option 2" itemValue="2" />
-                                    <f:selectItem itemLabel="Option 3" itemValue="3" />
-                                </h:selectOneMenu>
-                                <p:message for="@previous" />
-                                <h:outputText value="#{searchView.text2}" />
+                            <h:panelGrid id="buscador" columns="3" cellpadding="5">
+                                <h:outputLabel for="etapa" value="*Etapa:" />
+                                <h:outputLabel for="asignatura" value="Asignatura: " />
+                                <h:outputLabel for="tema" value="Tema del fichero: " />
+
+
+                                <p:selectOneMenu id="etapa" value="#{search.etapa}" var="etapa" required="true" label="Etapa">
+                                    <f:selectItem itemLabel="Seleccione Etapa" itemValue="" noSelectionOption="true" />
+                                    <f:selectItems   value="#{search.etapas}" itemValue="#{etapa}"  />
+                                </p:selectOneMenu>
+
+
+                                <p:inputText value="#{search.asignatura}" id="asignatura" />
+
+
+                                <p:inputText value="#{search.tema}" id="tema" />
+
+                                <h:outputLabel for="nombrefich" value="Nombre del fichero: " />
+                                <h:outputLabel for="autor" value="Autor del fichero: " />
+                                <h:outputLabel for="idioma" value="*Idioma:" />
+
+                                <p:inputText value="#{search.nombreFich}" id="nombrefich" />
+
+
+                                <p:inputText value="#{search.autor}" id="autor" />
+
+                                <p:selectOneMenu id="idioma" value="#{search.idioma}" var="idioma" required="true" label="Idioma">
+                                    <f:selectItem itemLabel="Seleccione Idioma" itemValue="" noSelectionOption="true" />
+                                    <f:selectItems   value="#{search.idiomas}" itemValue="#{idioma}"  />
+                                </p:selectOneMenu>
+
+                                <h:outputLabel for="tipo" value="Tipo ficheros" />
+                                <h:outputLabel for="individual" value="Ficheros individuales" />
+                                <h:outputLabel for="intervalo" value="Intervalo preg." />
+                                
+                                <p:selectOneMenu id="tipo" value="#{search.tipo}" var="tipo"  label="Tipo">
+                                    <f:selectItem itemLabel="Seleccione Tipo de fichero" itemValue="" noSelectionOption="true" />
+                                    <f:selectItems   value="#{search.tipos}" itemValue="#{tipo}"  />
+                                </p:selectOneMenu>
+
+
+                                <p:selectOneMenu id="individual" value="#{search.individual}" var="individual"  label="Individual">
+                                    <f:selectItem itemLabel="Seleccione fichero individual" itemValue="" noSelectionOption="true" />
+                                    <f:selectItems   value="#{search.individuales}" itemValue="#{individual}"  />
+                                </p:selectOneMenu>
+
+
+                                <p:selectOneMenu id="intervalo" value="#{search.intervalo}" var="intervalo"  label="Individual">
+                                    <f:selectItem itemLabel="Seleccione intervalo" itemValue="" noSelectionOption="true" />
+                                    <f:selectItems   value="#{search.intervalos}" itemValue="#{intervalo}"  />
+                                </p:selectOneMenu>
+
+
                             </h:panelGrid>
+
+                            <p:commandButton value="Buscar" update="buscador"  />
                         </p:panel>
 
-                       
+
                     </h:form>
 
                 </p:layoutUnit>
