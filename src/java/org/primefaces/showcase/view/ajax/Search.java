@@ -25,6 +25,7 @@ public class Search implements Serializable {
     private Map<String, String> individuales = new HashMap<String, String>();
     private String intervalo;
     private Map<String, String> intervalos = new HashMap<String, String>();
+    private String palabra;
 
     @PostConstruct
     public void init() {
@@ -224,6 +225,14 @@ public class Search implements Serializable {
 
     public void setIntervalos(Map<String, String> intervalos) {
         this.intervalos = intervalos;
+    }
+
+    public String getPalabra() {
+        return palabra;
+    }
+
+    public void setPalabra(String palabra) {
+        this.palabra = palabra;
     }
     
     

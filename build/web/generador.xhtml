@@ -58,7 +58,7 @@
 
                     <h:form id="juego" >
 
-                        <p:selectOneMenu id="tipoSeleccionado"   var="tipoSeleccionado"  widgetVar="tipoSel" value="#{selectOneMenuView.tipoSeleccionado}" effect="fold"   >
+                        <p:selectOneMenu id="tipoSeleccionado"   var="tipoSeleccionado"  widgetVar="tipoSel" value="#{buttonView.tipo}" effect="fold"   >
                             <f:selectItem itemLabel="Selecciona tipo" itemValue="" />
                             <f:selectItems   value="#{selectOneMenuView.tiposSeleccionados}" itemValue="#{tipoSeleccionado}"   />
                             <p:ajax update=":juego:panelesJuego :juego:panelesJuegoCifras" />
@@ -78,7 +78,7 @@
                                 <ui:include  src="TiposPreguntas/preguntas.xhtml"/>
                             </c:forEach>
                             <p:commandButton value="Nueva Pregunta" action="#{buttonView.addPregunta()}" update="panelesJuego" />
-                            <p:commandButton value="Crear fichero" ajax="false" action="#" />
+                            <p:commandButton value="Crear fichero" ajax="false" action="#{newFile.writeStream(pregunta)}" />
                         </p:panelGrid> 
 
                         <p:panelGrid id="panelesJuegoCifras" columns="1" style="width: 100%;" rendered="#{selectOneMenuView.tipo eq 'TipoCifras'}" >

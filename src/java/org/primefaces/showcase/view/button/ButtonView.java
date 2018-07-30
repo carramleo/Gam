@@ -29,6 +29,8 @@ import org.primefaces.component.inputtext.InputText;
 import org.primefaces.component.inputtextarea.InputTextarea;
 import org.primefaces.component.panel.Panel;
 import org.primefaces.component.selectoneradio.SelectOneRadio;
+import org.primefaces.showcase.view.input.SelectOneMenuTipos;
+import org.primefaces.showcase.view.input.SelectOneMenuView;
 
 @ManagedBean
 @SessionScoped
@@ -44,22 +46,13 @@ public class ButtonView implements Serializable {
     private List<PreguntaContarLetras> PreguntasContarLetras = new ArrayList<PreguntaContarLetras>();
     private String autor;
     private String titulo;
+    private String Tipo;
     
     
     int number = 0;
-    boolean hidden = false;
-
-    public void hideOrShow() {
-
-        if (hidden == false) {
-            hidden = true;
-        }
-    }
-
-    public boolean isHidden() {
-        return hidden;
-    }
-
+    
+    
+    
     public int getNumber() {
         return number;
     }
@@ -70,7 +63,8 @@ public class ButtonView implements Serializable {
 
     public void addPregunta() {
 
-        PreguntaOpciones pregAdd = new PreguntaOpciones(6, 3);
+        PreguntaOpciones pregAdd = new PreguntaOpciones(SelectOneMenuTipos.numOpciones.get(Tipo) , SelectOneMenuTipos.lineasEnun.get(Tipo) );
+        //PreguntaOpciones pregAdd = new PreguntaOpciones(6,3);
         this.number = Preguntas.size();
         pregAdd.setId(number);
         Preguntas.add(pregAdd);
@@ -202,6 +196,14 @@ public class ButtonView implements Serializable {
 
     public void setTitulo(String titulo) {
         this.titulo = titulo;
+    }
+
+    public String getTipo() {
+        return Tipo;
+    }
+
+    public void setTipo(String Tipo) {
+        this.Tipo = Tipo;
     }
 
     

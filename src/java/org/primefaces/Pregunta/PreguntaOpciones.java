@@ -12,7 +12,7 @@ import javax.faces.bean.ViewScoped;
 public class PreguntaOpciones implements Serializable {
 	
 	
-        private int numResp=4;
+        
 	private int id=0;
 	private String enunciado;
 	private String[] respuestas;
@@ -39,14 +39,6 @@ public class PreguntaOpciones implements Serializable {
 		this.enunciado = enunciado;
 	}
 
-    public int getNumResp() {
-        return this.numResp;
-    }
-
-    public void setNumResp(int numResp) {
-        this.numResp = numResp;
-    }
-    
     
 	
 	public String[] getPistas() {

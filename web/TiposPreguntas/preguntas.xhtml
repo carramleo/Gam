@@ -28,9 +28,9 @@
                     </c:forEach>
 
                     <f:facet name = "footer">
-                        <h:selectOneRadio  label="Solución">
+                        <h:selectOneRadio value="#{pregunta.solucion}" label="Solución">
                             <c:forEach items="#{pregunta.respuestas}" var="sol" varStatus="solLoop">
-                                <f:selectItem  itemValue = "#{sol}" itemLabel = "Respuesta #{solLoop.index +1}" />
+                                <f:selectItem  itemValue = "#{sol}" itemLabel = "Respuesta #{solLoop.index +1}"  />
                             
                             </c:forEach>
                         </h:selectOneRadio>	

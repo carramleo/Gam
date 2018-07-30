@@ -42,7 +42,7 @@
                         <p:panel id="panelBuscador" header="Nueva búsqueda" style="margin-bottom:10px;">
 
 
-                            <h:panelGrid id="buscador" columns="3" cellpadding="5" cellspacing="15" >
+                            <h:panelGrid id="buscador" columns="3" cellpadding="1" cellspacing="15" >
                                 <h:outputLabel for="etapa" value="*Etapa:" />
                                 <h:outputLabel for="asignatura" value="Asignatura: " />
                                 <h:outputLabel for="tema" value="Tema del fichero: " />
@@ -68,7 +68,6 @@
                                 <p:inputText value="#{search.autor}" id="autor" />
 
                                 <p:selectCheckboxMenu id="idioma" value="#{search.idioma}"  widgetVar="idioma" required="true" label="Idioma">
-                                    <f:selectItem itemLabel="Seleccione Idioma" itemValue="" noSelectionOption="true" />
                                     <f:selectItems   value="#{search.idiomas}" itemValue="#{idioma}"  />
                                 </p:selectCheckboxMenu>
 
@@ -77,22 +76,25 @@
                                 <h:outputLabel for="intervalo" value="Intervalo preg." />
 
                                 <p:selectCheckboxMenu id="tipo" value="#{search.tipo}" widgetVar="tipo"  label="Tipos de ficheros">
-                                    <f:selectItem itemLabel="Seleccione Tipo de fichero" itemValue="" noSelectionOption="true" />
                                     <f:selectItems   value="#{search.tipos}" itemValue="#{tipo}"  />
                                 </p:selectCheckboxMenu>
 
 
                                 <p:selectCheckboxMenu id="individual" value="#{search.individual}" widgetVar="individual"  label="Ficheros individuales">
-                                    <f:selectItem itemLabel="Seleccione fichero individual" itemValue="" noSelectionOption="true" />
                                     <f:selectItems   value="#{search.individuales}" itemValue="#{individual}"  />
                                 </p:selectCheckboxMenu>
 
 
                                 <p:selectCheckboxMenu id="intervalo" value="#{search.intervalo}"  widgetVar="intervalo" label="Intervalos preg">
-                                    <f:selectItem itemLabel="Seleccione intervalo" itemValue="" noSelectionOption="true" />
                                     <f:selectItems   value="#{search.intervalos}" itemValue="#{intervalo}"  />
                                 </p:selectCheckboxMenu>
+                                
+                                
+                                 <h:outputLabel for="palabra" value="Palabra Clave:" />
+                                 <h:outputLabel />
+                                 <h:outputLabel  />
 
+                                 <p:inputText value="#{search.palabra}" id="palabra" />
 
                             </h:panelGrid>
 
