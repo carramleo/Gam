@@ -13,10 +13,11 @@
         <ui:composition id="opciones" >
             
             <p:panel id="preg_#{pregunta.id}"  header="Pregunta" toggleable="true" closable="true"  toggleSpeed="500" closeSpeed="500" widgetVar="preg_#{pregunta.id}" >
-
+                <p:ajax event="close" listener="#{buttonView.deletePregunta(pregunta.id)}" update="preg_#{pregunta.id}" />
+               
                 <h:panelGrid columns = "2" border = "1" 
                              cellpadding = "10" cellspacing = "1" style="width: 100%;">
-
+                     
                     <f:facet name = "header">
                         <h:outputText value = "Pregunta"/>
                     </f:facet>
@@ -30,7 +31,7 @@
                     <f:facet name = "footer">
                         <h:selectOneRadio value="#{pregunta.solucion}" label="Solución">
                             <c:forEach items="#{pregunta.respuestas}" var="sol" varStatus="solLoop">
-                                <f:selectItem  itemValue = "#{sol}" itemLabel = "Respuesta #{solLoop.index +1}"  />
+                                <f:selectItem  itemValue = "#{solLoop.index +1}" itemLabel = "Respuesta #{solLoop.index +1}"  />
                             
                             </c:forEach>
                         </h:selectOneRadio>	
@@ -38,6 +39,7 @@
 
 
                 </h:panelGrid>
+                
             </p:panel>
 
         </ui:composition>	

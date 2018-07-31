@@ -22,10 +22,10 @@ public class PreguntaPanelesLetras implements Serializable {
         
         
 	
-	public PreguntaPanelesLetras(int numLineas,int numSoluciones, int numPistas) {
+	public PreguntaPanelesLetras(int numLineas, int numPistas) {
            
             
-            solucion = new String[numSoluciones];
+            //solucion = new String[numSoluciones];
             pistas = new String[numPistas];
             this.numLineas=numLineas;
 	}

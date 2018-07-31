@@ -74,11 +74,12 @@
                         </p:panelGrid>
 
                         <p:panelGrid id="panelesJuego"  columns="1" style="width: 100%;" rendered="#{selectOneMenuView.tipo eq 'TipoOpciones'}"  >
+                            
                             <c:forEach items="#{buttonView.preguntas}" var="pregunta"  varStatus="preguntaLoop">
-                                <ui:include  src="TiposPreguntas/preguntas.xhtml"/>
+                                <ui:include  src="TiposPreguntas/preguntas.xhtml" />
                             </c:forEach>
-                            <p:commandButton value="Nueva Pregunta" action="#{buttonView.addPregunta()}" update="panelesJuego" />
-                            <p:commandButton value="Crear fichero" ajax="false" action="#{newFile.writeStream(pregunta)}" />
+                            <p:commandButton value="Nueva Pregunta"  update="panelesJuego" action="#{buttonView.addPregunta()}"  />
+                            <p:commandButton value="Crear fichero"  update="panelesJuego" action="#" />
                         </p:panelGrid> 
 
                         <p:panelGrid id="panelesJuegoCifras" columns="1" style="width: 100%;" rendered="#{selectOneMenuView.tipo eq 'TipoCifras'}" >

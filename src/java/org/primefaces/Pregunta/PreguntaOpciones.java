@@ -19,16 +19,25 @@ public class PreguntaOpciones implements Serializable {
 	private String[] pistas;
         int lineasEnunciado;
         private String solucion;
+        char[] formatoOpciones= new char[] {'A','B','C','D','E','F'};
+        
         
         
 	
-	public PreguntaOpciones(int numResp, int lineasEnunciado) {
-           
+	public PreguntaOpciones(int numResp,int formatoOpciones, int lineasEnunciado) {
+           respuestas = new String[numResp];
             
-            respuestas = new String[numResp];
-            for(int j=0;j<numResp;j++){
+           if (formatoOpciones == 1){
+               for(int j=0;j<numResp;j++){
+                respuestas[j] = "Respuesta "+this.formatoOpciones[j];
+            } 
+            }
+           else if (formatoOpciones == 2){
+           for(int j=0;j<numResp;j++){
                 respuestas[j] = "Respuesta "+(j+1);
             }
+           }
+            
             this.lineasEnunciado=lineasEnunciado;
 	}
 	
@@ -78,6 +87,14 @@ public class PreguntaOpciones implements Serializable {
 
     public void setSolucion(String solucion) {
         this.solucion = solucion;
+    }
+
+    public char[] getFormatoOpciones() {
+        return formatoOpciones;
+    }
+
+    public void setFormatoOpciones(char[] formatoOpciones) {
+        this.formatoOpciones = formatoOpciones;
     }
 
 
