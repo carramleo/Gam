@@ -61,17 +61,34 @@ public class ButtonView implements Serializable {
     public void setNumber(int number) {
         this.number = number;
     }
+    
+    public void deleteAllLists(){
+        Preguntas.removeAll(Preguntas);
+        PreguntasCampoTexto.removeAll(PreguntasCampoTexto);
+        PreguntasCifras.removeAll(PreguntasCifras);
+        PreguntasContarLetras.removeAll(PreguntasContarLetras);
+        PreguntasPanelesLetras.removeAll(PreguntasPanelesLetras);
+        PreguntasRelacionar.removeAll(PreguntasRelacionar);
+        PreguntasRespAbierta.removeAll(PreguntasRespAbierta);
+        PreguntasSiNo.removeAll(PreguntasSiNo);
+    }
 
     public void addPregunta() {
 
         PreguntaOpciones pregAdd = new PreguntaOpciones(SelectOneMenuTipos.numOpciones.get(Tipo) ,SelectOneMenuTipos.formatoOp.get(Tipo) ,SelectOneMenuTipos.lineasEnun.get(Tipo) );
-        //this.number = Preguntas.size();
+       //this.number = Preguntas.size();
        pregAdd.setId(number++);
         Preguntas.add(pregAdd);
     }
 
     public void deletePregunta(int id){
-        Preguntas.remove(id);
+            
+        for (PreguntaOpciones pregDel : Preguntas){
+            
+            if (pregDel.getId() == id){
+                Preguntas.remove(pregDel);
+            }
+        }
         
     }
     
