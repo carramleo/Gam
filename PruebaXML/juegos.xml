@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<exportacion>
+    <pregunta>
+        <id>PREGUNTA1</id>
+        <tipo>Pregunta</tipo>
+        <enunciado>ENUNCIADO</enunciado>
+        <respuestas>Respuesta 1</respuestas>
+        <respuestas>Respuesta 2</respuestas>
+        <respuestas>Respuesta 3</respuestas>
+        <respuestas>Respuesta 4</respuestas>
+    </pregunta>
+    <multitest>
+        <id>MULTITEST1</id>
+        <tipo>Multitest</tipo>
+    </multitest>
+</exportacion>
