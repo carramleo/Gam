@@ -95,58 +95,134 @@ public class ButtonView implements Serializable {
     public void addPreguntaCifras() {
 
         PreguntaCifras pregAdd = new PreguntaCifras(SelectOneMenuTipos.lineasEnun.get(Tipo));
-        this.number = PreguntasCifras.size();
-        pregAdd.setId(number);
+        //this.number = PreguntasCifras.size();
+        pregAdd.setId(number++);
         PreguntasCifras.add(pregAdd);
     }
     
+    public void deletePreguntaCifras(int id){
+            
+        for (PreguntaCifras pregDel : PreguntasCifras){
+            
+            if (pregDel.getId() == id){
+                PreguntasCifras.remove(pregDel);
+            }
+        }
+        
+    }
 
     public void addPreguntaCampoTexto() {
         PreguntaCampoTexto pregAdd3 = new PreguntaCampoTexto(SelectOneMenuTipos.lineasEnun.get(Tipo), SelectOneMenuTipos.posiblesSol.get(Tipo), 1);
-        this.number = PreguntasCampoTexto.size();
-        pregAdd3.setId(number);
+       // this.number = PreguntasCampoTexto.size();
+        pregAdd3.setId(number++);
         PreguntasCampoTexto.add(pregAdd3);
 
     }
 
+    public void deletePreguntaCampoTexto(int id){
+            
+        for (PreguntaCampoTexto pregDel : PreguntasCampoTexto){
+            
+            if (pregDel.getId() == id){
+                PreguntasCampoTexto.remove(pregDel);
+            }
+        }
+        
+    }
     public void addPreguntaSiNo() {
 
         PreguntaSiNo pregAdd = new PreguntaSiNo(SelectOneMenuTipos.numOpciones.get(Tipo), SelectOneMenuTipos.lineasEnun.get(Tipo));
-        this.number = PreguntasSiNo.size();
-        pregAdd.setId(number);
+        //this.number = PreguntasSiNo.size();
+       pregAdd.setId(number++);
         PreguntasSiNo.add(pregAdd);
     }
+    
+    public void deletePreguntaSiNo(int id){
+            
+        for (PreguntaSiNo pregDel : PreguntasSiNo){
+            
+            if (pregDel.getId() == id){
+                PreguntasSiNo.remove(pregDel);
+            }
+        }
+        
+    }
+    
 
     public void addPreguntaPanelesLetras() {
 
         PreguntaPanelesLetras pregAdd = new PreguntaPanelesLetras(SelectOneMenuTipos.letrasPanel.get(Tipo),3);
-        this.number = PreguntasPanelesLetras.size();
-        pregAdd.setId(number);
+        //this.number = PreguntasPanelesLetras.size();
+        pregAdd.setId(number++);
         PreguntasPanelesLetras.add(pregAdd);
+    }
+    
+    public void deletePreguntaPanelesLetras(int id){
+            
+        for (PreguntaPanelesLetras pregDel : PreguntasPanelesLetras){
+            
+            if (pregDel.getId() == id){
+                PreguntasPanelesLetras.remove(pregDel);
+            }
+        }
+        
     }
     
     public void addPreguntaRelacionar() {
 
         PreguntaRelacionar pregAdd = new PreguntaRelacionar(SelectOneMenuTipos.filasColumna.get(Tipo),SelectOneMenuTipos.filasColumna.get(Tipo));
-        this.number = PreguntasRelacionar.size();
-        pregAdd.setId(number);
+        //this.number = PreguntasRelacionar.size();
+        pregAdd.setId(number++);
         PreguntasRelacionar.add(pregAdd);
+    }
+    
+    public void deletePreguntaRelacionar(int id){
+            
+        for (PreguntaRelacionar pregDel : PreguntasRelacionar){
+            
+            if (pregDel.getId() == id){
+                PreguntasRelacionar.remove(pregDel);
+            }
+        }
+        
     }
     
     public void addPreguntaRespAbierta() {
 
         PreguntaRespAbierta pregAdd = new PreguntaRespAbierta(SelectOneMenuTipos.lineasEnun.get(Tipo));
-        this.number = PreguntasRespAbierta.size();
-        pregAdd.setId(number);
+        //this.number = PreguntasRespAbierta.size();
+        pregAdd.setId(number++);
         PreguntasRespAbierta.add(pregAdd);
+    }
+    
+    public void deletePreguntaRespAbierta(int id){
+            
+        for (PreguntaRespAbierta pregDel : PreguntasRespAbierta){
+            
+            if (pregDel.getId() == id){
+                PreguntasRespAbierta.remove(pregDel);
+            }
+        }
+        
     }
     
     public void addPreguntaContarLetras() {
 
         PreguntaContarLetras pregAdd = new PreguntaContarLetras(18);
-        this.number = PreguntasContarLetras.size();
-        pregAdd.setId(number);
+        //this.number = PreguntasContarLetras.size();
+        pregAdd.setId(number++);
         PreguntasContarLetras.add(pregAdd);
+    }
+    
+    public void deletePreguntaContarLetras(int id){
+            
+        for (PreguntaContarLetras pregDel : PreguntasContarLetras){
+            
+            if (pregDel.getId() == id){
+                PreguntasContarLetras.remove(pregDel);
+            }
+        }
+        
     }
 
     public List<PreguntaOpciones> getPreguntas() {
