@@ -33,7 +33,7 @@ import org.primefaces.event.CloseEvent;
 import org.primefaces.showcase.view.input.SelectOneMenuTipos;
 import org.primefaces.showcase.view.input.SelectOneMenuView;
 
-@ManagedBean
+@ManagedBean 
 @SessionScoped
 public class ButtonView implements Serializable {
 
@@ -225,6 +225,22 @@ public class ButtonView implements Serializable {
         
     }
 
+    
+     public void submitPreguntaOpciones() {
+        
+        System.out.println("Datos del formulario: ");
+        System.out.println("");
+        System.out.println(titulo);
+        System.out.println(autor);
+        for(PreguntaOpciones model : Preguntas) {
+            System.out.println(model.getEnunciado());
+            for(String resp : model.getRespuestas()){
+                System.out.println(resp);
+            }
+            System.out.println(model.getSolucion());
+        }
+    }
+    
     public List<PreguntaOpciones> getPreguntas() {
         return Preguntas;
     }
