@@ -22,10 +22,14 @@
                         <h:outputText value = "Pregunta"/>
                     </f:facet>
                     <h:outputLabel value = "Enunciado:" />
-                    <h:inputText size="100" value="#{pregunta.enunciado}" />
+                    <h:inputText size="100" value="#{pregunta.enunciado}" >
+                        <p:ajax event="blur" update=":juego:panelesJuego" />
+                    </h:inputText>
                     <c:forEach items="#{pregunta.respuestas}" var="resp" varStatus="loop">
                         <h:outputLabel value = "Respuesta #{loop.index +1}:" />
-                        <h:inputText size="50"  value="#{resp}" />
+                        <h:inputText size="50"  value="#{resp}" >
+                            <p:ajax event="blur" update=":juego:panelesJuego" />
+                        </h:inputText>
                     </c:forEach>
 
                     <f:facet name = "footer">

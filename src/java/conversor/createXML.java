@@ -43,6 +43,7 @@ import org.w3c.dom.Element;
 public class createXML extends ButtonView implements Serializable {
 
     public void createXML(ButtonView b) throws Exception {
+        int num = 0;
 
         List<PreguntaOpciones> Preguntas = b.getPreguntas();
         List<PreguntaCifras> PreguntasCifras = b.getPreguntasCifras();
@@ -81,7 +82,7 @@ public class createXML extends ButtonView implements Serializable {
         element.appendChild(preguntas);
 
         if (Preguntas != null && !Preguntas.isEmpty()) {
-            int num=0;
+
             for (PreguntaOpciones model : Preguntas) {
                 Element pregunta = document.createElement("pregunta");
                 pregunta.setAttribute("id", Integer.toString(model.getId()));
@@ -103,12 +104,12 @@ public class createXML extends ButtonView implements Serializable {
                     Element respuesta = document.createElement("respuesta");
                     respuesta.appendChild(document.createTextNode(resp));
                     respuesta.setAttribute("numLineas", "1");
-                    respuesta.setAttribute("num", Integer.toString(num) );
+                    respuesta.setAttribute("num", Integer.toString(num));
                     respuesta.setAttribute("numLetras", "5");
                     pregunta.appendChild(respuesta);
 
                 }
-                num=0;
+                num = 0;
                 Element pista = document.createElement("pista");
                 pista.setAttribute("id", "1");
                 pista.setAttribute("numLineas", "numLineas");
@@ -119,25 +120,39 @@ public class createXML extends ButtonView implements Serializable {
 
             for (PreguntaCampoTexto model : PreguntasCampoTexto) {
                 Element pregunta = document.createElement("pregunta");
-                pregunta.setAttribute("id", "preg1");
-                pregunta.setAttribute("sol", "A");
-                pregunta.setAttribute("comodin50", "A,C");
-                pregunta.setAttribute("EmpiezaPor", "1");
+                pregunta.setAttribute("id", Integer.toString(model.getId()));
+
+                for (String sol : model.getSolucion()) {
+                    pregunta.setAttribute("sol", sol);
+                }
+                pregunta.setAttribute("comodin50", "");
+                pregunta.setAttribute("EmpiezaPor", "");
 
                 Element tema = document.createElement("tema");
-                tema.appendChild(document.createTextNode("Primero de teleco"));
+                tema.appendChild(document.createTextNode(""));
                 pregunta.appendChild(tema);
                 Element enunciado = document.createElement("enunciado");
-                enunciado.setAttribute("numLineas", "1");
+                enunciado.appendChild(document.createTextNode(model.getEnunciado()));
+                enunciado.setAttribute("numLineas", Integer.toString(model.getNumLineas()));
                 pregunta.appendChild(enunciado);
-                Element respuesta = document.createElement("respuesta");
-                respuesta.setAttribute("numLineas", "1");
-                respuesta.setAttribute("num", "1");
-                respuesta.setAttribute("numLetras", "5");
-                pregunta.appendChild(respuesta);
+
+                //for (String resp : model.getRespuestas()) {
+                //    num++;
+                //   Element respuesta = document.createElement("respuesta");
+                //   respuesta.appendChild(document.createTextNode(resp));
+                //   respuesta.setAttribute("numLineas", "1");
+                //   respuesta.setAttribute("num", Integer.toString(num));
+                //   respuesta.setAttribute("numLetras", "5");
+                //   pregunta.appendChild(respuesta);
+                //}
+                num = 0;
                 Element pista = document.createElement("pista");
                 pista.setAttribute("id", "1");
                 pista.setAttribute("numLineas", "numLineas");
+
+                for (String pistaJuego : model.getPistas()) {
+                    pista.appendChild(document.createTextNode(pistaJuego));
+                }
                 pregunta.appendChild(pista);
                 preguntas.appendChild(pregunta);
             }
@@ -145,48 +160,69 @@ public class createXML extends ButtonView implements Serializable {
 
             for (PreguntaCifras model : PreguntasCifras) {
                 Element pregunta = document.createElement("pregunta");
-                pregunta.setAttribute("id", "preg1");
-                pregunta.setAttribute("sol", "A");
-                pregunta.setAttribute("comodin50", "A,C");
-                pregunta.setAttribute("EmpiezaPor", "1");
+                pregunta.setAttribute("id", Integer.toString(model.getId()));
+                pregunta.setAttribute("sol", model.getSolucion());
+                pregunta.setAttribute("comodin50", "");
+                pregunta.setAttribute("EmpiezaPor", "");
 
                 Element tema = document.createElement("tema");
-                tema.appendChild(document.createTextNode("Primero de teleco"));
+                tema.appendChild(document.createTextNode(""));
                 pregunta.appendChild(tema);
                 Element enunciado = document.createElement("enunciado");
-                enunciado.setAttribute("numLineas", "1");
+                enunciado.appendChild(document.createTextNode(model.getEnunciado()));
+                enunciado.setAttribute("numLineas", Integer.toString(model.getNumLineas()));
                 pregunta.appendChild(enunciado);
-                Element respuesta = document.createElement("respuesta");
-                respuesta.setAttribute("numLineas", "1");
-                respuesta.setAttribute("num", "1");
-                respuesta.setAttribute("numLetras", "5");
-                pregunta.appendChild(respuesta);
-                Element pista = document.createElement("pista");
-                pista.setAttribute("id", "1");
-                pista.setAttribute("numLineas", "numLineas");
-                pregunta.appendChild(pista);
+
+                /*for (String resp : model.getRespuestas()) {
+                    num++;
+
+                    Element respuesta = document.createElement("respuesta");
+                    respuesta.appendChild(document.createTextNode(resp));
+                    respuesta.setAttribute("numLineas", "1");
+                    respuesta.setAttribute("num", Integer.toString(num));
+                    respuesta.setAttribute("numLetras", "5");
+                    pregunta.appendChild(respuesta);
+
+                }*/
+                num = 0;
+                //Element pista = document.createElement("pista");
+                //pista.setAttribute("id", "1");
+                //pista.setAttribute("numLineas", "numLineas");
+                //pregunta.appendChild(pista);
                 preguntas.appendChild(pregunta);
             }
         } else if (PreguntasContarLetras != null && !PreguntasContarLetras.isEmpty()) {
 
             for (PreguntaContarLetras model : PreguntasContarLetras) {
                 Element pregunta = document.createElement("pregunta");
-                pregunta.setAttribute("id", "preg1");
-                pregunta.setAttribute("sol", "A");
-                pregunta.setAttribute("comodin50", "A,C");
-                pregunta.setAttribute("EmpiezaPor", "1");
+                pregunta.setAttribute("id", Integer.toString(model.getId()));
+
+                for (String letras : model.getNumLetras()) {
+                    pregunta.setAttribute("sol", letras);
+                }
+                pregunta.setAttribute("comodin50", "");
+                pregunta.setAttribute("EmpiezaPor", "");
 
                 Element tema = document.createElement("tema");
-                tema.appendChild(document.createTextNode("Primero de teleco"));
+                tema.appendChild(document.createTextNode(""));
                 pregunta.appendChild(tema);
                 Element enunciado = document.createElement("enunciado");
-                enunciado.setAttribute("numLineas", "1");
+                enunciado.appendChild(document.createTextNode(model.getPalabra()));
+                //enunciado.setAttribute("numLineas", Integer.toString(model.ge));
                 pregunta.appendChild(enunciado);
-                Element respuesta = document.createElement("respuesta");
-                respuesta.setAttribute("numLineas", "1");
-                respuesta.setAttribute("num", "1");
-                respuesta.setAttribute("numLetras", "5");
-                pregunta.appendChild(respuesta);
+
+                for (String resp : model.getLetras()) {
+                    num++;
+
+                    Element respuesta = document.createElement("respuesta");
+                    respuesta.appendChild(document.createTextNode(resp));
+                    respuesta.setAttribute("numLineas", "1");
+                    respuesta.setAttribute("num", Integer.toString(num));
+                    respuesta.setAttribute("numLetras", "5");
+                    pregunta.appendChild(respuesta);
+
+                }
+                num = 0;
                 Element pista = document.createElement("pista");
                 pista.setAttribute("id", "1");
                 pista.setAttribute("numLineas", "numLineas");
@@ -197,22 +233,31 @@ public class createXML extends ButtonView implements Serializable {
 
             for (PreguntaPanelesLetras model : PreguntasPanelesLetras) {
                 Element pregunta = document.createElement("pregunta");
-                pregunta.setAttribute("id", "preg1");
-                pregunta.setAttribute("sol", "A");
-                pregunta.setAttribute("comodin50", "A,C");
-                pregunta.setAttribute("EmpiezaPor", "1");
+                pregunta.setAttribute("id", Integer.toString(model.getId()));
+                //pregunta.setAttribute("sol", model.get);
+                pregunta.setAttribute("comodin50", "");
+                pregunta.setAttribute("EmpiezaPor", "");
 
                 Element tema = document.createElement("tema");
-                tema.appendChild(document.createTextNode("Primero de teleco"));
+                tema.appendChild(document.createTextNode(""));
                 pregunta.appendChild(tema);
                 Element enunciado = document.createElement("enunciado");
-                enunciado.setAttribute("numLineas", "1");
+                enunciado.appendChild(document.createTextNode(model.getEnunciado()));
+                enunciado.setAttribute("numLineas", Integer.toString(model.getNumLineas()));
                 pregunta.appendChild(enunciado);
-                Element respuesta = document.createElement("respuesta");
-                respuesta.setAttribute("numLineas", "1");
-                respuesta.setAttribute("num", "1");
-                respuesta.setAttribute("numLetras", "5");
-                pregunta.appendChild(respuesta);
+
+                for (String resp : model.getRespuestas()) {
+                    num++;
+
+                    Element respuesta = document.createElement("respuesta");
+                    respuesta.appendChild(document.createTextNode(resp));
+                    respuesta.setAttribute("numLineas", "1");
+                    respuesta.setAttribute("num", Integer.toString(num));
+                    respuesta.setAttribute("numLetras", "5");
+                    pregunta.appendChild(respuesta);
+
+                }
+                num = 0;
                 Element pista = document.createElement("pista");
                 pista.setAttribute("id", "1");
                 pista.setAttribute("numLineas", "numLineas");
@@ -223,22 +268,31 @@ public class createXML extends ButtonView implements Serializable {
 
             for (PreguntaRelacionar model : PreguntasRelacionar) {
                 Element pregunta = document.createElement("pregunta");
-                pregunta.setAttribute("id", "preg1");
-                pregunta.setAttribute("sol", "A");
-                pregunta.setAttribute("comodin50", "A,C");
-                pregunta.setAttribute("EmpiezaPor", "1");
+                pregunta.setAttribute("id", Integer.toString(model.getId()));
+                // pregunta.setAttribute("sol", model.ge));
+                pregunta.setAttribute("comodin50", "");
+                pregunta.setAttribute("EmpiezaPor", "");
 
                 Element tema = document.createElement("tema");
-                tema.appendChild(document.createTextNode("Primero de teleco"));
+                tema.appendChild(document.createTextNode(""));
                 pregunta.appendChild(tema);
                 Element enunciado = document.createElement("enunciado");
-                enunciado.setAttribute("numLineas", "1");
+                enunciado.appendChild(document.createTextNode(model.getEnunciado()));
+                //enunciado.setAttribute("numLineas", Integer.toString(model.get));
                 pregunta.appendChild(enunciado);
-                Element respuesta = document.createElement("respuesta");
-                respuesta.setAttribute("numLineas", "1");
-                respuesta.setAttribute("num", "1");
-                respuesta.setAttribute("numLetras", "5");
-                pregunta.appendChild(respuesta);
+
+                for (String resp : model.getColumnaRespuesta()) {
+                    num++;
+
+                    Element respuesta = document.createElement("respuesta");
+                    respuesta.appendChild(document.createTextNode(resp));
+                    respuesta.setAttribute("numLineas", "1");
+                    respuesta.setAttribute("num", Integer.toString(num));
+                    respuesta.setAttribute("numLetras", "5");
+                    pregunta.appendChild(respuesta);
+
+                }
+                num = 0;
                 Element pista = document.createElement("pista");
                 pista.setAttribute("id", "1");
                 pista.setAttribute("numLineas", "numLineas");
@@ -249,22 +303,31 @@ public class createXML extends ButtonView implements Serializable {
 
             for (PreguntaRespAbierta model : PreguntasRespAbierta) {
                 Element pregunta = document.createElement("pregunta");
-                pregunta.setAttribute("id", "preg1");
-                pregunta.setAttribute("sol", "A");
-                pregunta.setAttribute("comodin50", "A,C");
-                pregunta.setAttribute("EmpiezaPor", "1");
+                pregunta.setAttribute("id", Integer.toString(model.getId()));
+                //pregunta.setAttribute("sol", model.ge);
+                pregunta.setAttribute("comodin50", "");
+                pregunta.setAttribute("EmpiezaPor", "");
 
                 Element tema = document.createElement("tema");
-                tema.appendChild(document.createTextNode("Primero de teleco"));
+                tema.appendChild(document.createTextNode(""));
                 pregunta.appendChild(tema);
                 Element enunciado = document.createElement("enunciado");
-                enunciado.setAttribute("numLineas", "1");
+                enunciado.appendChild(document.createTextNode(model.getEnunciado()));
+                enunciado.setAttribute("numLineas", Integer.toString(model.getNumLineas()));
                 pregunta.appendChild(enunciado);
-                Element respuesta = document.createElement("respuesta");
-                respuesta.setAttribute("numLineas", "1");
-                respuesta.setAttribute("num", "1");
-                respuesta.setAttribute("numLetras", "5");
-                pregunta.appendChild(respuesta);
+
+                /*for (String resp : model.ge)) {
+                    num++;
+
+                    Element respuesta = document.createElement("respuesta");
+                    respuesta.appendChild(document.createTextNode(resp));
+                    respuesta.setAttribute("numLineas", "1");
+                    respuesta.setAttribute("num", Integer.toString(num));
+                    respuesta.setAttribute("numLetras", "5");
+                    pregunta.appendChild(respuesta);
+
+                }*/
+                num = 0;
                 Element pista = document.createElement("pista");
                 pista.setAttribute("id", "1");
                 pista.setAttribute("numLineas", "numLineas");
@@ -275,22 +338,34 @@ public class createXML extends ButtonView implements Serializable {
 
             for (PreguntaSiNo model : PreguntasSiNo) {
                 Element pregunta = document.createElement("pregunta");
-                pregunta.setAttribute("id", "preg1");
-                pregunta.setAttribute("sol", "A");
-                pregunta.setAttribute("comodin50", "A,C");
-                pregunta.setAttribute("EmpiezaPor", "1");
+                pregunta.setAttribute("id", Integer.toString(model.getId()));
+
+                for (String sol : model.getSolucion()) {
+                    pregunta.setAttribute("sol", sol);
+                }
+                pregunta.setAttribute("comodin50", "");
+                pregunta.setAttribute("EmpiezaPor", "");
 
                 Element tema = document.createElement("tema");
-                tema.appendChild(document.createTextNode("Primero de teleco"));
+                tema.appendChild(document.createTextNode(""));
                 pregunta.appendChild(tema);
                 Element enunciado = document.createElement("enunciado");
-                enunciado.setAttribute("numLineas", "1");
+                enunciado.appendChild(document.createTextNode(model.getEnunciado()));
+                enunciado.setAttribute("numLineas", Integer.toString(model.getLineasEnunciado()));
                 pregunta.appendChild(enunciado);
-                Element respuesta = document.createElement("respuesta");
-                respuesta.setAttribute("numLineas", "1");
-                respuesta.setAttribute("num", "1");
-                respuesta.setAttribute("numLetras", "5");
-                pregunta.appendChild(respuesta);
+
+                for (String resp : model.getRespuestas()) {
+                    num++;
+
+                    Element respuesta = document.createElement("respuesta");
+                    respuesta.appendChild(document.createTextNode(resp));
+                    respuesta.setAttribute("numLineas", "1");
+                    respuesta.setAttribute("num", Integer.toString(num));
+                    respuesta.setAttribute("numLetras", "5");
+                    pregunta.appendChild(respuesta);
+
+                }
+                num = 0;
                 Element pista = document.createElement("pista");
                 pista.setAttribute("id", "1");
                 pista.setAttribute("numLineas", "numLineas");

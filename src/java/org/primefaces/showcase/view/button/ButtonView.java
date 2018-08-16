@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -33,7 +34,7 @@ import org.primefaces.event.CloseEvent;
 import org.primefaces.showcase.view.input.SelectOneMenuTipos;
 import org.primefaces.showcase.view.input.SelectOneMenuView;
 
-@ManagedBean 
+@ManagedBean
 @SessionScoped
 public class ButtonView implements Serializable {
 
@@ -48,12 +49,9 @@ public class ButtonView implements Serializable {
     private String autor;
     private String titulo;
     private String Tipo;
-    
-    
+
     int number = 0;
-    
-    
-    
+
     public int getNumber() {
         return number;
     }
@@ -62,7 +60,14 @@ public class ButtonView implements Serializable {
         this.number = number;
     }
     
-    public void deleteAllLists(){
+    
+    public void guardarPreguntas() {
+        Preguntas.size();
+        FacesContext.getCurrentInstance().addMessage(null,
+                new FacesMessage("Preguntas grabadas"));
+    }
+    
+    public void deleteAllLists() {
         Preguntas.removeAll(Preguntas);
         PreguntasCampoTexto.removeAll(PreguntasCampoTexto);
         PreguntasCifras.removeAll(PreguntasCifras);
@@ -75,23 +80,24 @@ public class ButtonView implements Serializable {
 
     public void addPregunta() {
 
-        PreguntaOpciones pregAdd = new PreguntaOpciones(SelectOneMenuTipos.numOpciones.get(Tipo) ,SelectOneMenuTipos.formatoOp.get(Tipo) ,SelectOneMenuTipos.lineasEnun.get(Tipo) );
-       //this.number = Preguntas.size();
-       pregAdd.setId(number++);
+        PreguntaOpciones pregAdd = new PreguntaOpciones(SelectOneMenuTipos.numOpciones.get(Tipo), SelectOneMenuTipos.formatoOp.get(Tipo), SelectOneMenuTipos.lineasEnun.get(Tipo));
+        //this.number = Preguntas.size();
+        pregAdd.setId(number++);
         Preguntas.add(pregAdd);
     }
 
-    public void deletePregunta(int id){
+    public void deletePregunta(int id) {
+        int index=0;
+        for (PreguntaOpciones pregSel : Preguntas) {
             
-        for (PreguntaOpciones pregDel : Preguntas){
-            
-            if (pregDel.getId() == id){
-                Preguntas.remove(pregDel);
+            if(pregSel.getId() == id){
+                Preguntas.remove(index);
             }
+            index++;
         }
-        
+
     }
-    
+
     public void addPreguntaCifras() {
 
         PreguntaCifras pregAdd = new PreguntaCifras(SelectOneMenuTipos.lineasEnun.get(Tipo));
@@ -99,94 +105,99 @@ public class ButtonView implements Serializable {
         pregAdd.setId(number++);
         PreguntasCifras.add(pregAdd);
     }
-    
-    public void deletePreguntaCifras(int id){
-            
-        for (PreguntaCifras pregDel : PreguntasCifras){
-            
-            if (pregDel.getId() == id){
-                PreguntasCifras.remove(pregDel);
+
+    public void deletePreguntaCifras(int id) {
+        int index=0;
+        for (PreguntaCifras pregDel : PreguntasCifras) {
+
+             if(pregDel.getId() == id){
+                Preguntas.remove(index);
             }
+            index++;
         }
-        
+
     }
 
     public void addPreguntaCampoTexto() {
         PreguntaCampoTexto pregAdd3 = new PreguntaCampoTexto(SelectOneMenuTipos.lineasEnun.get(Tipo), SelectOneMenuTipos.posiblesSol.get(Tipo), 1);
-       // this.number = PreguntasCampoTexto.size();
+        // this.number = PreguntasCampoTexto.size();
         pregAdd3.setId(number++);
         PreguntasCampoTexto.add(pregAdd3);
 
     }
 
-    public void deletePreguntaCampoTexto(int id){
-            
-        for (PreguntaCampoTexto pregDel : PreguntasCampoTexto){
-            
-            if (pregDel.getId() == id){
-                PreguntasCampoTexto.remove(pregDel);
+    public void deletePreguntaCampoTexto(int id) {
+        int index=0;
+        for (PreguntaCampoTexto pregDel : PreguntasCampoTexto) {
+
+             if(pregDel.getId() == id){
+                Preguntas.remove(index);
             }
+            index++;
         }
-        
+
     }
+
     public void addPreguntaSiNo() {
 
         PreguntaSiNo pregAdd = new PreguntaSiNo(SelectOneMenuTipos.numOpciones.get(Tipo), SelectOneMenuTipos.lineasEnun.get(Tipo));
         //this.number = PreguntasSiNo.size();
-       pregAdd.setId(number++);
+        pregAdd.setId(number++);
         PreguntasSiNo.add(pregAdd);
     }
-    
-    public void deletePreguntaSiNo(int id){
-            
-        for (PreguntaSiNo pregDel : PreguntasSiNo){
-            
-            if (pregDel.getId() == id){
-                PreguntasSiNo.remove(pregDel);
+
+    public void deletePreguntaSiNo(int id) {
+        int index=0;
+        for (PreguntaSiNo pregDel : PreguntasSiNo) {
+
+             if(pregDel.getId() == id){
+                Preguntas.remove(index);
             }
+            index++;
         }
-        
+
     }
-    
 
     public void addPreguntaPanelesLetras() {
 
-        PreguntaPanelesLetras pregAdd = new PreguntaPanelesLetras(SelectOneMenuTipos.letrasPanel.get(Tipo),3);
+        PreguntaPanelesLetras pregAdd = new PreguntaPanelesLetras(SelectOneMenuTipos.letrasPanel.get(Tipo), 3);
         //this.number = PreguntasPanelesLetras.size();
         pregAdd.setId(number++);
         PreguntasPanelesLetras.add(pregAdd);
     }
-    
-    public void deletePreguntaPanelesLetras(int id){
-            
-        for (PreguntaPanelesLetras pregDel : PreguntasPanelesLetras){
-            
-            if (pregDel.getId() == id){
-                PreguntasPanelesLetras.remove(pregDel);
+
+    public void deletePreguntaPanelesLetras(int id) {
+        int index=0;
+        for (PreguntaPanelesLetras pregDel : PreguntasPanelesLetras) {
+
+             if(pregDel.getId() == id){
+                Preguntas.remove(index);
             }
+            index++;
         }
-        
+
     }
-    
+
     public void addPreguntaRelacionar() {
 
-        PreguntaRelacionar pregAdd = new PreguntaRelacionar(SelectOneMenuTipos.filasColumna.get(Tipo),SelectOneMenuTipos.filasColumna.get(Tipo));
+        PreguntaRelacionar pregAdd = new PreguntaRelacionar(SelectOneMenuTipos.filasColumna.get(Tipo), SelectOneMenuTipos.filasColumna.get(Tipo));
         //this.number = PreguntasRelacionar.size();
         pregAdd.setId(number++);
         PreguntasRelacionar.add(pregAdd);
     }
-    
-    public void deletePreguntaRelacionar(int id){
-            
-        for (PreguntaRelacionar pregDel : PreguntasRelacionar){
-            
-            if (pregDel.getId() == id){
-                PreguntasRelacionar.remove(pregDel);
+
+    public void deletePreguntaRelacionar(int id) {
+        int index=0;
+        for (PreguntaRelacionar pregDel : PreguntasRelacionar) {
+
+             if(pregDel.getId() == id){
+                Preguntas.remove(index);
             }
+            index++;
         }
-        
+
     }
-    
+
     public void addPreguntaRespAbierta() {
 
         PreguntaRespAbierta pregAdd = new PreguntaRespAbierta(SelectOneMenuTipos.lineasEnun.get(Tipo));
@@ -194,18 +205,19 @@ public class ButtonView implements Serializable {
         pregAdd.setId(number++);
         PreguntasRespAbierta.add(pregAdd);
     }
-    
-    public void deletePreguntaRespAbierta(int id){
-            
-        for (PreguntaRespAbierta pregDel : PreguntasRespAbierta){
-            
-            if (pregDel.getId() == id){
-                PreguntasRespAbierta.remove(pregDel);
+
+    public void deletePreguntaRespAbierta(int id) {
+        int index=0;
+        for (PreguntaRespAbierta pregDel : PreguntasRespAbierta) {
+
+             if(pregDel.getId() == id){
+                Preguntas.remove(index);
             }
+            index++;
         }
-        
+
     }
-    
+
     public void addPreguntaContarLetras() {
 
         PreguntaContarLetras pregAdd = new PreguntaContarLetras(18);
@@ -213,34 +225,21 @@ public class ButtonView implements Serializable {
         pregAdd.setId(number++);
         PreguntasContarLetras.add(pregAdd);
     }
-    
-    public void deletePreguntaContarLetras(int id){
-            
-        for (PreguntaContarLetras pregDel : PreguntasContarLetras){
-            
-            if (pregDel.getId() == id){
-                PreguntasContarLetras.remove(pregDel);
+
+    public void deletePreguntaContarLetras(int id) {
+        int index=0;
+        for (PreguntaContarLetras pregDel : PreguntasContarLetras) {
+
+             if(pregDel.getId() == id){
+                Preguntas.remove(index);
             }
+            index++;
         }
-        
+
     }
 
-    
-     public void submitPreguntaOpciones() {
-        
-        System.out.println("Datos del formulario: ");
-        System.out.println("");
-        System.out.println(titulo);
-        System.out.println(autor);
-        for(PreguntaOpciones model : Preguntas) {
-            System.out.println(model.getEnunciado());
-            for(String resp : model.getRespuestas()){
-                System.out.println(resp);
-            }
-            System.out.println(model.getSolucion());
-        }
-    }
-    
+
+
     public List<PreguntaOpciones> getPreguntas() {
         return Preguntas;
     }
@@ -321,6 +320,4 @@ public class ButtonView implements Serializable {
         this.Tipo = Tipo;
     }
 
-    
-    
 }
