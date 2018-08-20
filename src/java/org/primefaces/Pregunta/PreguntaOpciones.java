@@ -3,6 +3,7 @@ package org.primefaces.Pregunta;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
@@ -13,7 +14,7 @@ public class PreguntaOpciones implements Serializable {
 	
 	
         
-	private int id=0;
+	private String id;
 	private String enunciado;
 	private String[] respuestas;
 	private String[] pistas;
@@ -39,6 +40,8 @@ public class PreguntaOpciones implements Serializable {
            }
             
             this.lineasEnunciado=lineasEnunciado;
+            //this.id=UUID.randomUUID().toString();
+            
 	}
 	
 	public String getEnunciado() {
@@ -57,11 +60,11 @@ public class PreguntaOpciones implements Serializable {
 		this.pistas = pistas;
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

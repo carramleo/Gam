@@ -85,7 +85,7 @@ public class createXML extends ButtonView implements Serializable {
 
             for (PreguntaOpciones model : Preguntas) {
                 Element pregunta = document.createElement("pregunta");
-                pregunta.setAttribute("id", Integer.toString(model.getId()));
+                pregunta.setAttribute("id", model.getId());
                 pregunta.setAttribute("sol", model.getSolucion());
                 pregunta.setAttribute("comodin50", "");
                 pregunta.setAttribute("EmpiezaPor", "");

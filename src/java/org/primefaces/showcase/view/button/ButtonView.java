@@ -82,18 +82,21 @@ public class ButtonView implements Serializable {
 
         PreguntaOpciones pregAdd = new PreguntaOpciones(SelectOneMenuTipos.numOpciones.get(Tipo), SelectOneMenuTipos.formatoOp.get(Tipo), SelectOneMenuTipos.lineasEnun.get(Tipo));
         //this.number = Preguntas.size();
-        pregAdd.setId(number++);
+        pregAdd.setId("preg_"+number++);
         Preguntas.add(pregAdd);
     }
 
-    public void deletePregunta(int id) {
-        int index=0;
-        for (PreguntaOpciones pregSel : Preguntas) {
+    public void deletePregunta(CloseEvent event) {
+        
+        for(int i=0; i<Preguntas.size();i++){
             
-            if(pregSel.getId() == id){
-                Preguntas.remove(index);
+            if(Preguntas.get(i).getId().equals(event.getComponent().getId())){
+                
+                Preguntas.remove(i);
+                
+                
             }
-            index++;
+            
         }
 
     }
