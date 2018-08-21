@@ -58,6 +58,7 @@
 
 
                     <h:form id="juego" >
+                        <p:growl id="growl" autoUpdate="true" showDetail="true" />
                         
                         <p:selectOneMenu id="tipoSeleccionado"   var="tipoSeleccionado"  widgetVar="tipoSel" value="#{buttonView.tipo}" effect="fold"   >
                             <p:ajax event="change"  listener="#{buttonView.deleteAllLists()}" update="juego" />

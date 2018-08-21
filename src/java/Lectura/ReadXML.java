@@ -9,8 +9,11 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Map;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -41,22 +44,37 @@ import org.xml.sax.SAXException;
 @SessionScoped
 public class ReadXML {
 
-   
     private boolean compatible = false;
-    
-     private UploadedFile file;
- 
+
+    private UploadedFile file;
+
     public UploadedFile getFile() {
         return file;
     }
- 
+
     public void setFile(UploadedFile file) {
         this.file = file;
+    }
+    
+    private String message;
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+    
+    public void saveMessage() {
+        FacesContext context = FacesContext.getCurrentInstance();
+         
+        context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al importar","Tipo de juego incompatible"));
     }
 
     public void readFile(ButtonView b, SelectOneMenuView tipos, SelectOneMenuTipos opcionesTipos) throws SAXException, IOException, ParserConfigurationException {
 
-       InputStream fichero=  file.getInputstream();
+        InputStream fichero = file.getInputstream();
 
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
@@ -78,14 +96,16 @@ public class ReadXML {
         autor = b.getAutor();
         titulo = b.getTitulo();
         String TipoJuego = b.getTipo();
-
-        String tipoSeleccionado = tipos.getTipo();
-
-        for (String compruebatipos : tipos.getTipos().values()) {
-
-            if (compruebatipos.equals(tipoSeleccionado)) {
-                compatible = true;
-
+        
+        
+        String tipoSeleccionado = tipos.getTipo();  //tipo  seleccionado en el menu de la izq
+        
+        Map<String, String> mapaTiposCompatibles= tipos.getData().get(tipoSeleccionado);   //obtengo el mapa de los tipos compatibles que acepta
+       
+        
+        for (String key : mapaTiposCompatibles.keySet()){
+            if(mapaTiposCompatibles.get(key).equals(tipo)){             //recorro el mapa buscando si el tipo del fichero importado aparece en ese mapa
+              compatible = true;  
             }
         }
 
@@ -96,16 +116,16 @@ public class ReadXML {
 
             if (tipoSeleccionado.equals("TipoOpciones")) {
 
-                for (int i=0; i< preguntasElement.getLength(); i++) {
-                    
-                    Preguntas.add(getPreguntaOpciones(preguntasElement.item(i), tipo));
+                for (int i = 0; i < preguntasElement.getLength(); i++) {
+
+                    Preguntas.add(getPreguntaOpciones(preguntasElement.item(i), tipo,b));
                 }
             }
 
+        }else{
+            saveMessage();
         }
     }
-
-
 
     public boolean isCompatible() {
         return compatible;
@@ -114,34 +134,35 @@ public class ReadXML {
     public void setCompatible(boolean compatible) {
         this.compatible = compatible;
     }
-    
-    private static PreguntaOpciones getPreguntaOpciones(Node node,String tipo) {
+
+    private static PreguntaOpciones getPreguntaOpciones(Node node, String tipo, ButtonView bb) {
         //XMLReaderDOM domReader = new XMLReaderDOM();
         PreguntaOpciones preg = new PreguntaOpciones(SelectOneMenuTipos.numOpciones.get(tipo), SelectOneMenuTipos.formatoOp.get(tipo), SelectOneMenuTipos.lineasEnun.get(tipo));
-        
+
         if (node.getNodeType() == Node.ELEMENT_NODE) {
             Element element = (Element) node;
-            
+
             preg.setEnunciado(getTagValuePreguntaOpciones("enunciado", element));
-           
-            NodeList respuestas=element.getElementsByTagName("respuesta");
+            preg.setId("preg_" + bb.getNumber()+1 );
+            bb.setNumber(bb.getNumber()+1);
             
-            String[] respuestasXML = null;
-            
-            for(int i=0; i<respuestas.getLength(); i++){
-                
-                respuestasXML[i] = respuestas.item(i).getTextContent();
-                
+            String[] respuestasXML = new String[element.getElementsByTagName("respuesta").getLength()];
+            for (int i = 0; i < element.getElementsByTagName("respuesta").getLength(); i++) {
+       
+                    
+                   NodeList nodeListResp   = element.getElementsByTagName("respuesta").item(i).getChildNodes();
+                   Node nodeResp = (Node) nodeListResp.item(0);
+                     respuestasXML[i]=nodeResp.getNodeValue();
+
             }
             preg.setRespuestas(respuestasXML);
-            preg.setSolucion(element.getAttributeNode("sol").getName());
-            
-            
+            preg.setSolucion(element.getAttributeNode("sol").getValue());
+
         }
 
         return preg;
     }
-    
+
     private static String getTagValuePreguntaOpciones(String tag, Element element) {
         NodeList nodeList = element.getElementsByTagName(tag).item(0).getChildNodes();
         Node node = (Node) nodeList.item(0);
