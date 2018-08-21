@@ -30,6 +30,7 @@ import org.primefaces.Pregunta.PreguntaRespAbierta;
 import org.primefaces.Pregunta.PreguntaSiNo;
 
 import org.primefaces.showcase.view.button.ButtonView;
+import org.primefaces.showcase.view.input.SelectOneMenuTipos;
 
 /**
  *
@@ -82,11 +83,17 @@ public class createXML extends ButtonView implements Serializable {
         element.appendChild(preguntas);
 
         if (Preguntas != null && !Preguntas.isEmpty()) {
-
+            char[] formatoOpciones= new char[] {'A','B','C','D','E','F'};
+            
             for (PreguntaOpciones model : Preguntas) {
                 Element pregunta = document.createElement("pregunta");
                 pregunta.setAttribute("id", model.getId());
-                pregunta.setAttribute("sol", model.getSolucion());
+                
+                if(SelectOneMenuTipos.formatoOp.get(preguntas.getAttribute("tipo")) == 1){
+                    pregunta.setAttribute("sol",String.valueOf(formatoOpciones[Integer.parseInt(model.getSolucion())-1]));
+                }else {
+                    pregunta.setAttribute("sol", model.getSolucion());
+                }
                 pregunta.setAttribute("comodin50", "");
                 pregunta.setAttribute("EmpiezaPor", "");
 
@@ -95,7 +102,7 @@ public class createXML extends ButtonView implements Serializable {
                 pregunta.appendChild(tema);
                 Element enunciado = document.createElement("enunciado");
                 enunciado.appendChild(document.createTextNode(model.getEnunciado()));
-                enunciado.setAttribute("numLineas", Integer.toString(model.getLineasEnunciado()));
+                enunciado.setAttribute("numLineas", Integer.toString(SelectOneMenuTipos.lineasEnun.get(preguntas.getAttribute("tipo"))));
                 pregunta.appendChild(enunciado);
 
                 for (String resp : model.getRespuestas()) {
@@ -117,13 +124,13 @@ public class createXML extends ButtonView implements Serializable {
                 preguntas.appendChild(pregunta);
             }
         } else if (PreguntasCampoTexto != null && !PreguntasCampoTexto.isEmpty()) {
-
+            num = 0;
             for (PreguntaCampoTexto model : PreguntasCampoTexto) {
                 Element pregunta = document.createElement("pregunta");
                 pregunta.setAttribute("id", Integer.toString(model.getId()));
 
                 for (String sol : model.getSolucion()) {
-                    pregunta.setAttribute("sol", sol);
+                    pregunta.setAttribute("sol", sol + "," + pregunta.getAttribute("sol"));
                 }
                 pregunta.setAttribute("comodin50", "");
                 pregunta.setAttribute("EmpiezaPor", "");
@@ -136,24 +143,17 @@ public class createXML extends ButtonView implements Serializable {
                 enunciado.setAttribute("numLineas", Integer.toString(model.getNumLineas()));
                 pregunta.appendChild(enunciado);
 
-                //for (String resp : model.getRespuestas()) {
-                //    num++;
-                //   Element respuesta = document.createElement("respuesta");
-                //   respuesta.appendChild(document.createTextNode(resp));
-                //   respuesta.setAttribute("numLineas", "1");
-                //   respuesta.setAttribute("num", Integer.toString(num));
-                //   respuesta.setAttribute("numLetras", "5");
-                //   pregunta.appendChild(respuesta);
-                //}
-                num = 0;
+                
                 Element pista = document.createElement("pista");
-                pista.setAttribute("id", "1");
-                pista.setAttribute("numLineas", "numLineas");
 
                 for (String pistaJuego : model.getPistas()) {
+                    pista.setAttribute("id", Integer.toString(num + 1));
+                    pista.setAttribute("numLineas", "numLineas");
                     pista.appendChild(document.createTextNode(pistaJuego));
-                }
+                
                 pregunta.appendChild(pista);
+                num++;
+                }
                 preguntas.appendChild(pregunta);
             }
         } else if (PreguntasCifras != null && !PreguntasCifras.isEmpty()) {
