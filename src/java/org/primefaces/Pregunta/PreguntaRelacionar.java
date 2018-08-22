@@ -12,8 +12,8 @@ import javax.faces.bean.ViewScoped;
 public class PreguntaRelacionar implements Serializable {
 	
 	
-        private int numCol=0;
-	private int id=0;
+        private int numCol;
+	private String id;
 	private String enunciado;
 	private String[] columnaRespuesta;
         private String[] columnaSolucion;
@@ -40,11 +40,11 @@ public class PreguntaRelacionar implements Serializable {
         this.numCol = numCol;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

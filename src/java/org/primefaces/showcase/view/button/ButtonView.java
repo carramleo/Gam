@@ -105,15 +105,15 @@ public class ButtonView implements Serializable {
 
         PreguntaCifras pregAdd = new PreguntaCifras(SelectOneMenuTipos.lineasEnun.get(Tipo));
         //this.number = PreguntasCifras.size();
-        pregAdd.setId(number++);
+        pregAdd.setId("preg_"+number++);
         PreguntasCifras.add(pregAdd);
     }
 
-    public void deletePreguntaCifras(int id) {
+    public void deletePreguntaCifras(String id) {
         int index=0;
         for (PreguntaCifras pregDel : PreguntasCifras) {
 
-             if(pregDel.getId() == id){
+             if(pregDel.getId().equals(id)){
                 Preguntas.remove(index);
             }
             index++;
@@ -124,16 +124,16 @@ public class ButtonView implements Serializable {
     public void addPreguntaCampoTexto() {
         PreguntaCampoTexto pregAdd3 = new PreguntaCampoTexto(SelectOneMenuTipos.lineasEnun.get(Tipo), SelectOneMenuTipos.posiblesSol.get(Tipo), 1);
         // this.number = PreguntasCampoTexto.size();
-        pregAdd3.setId(number++);
+        pregAdd3.setId("preg_"+number++);
         PreguntasCampoTexto.add(pregAdd3);
 
     }
 
-    public void deletePreguntaCampoTexto(int id) {
+    public void deletePreguntaCampoTexto(String id) {
         int index=0;
         for (PreguntaCampoTexto pregDel : PreguntasCampoTexto) {
 
-             if(pregDel.getId() == id){
+             if(pregDel.getId().equals(id)){
                 Preguntas.remove(index);
             }
             index++;
@@ -145,15 +145,15 @@ public class ButtonView implements Serializable {
 
         PreguntaSiNo pregAdd = new PreguntaSiNo(SelectOneMenuTipos.numOpciones.get(Tipo), SelectOneMenuTipos.lineasEnun.get(Tipo));
         //this.number = PreguntasSiNo.size();
-        pregAdd.setId(number++);
+        pregAdd.setId("preg_"+number++);
         PreguntasSiNo.add(pregAdd);
     }
 
-    public void deletePreguntaSiNo(int id) {
+    public void deletePreguntaSiNo(String id) {
         int index=0;
         for (PreguntaSiNo pregDel : PreguntasSiNo) {
 
-             if(pregDel.getId() == id){
+             if(pregDel.getId().equals(id)){
                 Preguntas.remove(index);
             }
             index++;
@@ -163,17 +163,17 @@ public class ButtonView implements Serializable {
 
     public void addPreguntaPanelesLetras() {
 
-        PreguntaPanelesLetras pregAdd = new PreguntaPanelesLetras(SelectOneMenuTipos.letrasPanel.get(Tipo), 3);
+        PreguntaPanelesLetras pregAdd = new PreguntaPanelesLetras(SelectOneMenuTipos.letrasPanel.get(Tipo), SelectOneMenuTipos.PistasLetrasPanel.get(Tipo));
         //this.number = PreguntasPanelesLetras.size();
-        pregAdd.setId(number++);
+        pregAdd.setId("preg_"+number++);
         PreguntasPanelesLetras.add(pregAdd);
     }
 
-    public void deletePreguntaPanelesLetras(int id) {
+    public void deletePreguntaPanelesLetras(String id) {
         int index=0;
         for (PreguntaPanelesLetras pregDel : PreguntasPanelesLetras) {
 
-             if(pregDel.getId() == id){
+             if(pregDel.getId().equals(id)){
                 Preguntas.remove(index);
             }
             index++;
@@ -185,15 +185,15 @@ public class ButtonView implements Serializable {
 
         PreguntaRelacionar pregAdd = new PreguntaRelacionar(SelectOneMenuTipos.filasColumna.get(Tipo), SelectOneMenuTipos.filasColumna.get(Tipo));
         //this.number = PreguntasRelacionar.size();
-        pregAdd.setId(number++);
+        pregAdd.setId("preg_"+number++);
         PreguntasRelacionar.add(pregAdd);
     }
 
-    public void deletePreguntaRelacionar(int id) {
+    public void deletePreguntaRelacionar(String id) {
         int index=0;
         for (PreguntaRelacionar pregDel : PreguntasRelacionar) {
 
-             if(pregDel.getId() == id){
+             if(pregDel.getId().equals(id)){
                 Preguntas.remove(index);
             }
             index++;
@@ -205,15 +205,15 @@ public class ButtonView implements Serializable {
 
         PreguntaRespAbierta pregAdd = new PreguntaRespAbierta(SelectOneMenuTipos.lineasEnun.get(Tipo));
         //this.number = PreguntasRespAbierta.size();
-        pregAdd.setId(number++);
+        pregAdd.setId("preg_"+number++);
         PreguntasRespAbierta.add(pregAdd);
     }
 
-    public void deletePreguntaRespAbierta(int id) {
+    public void deletePreguntaRespAbierta(String id) {
         int index=0;
         for (PreguntaRespAbierta pregDel : PreguntasRespAbierta) {
 
-             if(pregDel.getId() == id){
+             if(pregDel.getId().equals(id)){
                 Preguntas.remove(index);
             }
             index++;
@@ -224,16 +224,16 @@ public class ButtonView implements Serializable {
     public void addPreguntaContarLetras() {
 
         PreguntaContarLetras pregAdd = new PreguntaContarLetras(18);
-        //this.number = PreguntasContarLetras.size();
-        pregAdd.setId(number++);
+        
+        pregAdd.setId("preg_"+number++);
         PreguntasContarLetras.add(pregAdd);
     }
 
-    public void deletePreguntaContarLetras(int id) {
+    public void deletePreguntaContarLetras(String id) {
         int index=0;
         for (PreguntaContarLetras pregDel : PreguntasContarLetras) {
 
-             if(pregDel.getId() == id){
+             if(pregDel.getId().equals(id)){
                 Preguntas.remove(index);
             }
             index++;

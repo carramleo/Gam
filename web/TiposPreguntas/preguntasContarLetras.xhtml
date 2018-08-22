@@ -23,19 +23,16 @@
                         <h:outputLabel value = "Palabra: " />
                         <h:inputText size="50" value="#{pregunta.palabra}"  />
                     </f:facet>
-                    <h:outputText value="Letras" />
+                    <h:outputText value="Letras"  />
                     <h:outputText value="Número de repeticiones" />
 
-                    <ui:repeat value="#{pregunta.letras}" var="letras" varStatus="let" >
-                        <h:inputText size="45" value="#{letras}"  />
-                        <h:outputText value="&#160;" />
+                    <c:forEach items="#{pregunta.letras}" var="let" id="letras"  varStatus="num" >
+                        <h:inputText size="45" value="#{let}"  />
+                        <h:inputText size="5" value="#{pregunta.numLetras[num.index]}"  />
 
-                    </ui:repeat> 
-                    <ui:repeat value="#{pregunta.numLetras}" var="letras" varStatus="let" >
-                        <h:inputText size="5" value="#{letras}"  />
-                        <h:outputText value="&#160;" />
-
-                    </ui:repeat> 
+                    </c:forEach>
+                    
+                    
 
 
                 </h:panelGrid>

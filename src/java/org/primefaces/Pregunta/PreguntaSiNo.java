@@ -13,7 +13,7 @@ public class PreguntaSiNo implements Serializable {
 	
 	
         private int numResp=8;
-	private int id=0;
+	private String id;
 	private String enunciado;
 	private String[] respuestas;
 	private String[] pistas;
@@ -57,11 +57,11 @@ public class PreguntaSiNo implements Serializable {
 		this.pistas = pistas;
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

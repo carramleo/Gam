@@ -12,12 +12,12 @@ import javax.faces.bean.ViewScoped;
 public class PreguntaPanelesLetras implements Serializable {
 	
 	
-        private int numResp=0;
-	private int id=0;
+        private int numResp;
+	private String id;
 	private String enunciado;
 	private String[] respuestas;
 	private String[] pistas;
-        private String[] solucion;
+        private String solucion;
         private int numLineas;
         
         
@@ -54,11 +54,11 @@ public class PreguntaPanelesLetras implements Serializable {
 		this.pistas = pistas;
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -70,11 +70,11 @@ public class PreguntaPanelesLetras implements Serializable {
         this.respuestas = respuestas;
     }
 
-    public String[] getSolucion() {
+    public String getSolucion() {
         return solucion;
     }
 
-    public void setSolucion(String[] solucion) {
+    public void setSolucion(String solucion) {
         this.solucion = solucion;
     }
 

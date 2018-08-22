@@ -12,7 +12,7 @@ import javax.faces.bean.ViewScoped;
 public class PreguntaRespAbierta implements Serializable {
 	
 	
-	private int id=0;
+	private String id;
 	private String enunciado;
 	
         private int numLineas;
@@ -33,11 +33,11 @@ public class PreguntaRespAbierta implements Serializable {
 		this.enunciado = enunciado;
 	}
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

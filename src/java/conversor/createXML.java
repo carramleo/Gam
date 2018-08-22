@@ -83,15 +83,15 @@ public class createXML extends ButtonView implements Serializable {
         element.appendChild(preguntas);
 
         if (Preguntas != null && !Preguntas.isEmpty()) {
-            char[] formatoOpciones= new char[] {'A','B','C','D','E','F'};
-            
+            char[] formatoOpciones = new char[]{'A', 'B', 'C', 'D', 'E', 'F'};
+
             for (PreguntaOpciones model : Preguntas) {
                 Element pregunta = document.createElement("pregunta");
                 pregunta.setAttribute("id", model.getId());
-                
-                if(SelectOneMenuTipos.formatoOp.get(preguntas.getAttribute("tipo")) == 1){
-                    pregunta.setAttribute("sol",String.valueOf(formatoOpciones[Integer.parseInt(model.getSolucion())-1]));
-                }else {
+
+                if (SelectOneMenuTipos.formatoOp.get(preguntas.getAttribute("tipo")) == 1) {
+                    pregunta.setAttribute("sol", String.valueOf(formatoOpciones[Integer.parseInt(model.getSolucion()) - 1]));
+                } else {
                     pregunta.setAttribute("sol", model.getSolucion());
                 }
                 pregunta.setAttribute("comodin50", "");
@@ -127,7 +127,7 @@ public class createXML extends ButtonView implements Serializable {
             num = 0;
             for (PreguntaCampoTexto model : PreguntasCampoTexto) {
                 Element pregunta = document.createElement("pregunta");
-                pregunta.setAttribute("id", Integer.toString(model.getId()));
+                pregunta.setAttribute("id", model.getId());
 
                 for (String sol : model.getSolucion()) {
                     pregunta.setAttribute("sol", sol + "," + pregunta.getAttribute("sol"));
@@ -143,16 +143,15 @@ public class createXML extends ButtonView implements Serializable {
                 enunciado.setAttribute("numLineas", Integer.toString(model.getNumLineas()));
                 pregunta.appendChild(enunciado);
 
-                
                 Element pista = document.createElement("pista");
 
                 for (String pistaJuego : model.getPistas()) {
                     pista.setAttribute("id", Integer.toString(num + 1));
                     pista.setAttribute("numLineas", "numLineas");
                     pista.appendChild(document.createTextNode(pistaJuego));
-                
-                pregunta.appendChild(pista);
-                num++;
+
+                    pregunta.appendChild(pista);
+                    num++;
                 }
                 preguntas.appendChild(pregunta);
             }
@@ -160,7 +159,7 @@ public class createXML extends ButtonView implements Serializable {
 
             for (PreguntaCifras model : PreguntasCifras) {
                 Element pregunta = document.createElement("pregunta");
-                pregunta.setAttribute("id", Integer.toString(model.getId()));
+                pregunta.setAttribute("id", model.getId());
                 pregunta.setAttribute("sol", model.getSolucion());
                 pregunta.setAttribute("comodin50", "");
                 pregunta.setAttribute("EmpiezaPor", "");
@@ -184,7 +183,7 @@ public class createXML extends ButtonView implements Serializable {
                     pregunta.appendChild(respuesta);
 
                 }*/
-                num = 0;
+                //num = 0;
                 //Element pista = document.createElement("pista");
                 //pista.setAttribute("id", "1");
                 //pista.setAttribute("numLineas", "numLineas");
@@ -192,14 +191,11 @@ public class createXML extends ButtonView implements Serializable {
                 preguntas.appendChild(pregunta);
             }
         } else if (PreguntasContarLetras != null && !PreguntasContarLetras.isEmpty()) {
-
+            num = 0;
             for (PreguntaContarLetras model : PreguntasContarLetras) {
                 Element pregunta = document.createElement("pregunta");
-                pregunta.setAttribute("id", Integer.toString(model.getId()));
+                pregunta.setAttribute("id", model.getId());
 
-                for (String letras : model.getNumLetras()) {
-                    pregunta.setAttribute("sol", letras);
-                }
                 pregunta.setAttribute("comodin50", "");
                 pregunta.setAttribute("EmpiezaPor", "");
 
@@ -212,17 +208,24 @@ public class createXML extends ButtonView implements Serializable {
                 pregunta.appendChild(enunciado);
 
                 for (String resp : model.getLetras()) {
-                    num++;
+                    
 
                     Element respuesta = document.createElement("respuesta");
-                    respuesta.appendChild(document.createTextNode(resp));
-                    respuesta.setAttribute("numLineas", "1");
-                    respuesta.setAttribute("num", Integer.toString(num));
-                    respuesta.setAttribute("numLetras", "5");
+                    
+                    //respuesta.setAttribute("numLineas", "1");
+                    // respuesta.setAttribute("num", Integer.toString(num));
+                    if (model.getLetras()[num] != null) {
+                        respuesta.appendChild(document.createTextNode(resp));
+                        respuesta.setAttribute("numLetras", model.getNumLetras()[num]);
+                    }
+                    else{
+                        break;
+                    }
+                    num++;
                     pregunta.appendChild(respuesta);
 
                 }
-                num = 0;
+
                 Element pista = document.createElement("pista");
                 pista.setAttribute("id", "1");
                 pista.setAttribute("numLineas", "numLineas");
@@ -233,7 +236,7 @@ public class createXML extends ButtonView implements Serializable {
 
             for (PreguntaPanelesLetras model : PreguntasPanelesLetras) {
                 Element pregunta = document.createElement("pregunta");
-                pregunta.setAttribute("id", Integer.toString(model.getId()));
+                pregunta.setAttribute("id", model.getId());
                 //pregunta.setAttribute("sol", model.get);
                 pregunta.setAttribute("comodin50", "");
                 pregunta.setAttribute("EmpiezaPor", "");
@@ -268,7 +271,7 @@ public class createXML extends ButtonView implements Serializable {
 
             for (PreguntaRelacionar model : PreguntasRelacionar) {
                 Element pregunta = document.createElement("pregunta");
-                pregunta.setAttribute("id", Integer.toString(model.getId()));
+                pregunta.setAttribute("id", model.getId());
                 // pregunta.setAttribute("sol", model.ge));
                 pregunta.setAttribute("comodin50", "");
                 pregunta.setAttribute("EmpiezaPor", "");
@@ -303,7 +306,7 @@ public class createXML extends ButtonView implements Serializable {
 
             for (PreguntaRespAbierta model : PreguntasRespAbierta) {
                 Element pregunta = document.createElement("pregunta");
-                pregunta.setAttribute("id", Integer.toString(model.getId()));
+                pregunta.setAttribute("id", model.getId());
                 //pregunta.setAttribute("sol", model.ge);
                 pregunta.setAttribute("comodin50", "");
                 pregunta.setAttribute("EmpiezaPor", "");
@@ -338,7 +341,7 @@ public class createXML extends ButtonView implements Serializable {
 
             for (PreguntaSiNo model : PreguntasSiNo) {
                 Element pregunta = document.createElement("pregunta");
-                pregunta.setAttribute("id", Integer.toString(model.getId()));
+                pregunta.setAttribute("id", model.getId());
 
                 for (String sol : model.getSolucion()) {
                     pregunta.setAttribute("sol", sol);

@@ -13,9 +13,9 @@
         <ui:composition id="cifras">
             
             <p:panel id="pregPanelesLetras_#{pregunta.id}"  header="Pregunta" toggleable="true" closable="true"  toggleSpeed="500" closeSpeed="500" widgetVar="preg_#{pregunta.id}" >
-                 <p:ajax event="close" listener="#{buttonView.deletePreguntaPanelesLetras(pregunta.id)}" update=":juego:panelesJuego" />
+                 <p:ajax event="close" listener="#{buttonView.deletePreguntaPanelesLetras(pregunta.id)}" update="panelesJuegoPanelesLetras" />
                 <h:panelGrid columns = "2" border = "1" 
-                             cellpadding = "10" cellspacing = "1" style="width: 100%;">
+                             cellpadding = "10" cellspacing = "1"  style="width: 100%;">
 
                     <f:facet name = "header">
                         <h:outputText value = "Pregunta"/>
@@ -24,12 +24,7 @@
                     <h:inputText size="100" value="#{pregunta.enunciado}" maxlength="63" />
                     
                     <f:facet name = "footer">
-                        <h:outputLabel value = "Solución:" />
-                        <c:forEach items="#{pregunta.solucion}" var="sol" varStatus="solLoop">
-                        <h:inputText size="10" value="#{sol}" />
-                        </c:forEach>
-                        <h:outputText value="&lt;br/&gt;" escape="false" />
-                        <h:outputText value="&lt;br/&gt;" escape="false" />
+                        
 
 
                         <h:outputLabel value = "Pistas: " />

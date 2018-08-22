@@ -12,8 +12,8 @@ import javax.faces.bean.ViewScoped;
 public class PreguntaCifras implements Serializable {
 	
 	
-        private int numResp=0;
-	private int id=0;
+        private int numResp;
+	private String id;
 	private String enunciado;
 	private String[] respuestas;
 	private String[] pistas;
@@ -23,12 +23,7 @@ public class PreguntaCifras implements Serializable {
         
 	
 	public PreguntaCifras(int numLineas) {
-           
-            
-            respuestas = new String[numResp];
-            for(int j=0;j<numResp;j++){
-                respuestas[j] = "Respuesta "+(j+1);
-            }
+          
             this.numLineas=numLineas;
 	}
 	
@@ -56,11 +51,11 @@ public class PreguntaCifras implements Serializable {
 		this.pistas = pistas;
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

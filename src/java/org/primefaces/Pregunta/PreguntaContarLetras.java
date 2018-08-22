@@ -12,7 +12,7 @@ import javax.faces.bean.ViewScoped;
 public class PreguntaContarLetras implements Serializable {
 	
 	
-	private int id=0;
+	private String id;
 	private String palabra;
 	private String[] letras;
 	
@@ -27,11 +27,11 @@ public class PreguntaContarLetras implements Serializable {
             this.numLetras= new String[numLetras];
 	}
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
