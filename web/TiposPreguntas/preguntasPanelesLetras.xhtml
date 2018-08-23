@@ -28,9 +28,10 @@
 
 
                         <h:outputLabel value = "Pistas: " />
+                        <p:spacer width="10" height="10"  />
                         <c:forEach items="#{pregunta.pistas}" var="pista" varStatus="pistaLoop">
                         <h:inputText size="9" value="#{pista}" />
-                        <h:outputText value="&#160;" />
+                        <p:spacer width="10" height="10"  />
                         </c:forEach>
                     </f:facet>                        
 

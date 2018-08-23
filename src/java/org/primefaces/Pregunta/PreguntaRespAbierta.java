@@ -14,6 +14,7 @@ public class PreguntaRespAbierta implements Serializable {
 	
 	private String id;
 	private String enunciado;
+        private String tema;
 	
         private int numLineas;
         
@@ -47,6 +48,14 @@ public class PreguntaRespAbierta implements Serializable {
 
     public void setNumLineas(int numLineas) {
         this.numLineas = numLineas;
+    }
+
+    public String getTema() {
+        return tema;
+    }
+
+    public void setTema(String tema) {
+        this.tema = tema;
     }
 
    

@@ -13,35 +13,30 @@
         <ui:composition id="cifras">
 
             <p:panel id="pregCampoTexto_#{pregunta.id}"  header="Pregunta" toggleable="true" closable="true"  toggleSpeed="500" closeSpeed="500" widgetVar="preg_#{pregunta.id}" >
-                 <p:ajax event="close" listener="#{buttonView.deletePreguntaSiNo(pregunta.id)}" update=":juego:panelesJuego" />
-                <h:panelGrid columns = "2" border = "1" 
-                             cellpadding = "10" cellspacing = "1" style="width: 100%;">
+                 <p:ajax event="close" listener="#{buttonView.deletePreguntaSiNo(pregunta.id)}" update="panelesJuegoSiNo" />
+                <h:panelGrid columns = "3" border = "1" 
+                             cellpadding = "10" cellspacing = "1"  style="width: 100%;">
 
                     <f:facet name = "header">
                         <h:outputText value = "Panel"/>
                     </f:facet>
+                    
                     <h:outputLabel value = "Enunciado:" />
-                    <h:inputText size="95" value="#{pregunta.enunciado}" />
-                    <c:forEach items="#{pregunta.respuestas}" var="resp" varStatus="loop">
-                        <h:outputLabel value = "Respuesta #{loop.index +1}:" />
-                        <h:inputText size="50"  value="#{resp}" />
-                    </c:forEach>
-                    <f:facet name = "footer">
-                        <h:outputLabel value = "Soluciones:" />
-                        <h:outputText value="&lt;br/&gt;" escape="false" />
-                        <c:forEach items="#{pregunta.solucion}" var="sol" varStatus="solLoop">
-                            <h:outputLabel value = "Respuesta #{solLoop.index +1}: " />
-                            <p:selectOneMenu id="soluciones" value="#{sol}" >
+                    <h:inputText size="85" value="#{pregunta.enunciado}" />
+                    <h:outputText value="SI/NO" escape="false" />
+                    
+                    
+                    <c:forEach items="#{pregunta.respuestas}" var="resp" varStatus="loop" >
+                        <h:outputLabel value = "Respuesta #{loop.index +1}:"  />
+                        <h:inputText size="20"  value="#{resp}" />
+                        
+                        <p:selectOneMenu id="soluciones" value="#{pregunta.solucion[loop.index]}" >
                                 <f:selectItem itemLabel="Seleccione" itemValue=""/>
                                 <f:selectItem itemLabel="Si" itemValue="Si"/>
                                 <f:selectItem itemLabel="No" itemValue="No"/>
                             </p:selectOneMenu>
-                            <h:outputText value="&lt;br/&gt;" escape="false" />
-                        </c:forEach>
-
-                    </f:facet>                        
-
-
+                    </c:forEach>
+              
                 </h:panelGrid>
             </p:panel>
 

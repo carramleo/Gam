@@ -13,13 +13,15 @@
         <ui:composition id="cifras">
             
             <p:panel id="pregCampoTexto_#{pregunta.id}"  header="Pregunta" toggleable="true" closable="true"  toggleSpeed="500" closeSpeed="500" widgetVar="preg_#{pregunta.id}" >
-                 <p:ajax event="close" listener="#{buttonView.deletePreguntaRespAbiertas(pregunta.id)}" update=":juego:panelesJuego" />
+                 <p:ajax event="close" listener="#{buttonView.deletePreguntaRespAbiertas(pregunta.id)}" update="panelesJuegoRespAbierta" />
                 <h:panelGrid columns = "2" border = "1" 
                              cellpadding = "10" cellspacing = "1" style="width: 100%;">
 
                     <f:facet name = "header">
                         <h:outputText value = "Pregunta"/>
                     </f:facet>
+                    <h:outputLabel value = "Tema" />
+                    <h:inputText size="50" value="#{pregunta.tema}" />
                     <h:outputLabel value = "Enunciado:" />
                     <h:inputText size="100" value="#{pregunta.enunciado}" />
                     

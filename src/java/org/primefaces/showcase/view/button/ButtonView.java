@@ -143,7 +143,7 @@ public class ButtonView implements Serializable {
 
     public void addPreguntaSiNo() {
 
-        PreguntaSiNo pregAdd = new PreguntaSiNo(SelectOneMenuTipos.numOpciones.get(Tipo), SelectOneMenuTipos.lineasEnun.get(Tipo));
+        PreguntaSiNo pregAdd = new PreguntaSiNo(SelectOneMenuTipos.elementosPanel.get(Tipo), SelectOneMenuTipos.lineasEnun.get(Tipo));
         //this.number = PreguntasSiNo.size();
         pregAdd.setId("preg_"+number++);
         PreguntasSiNo.add(pregAdd);
