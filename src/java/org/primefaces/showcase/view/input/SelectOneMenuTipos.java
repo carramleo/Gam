@@ -27,7 +27,8 @@ public class SelectOneMenuTipos implements Serializable {
     public static Map<String, Integer> elementosPanel = new HashMap<String, Integer>();
     public static Map<String, Integer> letrasPanel = new HashMap<String, Integer>();
     public static Map<String, Integer> filasColumna = new HashMap<String, Integer>();
-    public static Map<String, Integer> PistasLetrasPanel = new HashMap<String, Integer>();
+    public static Map<String, Integer> Pistas = new HashMap<String, Integer>();
+    public static Map<String, Integer> Temas = new HashMap<String, Integer>();
 
     static {
         numOpciones.put("Tipo1", 4);
@@ -120,14 +121,26 @@ public class SelectOneMenuTipos implements Serializable {
         letrasPanel.put("Tipo8", 63);
         letrasPanel.put("Tipo10", 63);
         
-        PistasLetrasPanel.put("Tipo6", 8);
-        PistasLetrasPanel.put("Tipo8", 3);
-        PistasLetrasPanel.put("Tipo10", 9);
+        Pistas.put("Tipo6", 8);
+        Pistas.put("Tipo8", 3);
+        Pistas.put("Tipo10", 9);
+        Pistas.put("Tipo4", 1);
+        Pistas.put("TipoEmpiezaPor", 4);
+        Pistas.put("TipoEscalera", 1);
+        Pistas.put("TipoPasapalabra", 1);
+        Pistas.put("TipoIdentity", 6);
 
         filasColumna.put("Tipo16", 8);
         filasColumna.put("TipoParejas", 10);
         filasColumna.put("TipoPar", 9);
         filasColumna.put("TipoDelTiron", 10);
+        
+        
+        Temas.put("Tipo17", 1);
+        Temas.put("TipoArcoIris", 1);
+        Temas.put("TipoDuelo", 1);
+        Temas.put("TipoSabios", 1);
+        Temas.put("TipoSabio", 1);
 
     }
 

@@ -10,10 +10,10 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <body>
-        <ui:composition id="cifras">
+        <ui:composition >
             
-            <p:panel id="pregCampoTexto_#{pregunta.id}"  header="Pregunta" toggleable="true" closable="true"  toggleSpeed="500" closeSpeed="500" widgetVar="preg_#{pregunta.id}" >
-                 <p:ajax event="close" listener="#{buttonView.deletePreguntaRespAbiertas(pregunta.id)}" update="panelesJuegoRespAbierta" />
+            <p:panel id="#{pregunta.id}"  header="Pregunta" toggleable="true" closable="true"  toggleSpeed="500" closeSpeed="500" widgetVar="preg_#{pregunta.id}" >
+                 <p:ajax event="close" listener="#{buttonView.deletePregunta}" update="panelesJuegoRespAbierta" />
                 <h:panelGrid columns = "2" border = "1" 
                              cellpadding = "10" cellspacing = "1" style="width: 100%;">
 

@@ -308,6 +308,7 @@ public class createXML extends ButtonView implements Serializable {
                     pregunta.appendChild(respuesta2);
                     num++;
                 }
+                num = 0;
                 /*
                 num = 0;
                 Element pista = document.createElement("pista");

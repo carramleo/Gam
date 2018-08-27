@@ -55,7 +55,7 @@ public class ReadXML {
     public void setFile(UploadedFile file) {
         this.file = file;
     }
-    
+
     private String message;
 
     public String getMessage() {
@@ -65,11 +65,11 @@ public class ReadXML {
     public void setMessage(String message) {
         this.message = message;
     }
-    
+
     public void saveMessage() {
         FacesContext context = FacesContext.getCurrentInstance();
-         
-        context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al importar","Tipo de juego incompatible"));
+
+        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al importar", "Tipo de juego incompatible"));
     }
 
     public void readFile(ButtonView b, SelectOneMenuView tipos, SelectOneMenuTipos opcionesTipos) throws SAXException, IOException, ParserConfigurationException {
@@ -96,33 +96,72 @@ public class ReadXML {
         autor = b.getAutor();
         titulo = b.getTitulo();
         String TipoJuego = b.getTipo();
-        
-        
+
         String tipoSeleccionado = tipos.getTipo();  //tipo  seleccionado en el menu de la izq
-        
-        Map<String, String> mapaTiposCompatibles= tipos.getData().get(tipoSeleccionado);   //obtengo el mapa de los tipos compatibles que acepta
-       
-        
-        for (String key : mapaTiposCompatibles.keySet()){
-            if(mapaTiposCompatibles.get(key).equals(tipo)){             //recorro el mapa buscando si el tipo del fichero importado aparece en ese mapa
-              compatible = true;  
+
+        Map<String, String> mapaTiposCompatibles = tipos.getData().get(tipoSeleccionado);   //obtengo el mapa de los tipos compatibles que acepta
+
+        for (String key : mapaTiposCompatibles.keySet()) {
+            if (mapaTiposCompatibles.get(key).equals(tipo)) {             //recorro el mapa buscando si el tipo del fichero importado aparece en ese mapa
+                compatible = true;
             }
         }
 
         if (compatible) {
 
-            int preguntas = document.getElementsByTagName("pregunta").getLength();
             NodeList preguntasElement = document.getElementsByTagName("pregunta");
 
             if (tipoSeleccionado.equals("TipoOpciones")) {
 
                 for (int i = 0; i < preguntasElement.getLength(); i++) {
 
-                    Preguntas.add(getPreguntaOpciones(preguntasElement.item(i), tipo,b));
+                    Preguntas.add(getPreguntaOpciones(preguntasElement.item(i), tipo, b));
+                }
+            } else if (tipoSeleccionado.equals("TipoCampoTexto")) {
+
+                for (int i = 0; i < preguntasElement.getLength(); i++) {
+
+                    PreguntasCampoTexto.add(getPreguntaCampoTexto(preguntasElement.item(i), tipo, b));
+                }
+            } else if (tipoSeleccionado.equals("TipoCifras")) {
+
+                for (int i = 0; i < preguntasElement.getLength(); i++) {
+
+                    PreguntasCifras.add(getPreguntaCifras(preguntasElement.item(i), tipo, b));
+                }
+            } else if (tipoSeleccionado.equals("TipoSiNo")) {
+
+                for (int i = 0; i < preguntasElement.getLength(); i++) {
+
+                    PreguntasSiNo.add(getPreguntaSiNo(preguntasElement.item(i), tipo, b));
+                }
+            } else if (tipoSeleccionado.equals("TipoPanelesLetras")) {
+
+                for (int i = 0; i < preguntasElement.getLength(); i++) {
+
+                    PreguntasPanelesLetras.add(getPreguntaPanelesLetras(preguntasElement.item(i), tipo, b));
+                }
+            } else if (tipoSeleccionado.equals("TipoRelacionar")) {
+
+                for (int i = 0; i < preguntasElement.getLength(); i++) {
+
+                    PreguntasRelacionar.add(getPreguntaRelacionar(preguntasElement.item(i), tipo, b));
+                }
+            } else if (tipoSeleccionado.equals("TipoRespAbierta")) {
+
+                for (int i = 0; i < preguntasElement.getLength(); i++) {
+
+                    PreguntasRespAbierta.add(getPreguntaRespAbierta(preguntasElement.item(i), tipo, b));
+                }
+            } else if (tipoSeleccionado.equals("TipoContarLetras")) {
+
+                for (int i = 0; i < preguntasElement.getLength(); i++) {
+
+                    PreguntasContarLetras.add(getPreguntaContarLetras(preguntasElement.item(i), tipo, b));
                 }
             }
 
-        }else{
+        } else {
             saveMessage();
         }
     }
@@ -142,17 +181,17 @@ public class ReadXML {
         if (node.getNodeType() == Node.ELEMENT_NODE) {
             Element element = (Element) node;
 
-            preg.setEnunciado(getTagValuePreguntaOpciones("enunciado", element));
-            preg.setId("preg_" + bb.getNumber()+1 );
-            bb.setNumber(bb.getNumber()+1);
-            
+            preg.setEnunciado(getTagValuePregunta("enunciado", element));
+
+            preg.setId("preg_" + bb.getNumber() + 1);
+            bb.setNumber(bb.getNumber() + 1);
+
             String[] respuestasXML = new String[element.getElementsByTagName("respuesta").getLength()];
             for (int i = 0; i < element.getElementsByTagName("respuesta").getLength(); i++) {
-       
-                    
-                   NodeList nodeListResp   = element.getElementsByTagName("respuesta").item(i).getChildNodes();
-                   Node nodeResp = (Node) nodeListResp.item(0);
-                     respuestasXML[i]=nodeResp.getNodeValue();
+
+                NodeList nodeListResp = element.getElementsByTagName("respuesta").item(i).getChildNodes();
+                Node nodeResp = (Node) nodeListResp.item(0);
+                respuestasXML[i] = nodeResp.getNodeValue();
 
             }
             preg.setRespuestas(respuestasXML);
@@ -163,7 +202,276 @@ public class ReadXML {
         return preg;
     }
 
-    private static String getTagValuePreguntaOpciones(String tag, Element element) {
+    private static PreguntaCampoTexto getPreguntaCampoTexto(Node node, String tipo, ButtonView bb) {
+        //XMLReaderDOM domReader = new XMLReaderDOM();
+        PreguntaCampoTexto preg = new PreguntaCampoTexto(SelectOneMenuTipos.lineasEnun.get(tipo), SelectOneMenuTipos.posiblesSol.get(tipo), SelectOneMenuTipos.Pistas.get(tipo));
+
+        if (node.getNodeType() == Node.ELEMENT_NODE) {
+            Element element = (Element) node;
+
+            preg.setEnunciado(getTagValuePregunta("enunciado", element));
+            preg.setId("preg_" + bb.getNumber() + 1);
+            bb.setNumber(bb.getNumber() + 1);
+
+            /*String[] respuestasXML = new String[element.getElementsByTagName("respuesta").getLength()];
+            for (int i = 0; i < element.getElementsByTagName("respuesta").getLength(); i++) {
+       
+                    
+                   NodeList nodeListResp   = element.getElementsByTagName("respuesta").item(i).getChildNodes();
+                   Node nodeResp = (Node) nodeListResp.item(0);
+                     respuestasXML[i]=nodeResp.getNodeValue();
+
+            }
+            preg.setRespuestas(respuestasXML);*/
+            String soluciones[] = new String[SelectOneMenuTipos.posiblesSol.get(tipo)];
+
+            String solSplit = element.getAttribute("sol");
+
+            String solpart[] = solSplit.split(",");
+            int h = soluciones.length - 1;
+            for (int j = 0; j < soluciones.length; j++) {
+
+                soluciones[h] = solpart[j];
+                h--;
+            }
+            h = 0;
+            preg.setSolucion(soluciones);
+
+            String[] pistasXML = new String[element.getElementsByTagName("pista").getLength()];
+            for (int i = 0; i < element.getElementsByTagName("pista").getLength(); i++) {
+                NodeList nodeListPista = element.getElementsByTagName("pista").item(i).getChildNodes();
+
+                Node nodeResp = (Node) nodeListPista.item(0);
+                pistasXML[i] = nodeResp.getNodeValue();
+            }
+            preg.setPistas(pistasXML);
+
+        }
+
+        return preg;
+    }
+
+    private static PreguntaCifras getPreguntaCifras(Node node, String tipo, ButtonView bb) {
+        //XMLReaderDOM domReader = new XMLReaderDOM();
+        PreguntaCifras preg = new PreguntaCifras(SelectOneMenuTipos.lineasEnun.get(tipo));
+
+        if (node.getNodeType() == Node.ELEMENT_NODE) {
+            Element element = (Element) node;
+
+            preg.setEnunciado(getTagValuePregunta("enunciado", element));
+            preg.setId("preg_" + bb.getNumber() + 1);
+            bb.setNumber(bb.getNumber() + 1);
+
+            /*String[] respuestasXML = new String[element.getElementsByTagName("respuesta").getLength()];
+            for (int i = 0; i < element.getElementsByTagName("respuesta").getLength(); i++) {
+       
+                    
+                   NodeList nodeListResp   = element.getElementsByTagName("respuesta").item(i).getChildNodes();
+                   Node nodeResp = (Node) nodeListResp.item(0);
+                     respuestasXML[i]=nodeResp.getNodeValue();
+
+            }
+            preg.setRespuestas(respuestasXML);*/
+            preg.setSolucion(element.getAttribute("sol"));
+            /*
+            String[] pistasXML = new String[element.getElementsByTagName("pista").getLength()];
+            for (int i = 0; i < element.getElementsByTagName("pista").getLength(); i++) {
+                NodeList nodeListPista   = element.getElementsByTagName("pista").item(i).getChildNodes();
+               
+                Node nodeResp = (Node) nodeListPista.item(0);
+                     pistasXML[i]=nodeResp.getNodeValue();
+            }
+            preg.setPistas(pistasXML);
+             */
+
+        }
+
+        return preg;
+    }
+
+    private static PreguntaSiNo getPreguntaSiNo(Node node, String tipo, ButtonView bb) {
+        //XMLReaderDOM domReader = new XMLReaderDOM();
+        PreguntaSiNo preg = new PreguntaSiNo(SelectOneMenuTipos.elementosPanel.get(tipo), SelectOneMenuTipos.lineasEnun.get(tipo));
+
+        if (node.getNodeType() == Node.ELEMENT_NODE) {
+            Element element = (Element) node;
+
+            preg.setEnunciado(getTagValuePregunta("enunciado", element));
+            preg.setId("preg_" + bb.getNumber() + 1);
+            bb.setNumber(bb.getNumber() + 1);
+
+            String[] respuestasXML = new String[element.getElementsByTagName("respuesta").getLength()];
+            String[] solucionesXML = new String[element.getElementsByTagName("respuesta").getLength()];;
+
+            for (int i = 0; i < element.getElementsByTagName("respuesta").getLength(); i++) {
+
+                NodeList nodeListResp = element.getElementsByTagName("respuesta").item(i).getChildNodes();
+                Node nodeResp = (Node) nodeListResp.item(0);
+                respuestasXML[i] = nodeResp.getNodeValue();
+                Node aux = element.getElementsByTagName("respuesta").item(i).getAttributes().getNamedItem("sol");
+                solucionesXML[i] = aux.getNodeValue();
+
+            }
+            preg.setRespuestas(respuestasXML);
+            preg.setSolucion(solucionesXML);
+
+            /*
+            String[] pistasXML = new String[element.getElementsByTagName("pista").getLength()];
+            for (int i = 0; i < element.getElementsByTagName("pista").getLength(); i++) {
+                NodeList nodeListPista   = element.getElementsByTagName("pista").item(i).getChildNodes();
+               
+                Node nodeResp = (Node) nodeListPista.item(0);
+                     pistasXML[i]=nodeResp.getNodeValue();
+            }
+            preg.setPistas(pistasXML);
+             */
+        }
+
+        return preg;
+    }
+
+    private static PreguntaPanelesLetras getPreguntaPanelesLetras(Node node, String tipo, ButtonView bb) {
+        //XMLReaderDOM domReader = new XMLReaderDOM();
+        PreguntaPanelesLetras preg = new PreguntaPanelesLetras(SelectOneMenuTipos.letrasPanel.get(tipo), SelectOneMenuTipos.Pistas.get(tipo));
+
+        if (node.getNodeType() == Node.ELEMENT_NODE) {
+            Element element = (Element) node;
+
+            preg.setEnunciado(getTagValuePregunta("enunciado", element));
+            preg.setId("preg_" + bb.getNumber() + 1);
+            bb.setNumber(bb.getNumber() + 1);
+
+            String[] pistasXML = new String[element.getElementsByTagName("pista").getLength()];
+            for (int i = 0; i < element.getElementsByTagName("pista").getLength(); i++) {
+
+                NodeList nodeListResp = element.getElementsByTagName("pista").item(i).getChildNodes();
+                Node nodeResp = (Node) nodeListResp.item(0);
+                pistasXML[i] = nodeResp.getNodeValue();
+
+            }
+            preg.setPistas(pistasXML);
+            /*
+            String[] pistasXML = new String[element.getElementsByTagName("pista").getLength()];
+            for (int i = 0; i < element.getElementsByTagName("pista").getLength(); i++) {
+                NodeList nodeListPista   = element.getElementsByTagName("pista").item(i).getChildNodes();
+               
+                Node nodeResp = (Node) nodeListPista.item(0);
+                     pistasXML[i]=nodeResp.getNodeValue();
+            }
+            preg.setPistas(pistasXML);
+             */
+
+        }
+
+        return preg;
+    }
+
+    private static PreguntaRelacionar getPreguntaRelacionar(Node node, String tipo, ButtonView bb) {
+        //XMLReaderDOM domReader = new XMLReaderDOM();
+        PreguntaRelacionar preg = new PreguntaRelacionar(SelectOneMenuTipos.filasColumna.get(tipo), SelectOneMenuTipos.filasColumna.get(tipo));
+
+        if (node.getNodeType() == Node.ELEMENT_NODE) {
+            Element element = (Element) node;
+
+            //preg.setEnunciado(getTagValuePregunta("enunciado", element));
+            preg.setId("preg_" + bb.getNumber() + 1);
+            bb.setNumber(bb.getNumber() + 1);
+
+            String[] respuestasXML = new String[element.getElementsByTagName("respuesta").getLength()/2]; //la mitad de ellas son respuestas
+            String[] solucionesXML = new String[element.getElementsByTagName("respuesta").getLength()/2]; //la otra mitad son soluciones
+            int h = 0;
+            for (int i = 0; i < element.getElementsByTagName("respuesta").getLength(); i += 2) {
+
+                NodeList nodeListResp = element.getElementsByTagName("respuesta").item(i).getChildNodes();
+                Node nodeResp = (Node) nodeListResp.item(0);
+
+                respuestasXML[h] = nodeResp.getNodeValue();
+                h++;
+            }
+            preg.setColumnaRespuesta(respuestasXML);
+            h = 0;
+            for (int i = 1; i < element.getElementsByTagName("respuesta").getLength(); i += 2) {
+
+                NodeList nodeListSol = element.getElementsByTagName("respuesta").item(i).getChildNodes();
+                Node nodeSol = (Node) nodeListSol.item(0);
+
+                solucionesXML[h] = nodeSol.getNodeValue();
+                h++;
+            }
+            preg.setColumnaSolucion(solucionesXML);
+
+            h = 0;
+
+            /*
+            String[] pistasXML = new String[element.getElementsByTagName("pista").getLength()];
+            for (int i = 0; i < element.getElementsByTagName("pista").getLength(); i++) {
+                NodeList nodeListPista   = element.getElementsByTagName("pista").item(i).getChildNodes();
+               
+                Node nodeResp = (Node) nodeListPista.item(0);
+                     pistasXML[i]=nodeResp.getNodeValue();
+            }
+            preg.setPistas(pistasXML);
+             */
+        }
+
+        return preg;
+    }
+    
+    private static PreguntaRespAbierta getPreguntaRespAbierta(Node node, String tipo, ButtonView bb) {
+        //XMLReaderDOM domReader = new XMLReaderDOM();
+        PreguntaRespAbierta preg = new PreguntaRespAbierta(SelectOneMenuTipos.lineasEnun.get(tipo));
+
+        if (node.getNodeType() == Node.ELEMENT_NODE) {
+            Element element = (Element) node;
+
+            preg.setEnunciado(getTagValuePregunta("enunciado", element));
+            preg.setId("preg_" + bb.getNumber() + 1);
+            bb.setNumber(bb.getNumber() + 1);
+
+            preg.setTema(getTagValuePregunta("tema", element));
+
+        }
+
+        return preg;
+    }
+    
+    private static PreguntaContarLetras getPreguntaContarLetras(Node node, String tipo, ButtonView bb) {
+        //XMLReaderDOM domReader = new XMLReaderDOM();
+        PreguntaContarLetras preg = new PreguntaContarLetras(18);
+
+        if (node.getNodeType() == Node.ELEMENT_NODE) {
+            Element element = (Element) node;
+
+            //preg.setEnunciado(getTagValuePregunta("enunciado", element));
+            preg.setId("preg_" + bb.getNumber() + 1);
+            bb.setNumber(bb.getNumber() + 1);
+
+            String[] letrasXML = new String[element.getElementsByTagName("respuesta").getLength()];
+            String[] numLetrasXML = new String[element.getElementsByTagName("respuesta").getLength()]; 
+            for (int i = 0; i < element.getElementsByTagName("respuesta").getLength(); i++) {
+                
+                
+                NodeList nodeListResp = element.getElementsByTagName("respuesta").item(i).getChildNodes();
+                Node nodeResp = (Node) nodeListResp.item(0);
+
+                
+                letrasXML[i] = nodeResp.getNodeValue();
+                
+                Node aux = element.getElementsByTagName("respuesta").item(i).getAttributes().getNamedItem("numLetras");
+                numLetrasXML[i]=aux.getNodeValue();
+               
+                
+            }
+            preg.setLetras(letrasXML);
+            preg.setNumLetras(numLetrasXML);
+            
+
+        }
+
+        return preg;
+    }
+
+    private static String getTagValuePregunta(String tag, Element element) {
         NodeList nodeList = element.getElementsByTagName(tag).item(0).getChildNodes();
         Node node = (Node) nodeList.item(0);
         return node.getNodeValue();
