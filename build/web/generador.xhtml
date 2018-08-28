@@ -83,7 +83,7 @@
                             </c:forEach>
                            
                             <p:commandButton id="btnNuevoPregunta" value="Nueva Pregunta"  update="panelesJuego"  action="#{buttonView.addPregunta()}"  />
-                            <p:commandButton id="btnCrearFichPregunta" value="Crear fichero"  update="panelesJuego" action="#{createXML.createXML(buttonView)}" />
+                            <p:commandButton id="btnCrearFichPregunta" value="Crear fichero" update="panelesJuego" action="#{createXML.createXML(buttonView)}"  />
                         </p:panelGrid> 
 
                         <p:panelGrid id="panelesJuegoCifras" columns="1" style="width: 100%;" rendered="#{selectOneMenuView.tipo eq 'TipoCifras'}" >

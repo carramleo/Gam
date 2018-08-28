@@ -61,11 +61,7 @@ public class ButtonView implements Serializable {
     }
     
     
-    public void guardarPreguntas() {
-        Preguntas.size();
-        FacesContext.getCurrentInstance().addMessage(null,
-                new FacesMessage("Preguntas grabadas"));
-    }
+    
     
     public void deleteAllLists() {
         Preguntas.removeAll(Preguntas);
