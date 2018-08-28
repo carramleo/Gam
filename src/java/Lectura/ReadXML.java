@@ -71,98 +71,109 @@ public class ReadXML {
 
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al importar", "Tipo de juego incompatible"));
     }
+    
+    public void errorFile() {
+        FacesContext context = FacesContext.getCurrentInstance();
+
+        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al importar", "No ha seleccionado un fichero"));
+    }
 
     public void readFile(ButtonView b, SelectOneMenuView tipos, SelectOneMenuTipos opcionesTipos) throws SAXException, IOException, ParserConfigurationException {
 
-        InputStream fichero = file.getInputstream();
-
-        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-        Document document = documentBuilder.parse(fichero);
-
-        String titulo = document.getElementsByTagName("titulo").item(0).getTextContent();
-        String autor = document.getElementsByTagName("autor").item(0).getTextContent();
-
-        String tipo = document.getElementsByTagName("preguntas").item(0).getAttributes().getNamedItem("tipo").getNodeValue();
-
-        List<PreguntaOpciones> Preguntas = b.getPreguntas();
-        List<PreguntaCifras> PreguntasCifras = b.getPreguntasCifras();
-        List<PreguntaCampoTexto> PreguntasCampoTexto = b.getPreguntasCampoTexto();
-        List<PreguntaSiNo> PreguntasSiNo = b.getPreguntasSiNo();
-        List<PreguntaPanelesLetras> PreguntasPanelesLetras = b.getPreguntasPanelesLetras();
-        List<PreguntaRelacionar> PreguntasRelacionar = b.getPreguntasRelacionar();
-        List<PreguntaRespAbierta> PreguntasRespAbierta = b.getPreguntasRespAbierta();
-        List<PreguntaContarLetras> PreguntasContarLetras = b.getPreguntasContarLetras();
-        autor = b.getAutor();
-        titulo = b.getTitulo();
-        String TipoJuego = b.getTipo();
-
-        String tipoSeleccionado = tipos.getTipo();  //tipo  seleccionado en el menu de la izq
-
-        Map<String, String> mapaTiposCompatibles = tipos.getData().get(tipoSeleccionado);   //obtengo el mapa de los tipos compatibles que acepta
-
-        for (String key : mapaTiposCompatibles.keySet()) {
-            if (mapaTiposCompatibles.get(key).equals(tipo)) {             //recorro el mapa buscando si el tipo del fichero importado aparece en ese mapa
-                compatible = true;
-            }
-        }
-
-        if (compatible) {
-
-            NodeList preguntasElement = document.getElementsByTagName("pregunta");
-
-            if (tipoSeleccionado.equals("TipoOpciones")) {
-
-                for (int i = 0; i < preguntasElement.getLength(); i++) {
-
-                    Preguntas.add(getPreguntaOpciones(preguntasElement.item(i), tipo, b));
-                }
-            } else if (tipoSeleccionado.equals("TipoCampoTexto")) {
-
-                for (int i = 0; i < preguntasElement.getLength(); i++) {
-
-                    PreguntasCampoTexto.add(getPreguntaCampoTexto(preguntasElement.item(i), tipo, b));
-                }
-            } else if (tipoSeleccionado.equals("TipoCifras")) {
-
-                for (int i = 0; i < preguntasElement.getLength(); i++) {
-
-                    PreguntasCifras.add(getPreguntaCifras(preguntasElement.item(i), tipo, b));
-                }
-            } else if (tipoSeleccionado.equals("TipoSiNo")) {
-
-                for (int i = 0; i < preguntasElement.getLength(); i++) {
-
-                    PreguntasSiNo.add(getPreguntaSiNo(preguntasElement.item(i), tipo, b));
-                }
-            } else if (tipoSeleccionado.equals("TipoPanelesLetras")) {
-
-                for (int i = 0; i < preguntasElement.getLength(); i++) {
-
-                    PreguntasPanelesLetras.add(getPreguntaPanelesLetras(preguntasElement.item(i), tipo, b));
-                }
-            } else if (tipoSeleccionado.equals("TipoRelacionar")) {
-
-                for (int i = 0; i < preguntasElement.getLength(); i++) {
-
-                    PreguntasRelacionar.add(getPreguntaRelacionar(preguntasElement.item(i), tipo, b));
-                }
-            } else if (tipoSeleccionado.equals("TipoRespAbierta")) {
-
-                for (int i = 0; i < preguntasElement.getLength(); i++) {
-
-                    PreguntasRespAbierta.add(getPreguntaRespAbierta(preguntasElement.item(i), tipo, b));
-                }
-            } else if (tipoSeleccionado.equals("TipoContarLetras")) {
-
-                for (int i = 0; i < preguntasElement.getLength(); i++) {
-
-                    PreguntasContarLetras.add(getPreguntaContarLetras(preguntasElement.item(i), tipo, b));
-                }
-            }
-
+        if (file.getFileName() == null || file.getFileName().isEmpty() ) {
+            errorFile();
         } else {
-            saveMessage();
+
+            InputStream fichero = file.getInputstream();
+
+            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+            Document document = documentBuilder.parse(fichero);
+
+            String titulo = document.getElementsByTagName("titulo").item(0).getTextContent();
+            String autor = document.getElementsByTagName("autor").item(0).getTextContent();
+
+            String tipo = document.getElementsByTagName("preguntas").item(0).getAttributes().getNamedItem("tipo").getNodeValue();
+
+            List<PreguntaOpciones> Preguntas = b.getPreguntas();
+            List<PreguntaCifras> PreguntasCifras = b.getPreguntasCifras();
+            List<PreguntaCampoTexto> PreguntasCampoTexto = b.getPreguntasCampoTexto();
+            List<PreguntaSiNo> PreguntasSiNo = b.getPreguntasSiNo();
+            List<PreguntaPanelesLetras> PreguntasPanelesLetras = b.getPreguntasPanelesLetras();
+            List<PreguntaRelacionar> PreguntasRelacionar = b.getPreguntasRelacionar();
+            List<PreguntaRespAbierta> PreguntasRespAbierta = b.getPreguntasRespAbierta();
+            List<PreguntaContarLetras> PreguntasContarLetras = b.getPreguntasContarLetras();
+            autor = b.getAutor();
+            titulo = b.getTitulo();
+            String TipoJuego = b.getTipo();
+
+            String tipoSeleccionado = tipos.getTipo();  //tipo  seleccionado en el menu de la izq
+
+            Map<String, String> mapaTiposCompatibles = tipos.getData().get(tipoSeleccionado);   //obtengo el mapa de los tipos compatibles que acepta
+
+            for (String key : mapaTiposCompatibles.keySet()) {
+                if (mapaTiposCompatibles.get(key).equals(tipo)) {             //recorro el mapa buscando si el tipo del fichero importado aparece en ese mapa
+                    compatible = true;
+                }
+            }
+
+            if (compatible) {
+
+                NodeList preguntasElement = document.getElementsByTagName("pregunta");
+
+                if (tipoSeleccionado.equals("TipoOpciones")) {
+
+                    for (int i = 0; i < preguntasElement.getLength(); i++) {
+
+                        Preguntas.add(getPreguntaOpciones(preguntasElement.item(i), tipo, b));
+                    }
+                } else if (tipoSeleccionado.equals("TipoCampoTexto")) {
+
+                    for (int i = 0; i < preguntasElement.getLength(); i++) {
+
+                        PreguntasCampoTexto.add(getPreguntaCampoTexto(preguntasElement.item(i), tipo, b));
+                    }
+                } else if (tipoSeleccionado.equals("TipoCifras")) {
+
+                    for (int i = 0; i < preguntasElement.getLength(); i++) {
+
+                        PreguntasCifras.add(getPreguntaCifras(preguntasElement.item(i), tipo, b));
+                    }
+                } else if (tipoSeleccionado.equals("TipoSiNo")) {
+
+                    for (int i = 0; i < preguntasElement.getLength(); i++) {
+
+                        PreguntasSiNo.add(getPreguntaSiNo(preguntasElement.item(i), tipo, b));
+                    }
+                } else if (tipoSeleccionado.equals("TipoPanelesLetras")) {
+
+                    for (int i = 0; i < preguntasElement.getLength(); i++) {
+
+                        PreguntasPanelesLetras.add(getPreguntaPanelesLetras(preguntasElement.item(i), tipo, b));
+                    }
+                } else if (tipoSeleccionado.equals("TipoRelacionar")) {
+
+                    for (int i = 0; i < preguntasElement.getLength(); i++) {
+
+                        PreguntasRelacionar.add(getPreguntaRelacionar(preguntasElement.item(i), tipo, b));
+                    }
+                } else if (tipoSeleccionado.equals("TipoRespAbierta")) {
+
+                    for (int i = 0; i < preguntasElement.getLength(); i++) {
+
+                        PreguntasRespAbierta.add(getPreguntaRespAbierta(preguntasElement.item(i), tipo, b));
+                    }
+                } else if (tipoSeleccionado.equals("TipoContarLetras")) {
+
+                    for (int i = 0; i < preguntasElement.getLength(); i++) {
+
+                        PreguntasContarLetras.add(getPreguntaContarLetras(preguntasElement.item(i), tipo, b));
+                    }
+                }
+
+            } else {
+                saveMessage();
+            }
         }
     }
 
@@ -377,8 +388,8 @@ public class ReadXML {
             preg.setId("preg_" + bb.getNumber() + 1);
             bb.setNumber(bb.getNumber() + 1);
 
-            String[] respuestasXML = new String[element.getElementsByTagName("respuesta").getLength()/2]; //la mitad de ellas son respuestas
-            String[] solucionesXML = new String[element.getElementsByTagName("respuesta").getLength()/2]; //la otra mitad son soluciones
+            String[] respuestasXML = new String[element.getElementsByTagName("respuesta").getLength() / 2]; //la mitad de ellas son respuestas
+            String[] solucionesXML = new String[element.getElementsByTagName("respuesta").getLength() / 2]; //la otra mitad son soluciones
             int h = 0;
             for (int i = 0; i < element.getElementsByTagName("respuesta").getLength(); i += 2) {
 
@@ -416,7 +427,7 @@ public class ReadXML {
 
         return preg;
     }
-    
+
     private static PreguntaRespAbierta getPreguntaRespAbierta(Node node, String tipo, ButtonView bb) {
         //XMLReaderDOM domReader = new XMLReaderDOM();
         PreguntaRespAbierta preg = new PreguntaRespAbierta(SelectOneMenuTipos.lineasEnun.get(tipo));
@@ -434,7 +445,7 @@ public class ReadXML {
 
         return preg;
     }
-    
+
     private static PreguntaContarLetras getPreguntaContarLetras(Node node, String tipo, ButtonView bb) {
         //XMLReaderDOM domReader = new XMLReaderDOM();
         PreguntaContarLetras preg = new PreguntaContarLetras(18);
@@ -442,29 +453,31 @@ public class ReadXML {
         if (node.getNodeType() == Node.ELEMENT_NODE) {
             Element element = (Element) node;
 
-            //preg.setEnunciado(getTagValuePregunta("enunciado", element));
+            preg.setPalabra(getTagValuePregunta("enunciado", element));
             preg.setId("preg_" + bb.getNumber() + 1);
             bb.setNumber(bb.getNumber() + 1);
 
             String[] letrasXML = new String[element.getElementsByTagName("respuesta").getLength()];
-            String[] numLetrasXML = new String[element.getElementsByTagName("respuesta").getLength()]; 
+            String[] numLetrasXML = new String[element.getElementsByTagName("respuesta").getLength()];
             for (int i = 0; i < element.getElementsByTagName("respuesta").getLength(); i++) {
-                
-                
-                NodeList nodeListResp = element.getElementsByTagName("respuesta").item(i).getChildNodes();
-                Node nodeResp = (Node) nodeListResp.item(0);
 
-                
-                letrasXML[i] = nodeResp.getNodeValue();
-                
-                Node aux = element.getElementsByTagName("respuesta").item(i).getAttributes().getNamedItem("numLetras");
-                numLetrasXML[i]=aux.getNodeValue();
-               
-                
+                Element comprobacion = (Element) element.getElementsByTagName("respuesta").item(i);
+
+                if (comprobacion.getChildNodes().getLength() > 0) { //comprobamos si las respuestas tienen texto o no
+                    NodeList nodeListResp = element.getElementsByTagName("respuesta").item(i).getChildNodes();
+                    Node nodeResp = (Node) nodeListResp.item(0);
+
+                    letrasXML[i] = nodeResp.getNodeValue();
+
+                    Node aux = element.getElementsByTagName("respuesta").item(i).getAttributes().getNamedItem("numLetras");
+                    numLetrasXML[i] = aux.getNodeValue();
+                } else {
+                    i = element.getElementsByTagName("respuesta").getLength();
+                }
+
             }
             preg.setLetras(letrasXML);
             preg.setNumLetras(numLetrasXML);
-            
 
         }
 
