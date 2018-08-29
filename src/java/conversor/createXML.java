@@ -9,9 +9,11 @@ import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.Transformer;
@@ -42,6 +44,24 @@ import org.w3c.dom.Element;
 @ManagedBean
 @SessionScoped
 public class createXML extends ButtonView implements Serializable {
+    
+    
+    private String message;
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+    
+    public void ficheroGenerado(String tipo) {
+        FacesContext context = FacesContext.getCurrentInstance();
+
+        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Generado con éxito", "El fichero se ha guardado en base de datos"));
+    }
+    
 
     public void createXML(ButtonView b) throws Exception {
         int num = 0;
@@ -405,6 +425,10 @@ public class createXML extends ButtonView implements Serializable {
         transformer.transform(source, streamResult);
         
         b.deleteAllLists();
+        
+        ficheroGenerado(TipoJuego);
     }
+    
+    
 
 }
