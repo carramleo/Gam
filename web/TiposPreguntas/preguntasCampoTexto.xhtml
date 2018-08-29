@@ -13,7 +13,7 @@
         <ui:composition >
             
             <p:panel id="#{pregunta.id}"  header="Pregunta" toggleable="true" closable="true"  toggleSpeed="500" closeSpeed="500" widgetVar="preg_#{pregunta.id}" >
-                 <p:ajax event="close" listener="#{buttonView.deletePregunta}" update="panelesJuegoCampoTexto" />
+                <p:ajax event="close"  listener="#{buttonView.deletePreguntaCampoTexto}" />
                 <h:panelGrid columns = "2" border = "1" 
                              cellpadding = "10" cellspacing = "1" style="width: 100%;">
 
@@ -21,16 +21,22 @@
                         <h:outputText value = "Pregunta"/>
                     </f:facet>
                     <h:outputLabel value = "Enunciado:" />
-                    <h:inputText size="100" value="#{pregunta.enunciado}" />
+                    <h:inputText size="100" value="#{pregunta.enunciado}" >
+                         <p:ajax  event="valueChange"  />
+                    </h:inputText>
                     
                     <f:facet name = "footer">
                         <h:outputLabel value = "Posibles soluciones:" />
                         <c:forEach items="#{pregunta.solucion}" var="sol" varStatus="solLoop">
-                        <h:inputText size="10" value="#{sol}" />
+                            <h:inputText size="10" value="#{sol}" >
+                                 <p:ajax  event="valueChange"  />
+                            </h:inputText>
                         </c:forEach>
                         <h:outputLabel value = "Pista:" />
                         <c:forEach items="#{pregunta.pistas}" var="pista" varStatus="pistaLoop">
-                        <h:inputText size="10" value="#{pista}" />
+                            <h:inputText size="10" value="#{pista}" >
+                                 <p:ajax  event="valueChange"  />
+                            </h:inputText>
                         </c:forEach>
                     </f:facet>                        
 

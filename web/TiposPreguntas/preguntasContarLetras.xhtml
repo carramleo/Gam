@@ -13,7 +13,7 @@
         <ui:composition >
 
             <p:panel id="#{pregunta.id}"  header="Pregunta" toggleable="true" closable="true"  toggleSpeed="500" closeSpeed="500" widgetVar="preg_#{pregunta.id}" >
-                 <p:ajax event="close" listener="#{buttonView.deletePregunta}" update="panelesJuegoContarLetras" />
+                <p:ajax event="close" listener="#{buttonView.deletePreguntaContarLetras}" />
                 <h:panelGrid columns = "2" border = "1" 
                              cellpadding = "10" cellspacing = "1" style="width: 100%;">
 
@@ -21,14 +21,20 @@
                         <h:outputText value = "Contar letras"/>
                         <h:outputText value="&lt;br/&gt;" escape="false" />
                         <h:outputLabel value = "Palabra: " />
-                        <h:inputText size="50" value="#{pregunta.palabra}"  />
+                        <h:inputText size="50" value="#{pregunta.palabra}"  >
+                             <p:ajax  event="valueChange"  />
+                        </h:inputText>
                     </f:facet>
                     <h:outputText value="Letras"  />
                     <h:outputText value="Número de repeticiones" />
 
                     <c:forEach items="#{pregunta.letras}" var="let" id="letras"  varStatus="num" >
-                        <h:inputText size="45" value="#{let}"  />
-                        <h:inputText size="5" value="#{pregunta.numLetras[num.index]}"  />
+                        <h:inputText size="45" value="#{let}"  >
+                             <p:ajax  event="valueChange"  />
+                        </h:inputText>
+                        <h:inputText size="5" value="#{pregunta.numLetras[num.index]}"  >
+                             <p:ajax  event="valueChange"  />
+                        </h:inputText>
 
                     </c:forEach>
                     

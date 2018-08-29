@@ -403,6 +403,8 @@ public class createXML extends ButtonView implements Serializable {
         StreamResult streamResult = new StreamResult(new File("C:\\Users\\carlo\\Desktop\\Ingeniería de Telecomunicaciones\\4º CUARTO\\TFG\\prueba\\prueba.xml"));
 
         transformer.transform(source, streamResult);
+        
+        b.deleteAllLists();
     }
 
 }

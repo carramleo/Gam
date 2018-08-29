@@ -13,7 +13,7 @@
         <ui:composition id="cifras">
             
             <p:panel id="#{pregunta.id}"  header="Pregunta" toggleable="true" closable="true"  toggleSpeed="500" closeSpeed="500" widgetVar="preg_#{pregunta.id}" >
-                 <p:ajax event="close" listener="#{buttonView.deletePregunta}" update="panelesJuegoCifras" />
+                <p:ajax event="close" listener="#{buttonView.deletePreguntaCifras}"  />
                 <h:panelGrid columns = "2" border = "1" 
                              cellpadding = "10" cellspacing = "1" style="width: 100%;">
 
@@ -21,11 +21,15 @@
                         <h:outputText value = "Pregunta"/>
                     </f:facet>
                     <h:outputLabel value = "Enunciado:" />
-                    <h:inputText size="100" value="#{pregunta.enunciado}" />
+                    <h:inputText size="100" value="#{pregunta.enunciado}"  >
+                         <p:ajax  event="valueChange"  />
+                    </h:inputText>
                     
                     <f:facet name = "footer">
                         <h:outputLabel value = "Solución numérica:" />
-                        <h:inputText size="5" value="#{pregunta.solucion}" />	
+                        <h:inputText size="5" value="#{pregunta.solucion}" >
+                             <p:ajax  event="valueChange"  />
+                        </h:inputText>	
                     </f:facet>                        
 
 

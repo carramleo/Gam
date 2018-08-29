@@ -13,7 +13,7 @@
         <ui:composition id="relacionar">
             
             <p:panel id="#{pregunta.id}"  header="Pregunta" toggleable="true" closable="true"  toggleSpeed="500" closeSpeed="500" widgetVar="preg_#{pregunta.id}" >
-                 <p:ajax event="close" listener="#{buttonView.deletePregunta}" update="panelesJuegoRelacionar" />
+                <p:ajax event="close" listener="#{buttonView.deletePreguntaRelacionar}"/>
                 <h:panelGrid columns = "2" border = "1" 
                              cellpadding = "10" cellspacing = "1" style="width: 100%;">
 
@@ -22,10 +22,14 @@
                     </f:facet>
                     <c:forEach items="#{pregunta.columnaRespuesta}" var="columnasResp" varStatus="col" >
                     
-                    <h:inputText size="45" value="#{columnasResp}"  />
+                        <h:inputText size="45" value="#{columnasResp}"  >
+                             <p:ajax  event="valueChange"  />
+                        </h:inputText>
                     
 
-                    <h:inputText size="45" value="#{pregunta.columnaSolucion[col.index]}"  />
+                        <h:inputText size="45" value="#{pregunta.columnaSolucion[col.index]}"  >
+                             <p:ajax  event="valueChange"  />
+                        </h:inputText>
                     
                     </c:forEach>
                     

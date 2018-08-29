@@ -13,7 +13,7 @@
         <ui:composition  >
 
             <p:panel id="#{pregunta.id}" widgetVar="wid_#{pregunta.id}" header="Pregunta" toggleable="true" closable="true"  >
-                <p:ajax event="close" listener="#{buttonView.deletePregunta}" delay="1000" update="panelesJuego"/>
+                <p:ajax event="close"  listener="#{buttonView.deletePregunta}" />
                 
                 <h:panelGrid  columns = "2" border = "1" 
                              cellpadding = "10" cellspacing = "1" style="width: 100%;" >
