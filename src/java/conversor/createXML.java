@@ -6,6 +6,7 @@
 package conversor;
 
 import java.io.File;
+import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -44,8 +46,7 @@ import org.w3c.dom.Element;
 @ManagedBean
 @SessionScoped
 public class createXML extends ButtonView implements Serializable {
-    
-    
+
     private String message;
 
     public String getMessage() {
@@ -55,13 +56,12 @@ public class createXML extends ButtonView implements Serializable {
     public void setMessage(String message) {
         this.message = message;
     }
-    
+
     public void ficheroGenerado(String tipo) {
         FacesContext context = FacesContext.getCurrentInstance();
 
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Generado con éxito", "El fichero se ha guardado en base de datos"));
     }
-    
 
     public void createXML(ButtonView b) throws Exception {
         int num = 0;
@@ -286,7 +286,7 @@ public class createXML extends ButtonView implements Serializable {
                     pista.setAttribute("numLineas", "numLineas");
                     pista.appendChild(document.createTextNode(pist));
                     pregunta.appendChild(pista);
-                    
+
                 }
 
                 preguntas.appendChild(pregunta);
@@ -309,21 +309,18 @@ public class createXML extends ButtonView implements Serializable {
                 pregunta.appendChild(enunciado);
 
                 for (String resp : model.getColumnaRespuesta()) {
-                    
 
                     Element respuesta = document.createElement("respuesta");
                     respuesta.appendChild(document.createTextNode(resp));
                     respuesta.setAttribute("numLineas", "''");
                     respuesta.setAttribute("num", Integer.toString(num));
                     //respuesta.setAttribute("numLetras", "''");
-                   
-                    
+
                     Element respuesta2 = document.createElement("respuesta");
                     respuesta2.appendChild(document.createTextNode(model.getColumnaSolucion()[num]));
                     respuesta2.setAttribute("numLineas", "''");
                     respuesta2.setAttribute("num", Integer.toString(num));
-                    
-                    
+
                     pregunta.appendChild(respuesta);
                     pregunta.appendChild(respuesta2);
                     num++;
@@ -335,7 +332,7 @@ public class createXML extends ButtonView implements Serializable {
                 pista.setAttribute("id", "1");
                 pista.setAttribute("numLineas", "numLineas");
                 pregunta.appendChild(pista);
-                */
+                 */
                 preguntas.appendChild(pregunta);
             }
         } else if (PreguntasRespAbierta != null && !PreguntasRespAbierta.isEmpty()) {
@@ -366,13 +363,13 @@ public class createXML extends ButtonView implements Serializable {
                     pregunta.appendChild(respuesta);
 
                 }*/
-                /*
+ /*
                 num = 0;
                 Element pista = document.createElement("pista");
                 pista.setAttribute("id", "1");
                 pista.setAttribute("numLineas", "numLineas");
                 pregunta.appendChild(pista);
-                */
+                 */
                 preguntas.appendChild(pregunta);
             }
         } else if (PreguntasSiNo != null && !PreguntasSiNo.isEmpty()) {
@@ -396,7 +393,6 @@ public class createXML extends ButtonView implements Serializable {
                 pregunta.appendChild(enunciado);
 
                 for (String resp : model.getRespuestas()) {
-                    
 
                     Element respuesta = document.createElement("respuesta");
                     respuesta.appendChild(document.createTextNode(resp));
@@ -420,15 +416,23 @@ public class createXML extends ButtonView implements Serializable {
         Transformer transformer = transformerFactory.newTransformer();
         DOMSource source = new DOMSource(document);
 
-        StreamResult streamResult = new StreamResult(new File("C:\\Users\\carlo\\Desktop\\Ingeniería de Telecomunicaciones\\4º CUARTO\\TFG\\prueba\\prueba.xml"));
 
-        transformer.transform(source, streamResult);
-        
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExternalContext externalContext = context.getExternalContext();
+        externalContext.responseReset();
+        externalContext.setResponseContentType("application/xml");
+        externalContext.setResponseHeader("Cache-Control", "must-revalidate, post-check=0, pre-check=0");
+        externalContext.setResponseHeader("Pragma", "public");
+        externalContext.setResponseHeader("Content-disposition", "attachment;filename=" + "juego_" +TipoJuego +".xml");
+        OutputStream out = externalContext.getResponseOutputStream();
+        transformer.transform(source, new StreamResult(out));
+
+        externalContext.responseFlushBuffer();
+
+
         b.deleteAllLists();
-        
+
         ficheroGenerado(TipoJuego);
     }
-    
-    
 
 }
