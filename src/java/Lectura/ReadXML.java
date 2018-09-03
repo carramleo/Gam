@@ -188,7 +188,7 @@ public class ReadXML {
     private static PreguntaOpciones getPreguntaOpciones(Node node, String tipo, ButtonView bb) {
         //XMLReaderDOM domReader = new XMLReaderDOM();
         PreguntaOpciones preg = new PreguntaOpciones(SelectOneMenuTipos.numOpciones.get(tipo), SelectOneMenuTipos.formatoOp.get(tipo), SelectOneMenuTipos.lineasEnun.get(tipo));
-
+         char[] formatoOpciones = new char[]{'A', 'B', 'C', 'D', 'E', 'F'};
         if (node.getNodeType() == Node.ELEMENT_NODE) {
             Element element = (Element) node;
 
@@ -206,7 +206,13 @@ public class ReadXML {
 
             }
             preg.setRespuestas(respuestasXML);
-            preg.setSolucion(element.getAttributeNode("sol").getValue());
+            int numSol=0;
+            for(int j =0;j<formatoOpciones.length;j++){
+                if(String.valueOf(formatoOpciones[j]).equals(element.getAttributeNode("sol").getValue())){
+                    numSol=j+1;
+                }
+            }
+            preg.setSolucion(String.valueOf(numSol));
 
         }
 

@@ -425,6 +425,7 @@ public class createXML extends ButtonView implements Serializable {
         externalContext.setResponseHeader("Pragma", "public");
         externalContext.setResponseHeader("Content-disposition", "attachment;filename=" + "juego_" +TipoJuego +".xml");
         OutputStream out = externalContext.getResponseOutputStream();
+       
         transformer.transform(source, new StreamResult(out));
 
         externalContext.responseFlushBuffer();

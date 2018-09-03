@@ -48,10 +48,11 @@
                                 <p:menuitem value="Buscador" url="buscador.xhtml" />
 
                             </p:submenu>
-                            <p:submenu label="Guardar"  >
-                                <p:menuitem value="Base de datos">
-                                    <p:fileUpload  value="#{readXML.file}"  style="width: 300px;"  mode="simple"  allowTypes="/(\.|\/)(xml|doc|docx|xls|txt|pdf)$/"/>
-                                    <h:commandButton value="Guardar"  action="#{readXML.readFile(buttonView, selectOneMenuView, selectOneMenuTipos)}"  ></h:commandButton>
+                            <p:submenu label="Exportar"  >
+                                <p:menuitem >
+                                    <p:fileUpload  value="#{exportador.fileExp}" widgetVar="fichexp"  style="width: 300px;"  mode="simple"  allowTypes="/(\.|\/)(xml|doc|docx|xls|txt|pdf)$/"/>
+                                    <h:commandButton value="PDF"  action="#{exportador.compruebaFich()}"  ></h:commandButton>
+                                    <h:commandButton value="XML"  action="#{exportador.compruebaFich()}"  ></h:commandButton>
                                 </p:menuitem>
                             </p:submenu>
 
