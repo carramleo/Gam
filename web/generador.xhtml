@@ -48,6 +48,12 @@
                                 <p:menuitem value="Buscador" url="buscador.xhtml" />
 
                             </p:submenu>
+                            <p:submenu label="Guardar"  >
+                                <p:menuitem value="Base de datos">
+                                    <p:fileUpload  value="#{readXML.file}"  style="width: 300px;"  mode="simple"  allowTypes="/(\.|\/)(xml|doc|docx|xls|txt|pdf)$/"/>
+                                    <h:commandButton value="Guardar"  action="#{readXML.readFile(buttonView, selectOneMenuView, selectOneMenuTipos)}"  ></h:commandButton>
+                                </p:menuitem>
+                            </p:submenu>
 
 
                         </p:menu>
