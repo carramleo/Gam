@@ -49,7 +49,7 @@ public class exportador implements Serializable {
             
             InputStream fichero = fileExp.getInputstream();
             
-            pdf.XMLtoPDF(fichero);
+            pdf.convertXMLtoPDF(fichero);
             
         }
     }

@@ -16,7 +16,7 @@
             <head>
                 <title>Gamificacion</title>
                 <meta name="description" content="Nuevo Juego"/>
-                <h1>Nuevo Juego</h1>
+                
             </head>
             <body style='font-family:Tahoma;font-size:9pt;letter-spacing:0.5px'>
                 <h2>Titulo: <xsl:value-of select="titulo" /></h2>
@@ -26,7 +26,7 @@
 				
 				<h3><xsl:value-of select="tema" /></h3>
 				<h4><xsl:value-of select="position()" />: <xsl:value-of select="enunciado" /></h4>
-					<p>Solución: <xsl:value-of select="@sol" /></p>
+					<p>Solucion: <xsl:value-of select="@sol" /></p>
 					 <xsl:for-each select="respuesta">
 						
 							<p><xsl:value-of select="." /></p>

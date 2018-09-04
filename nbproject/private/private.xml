@@ -5,7 +5,10 @@
         <group>
             <file>file:/C:/Users/carlo/Documents/NetBeansProjects/Gam/src/java/conversor/XMLtoPDF.java</file>
             <file>file:/C:/Users/carlo/Documents/NetBeansProjects/Gam/src/java/conversor/createXML.java</file>
+            <file>file:/C:/Users/carlo/Documents/NetBeansProjects/Gam/src/java/Lectura/ReadXML.java</file>
+            <file>file:/C:/Users/carlo/Documents/NetBeansProjects/Gam/src/java/conversor/exportador.java</file>
             <file>file:/C:/Users/carlo/Documents/NetBeansProjects/Gam/src/java/conversor/convertToPDF.xsl</file>
+            <file>file:/C:/Users/carlo/Documents/NetBeansProjects/Gam/web/generador.xhtml</file>
         </group>
     </open-files>
 </project-private>
