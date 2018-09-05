@@ -51,8 +51,8 @@
                             <p:submenu label="Exportar"  >
                                 <p:menuitem >
                                     <p:fileUpload update=":juego" value="#{exportador.fileExp}" widgetVar="fichexp"  style="width: 300px;"  mode="simple"  allowTypes="/(\.|\/)(xml|doc|docx|xls|txt|pdf)$/"/>
-                                    <h:commandButton value="PDF"  action="#{exportador.compruebaFich()}"  ></h:commandButton>
-                                    <h:commandButton value="XML"  action="#{exportador.compruebaFich()}"  ></h:commandButton>
+                                    <h:commandButton value="PDF"  action="#{exportador.exportadorPDF()}"  ></h:commandButton>
+                                    <h:commandButton value="TXT"  action="#{exportador.exportadorTXT()}"  ></h:commandButton>
                                 </p:menuitem>
                             </p:submenu>
 

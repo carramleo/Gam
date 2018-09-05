@@ -9,6 +9,7 @@ import com.itextpdf.text.DocumentException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
+import conversorTXT.MyDomParser;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -37,10 +38,10 @@ public class exportador implements Serializable {
     public void errorFileExp() {
         FacesContext context = FacesContext.getCurrentInstance();
 
-        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al importar", "No ha seleccionado un fichero"));
+        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al exportar", "No ha seleccionado un fichero"));
     }
 
-    public void compruebaFich() throws IOException, DocumentException, TransformerException {
+    public void exportadorPDF() throws IOException, DocumentException, TransformerException {
         if (fileExp.getFileName() == null || fileExp.getFileName().isEmpty()) {
             errorFileExp();
         } else {
@@ -50,6 +51,20 @@ public class exportador implements Serializable {
             InputStream fichero = fileExp.getInputstream();
             
             pdf.convertXMLtoPDF(fichero);
+            
+        }
+    }
+    
+    public void exportadorTXT() throws IOException, DocumentException, TransformerException {
+        if (fileExp.getFileName() == null || fileExp.getFileName().isEmpty()) {
+            errorFileExp();
+        } else {
+            
+            MyDomParser txt = new MyDomParser();
+            
+            InputStream fichero = fileExp.getInputstream();
+            
+            txt.conversorXMLtoTXT(fichero);
             
         }
     }
