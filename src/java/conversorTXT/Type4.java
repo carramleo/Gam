@@ -40,7 +40,7 @@ public class Type4 {
 
 				int numLineas = Integer.parseInt(lineas);
 				
-				if (preguntaTipo.getAttribute("tipo").equals("4")){
+				if (preguntaTipo.getAttribute("tipo").equals("Tipo4")){
 					
 				tipo4=true;	
 				 numLineasRestantes = NumeroLineasTipo4 - numLineas;
@@ -51,7 +51,7 @@ public class Type4 {
 																								// enunciados de las
 																								// preguntas
 				);
-				}else if (preguntaTipo.getAttribute("tipo").equals("sabio")){
+				}else if (preguntaTipo.getAttribute("tipo").equals("TipoSabio")){
 				
 				tipoSabio=true;
 				 numLineasRestantes = NumeroLineasTipoSabio - numLineas;
@@ -76,8 +76,8 @@ public class Type4 {
 					if (sol.getNodeType() == Node.ELEMENT_NODE) {
 
 						Element solucion = (Element) sol; // Imprimimos las soluciones de la pregunta
-						FileOutputStream os1 = new FileOutputStream("examen.txt", true);
-						ps = new PrintStream(os1);
+						//FileOutputStream os1 = new FileOutputStream("examen.txt", true);
+						//ps = new PrintStream(os1);
 						ps.println("'" + solucion.getTextContent() + "'");
 					}
 				}
@@ -90,9 +90,9 @@ public class Type4 {
 			if (tipo4 ) {
 			Node pis = pista.item(0);
 
-			FileOutputStream os1 = new FileOutputStream("examen.txt", true);
+			//FileOutputStream os1 = new FileOutputStream("examen.txt", true);
 			if (pis.getNodeType() == Node.ELEMENT_NODE) {
-				ps = new PrintStream(os1);
+				//ps = new PrintStream(os1);
 				ps.println("'" + pis.getTextContent() + "'"); // imprimimos la pista
 			}
 		}

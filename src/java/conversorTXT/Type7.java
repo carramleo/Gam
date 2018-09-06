@@ -52,8 +52,8 @@ public class Type7 {
 					if (sol.getNodeType() == Node.ELEMENT_NODE) {
 
 						Element solucion = (Element) sol; // Imprimimos las soluciones de la pregunta
-						FileOutputStream os1 = new FileOutputStream("examen.txt", true);
-						ps = new PrintStream(os1);
+						//FileOutputStream os1 = new FileOutputStream("examen.txt", true);
+						//ps = new PrintStream(os1);
 						ps.println("'" + solucion.getTextContent() + "'");
 
 						String lineasSol = e.getAttributes().getNamedItem("numLineas").getTextContent();
@@ -65,8 +65,8 @@ public class Type7 {
 					}
 				}
 			}
-			FileOutputStream os1 = new FileOutputStream("examen.txt", true);
-			ps = new PrintStream(os1);
+			//FileOutputStream os1 = new FileOutputStream("examen.txt", true);
+			//ps = new PrintStream(os1);
 			ps.println("'" + correcta + "'");
 			for (int k = 0; k < comodin50.length; k++) {
 				ps.println("'" + comodin50[k] + "'");

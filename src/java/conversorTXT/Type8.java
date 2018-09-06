@@ -35,8 +35,8 @@ public class Type8 {
 
 			if (e.getNodeType() == Node.ELEMENT_NODE) {
 
-				FileOutputStream os1 = new FileOutputStream("examen.txt");
-				ps = new PrintStream(os1);
+				//FileOutputStream os1 = new FileOutputStream("examen.txt");
+				//ps = new PrintStream(os1);
 				ps.println("'FRASE'");
 
 				for (int j = 0; j < soluciones.getLength(); j++) {
@@ -46,8 +46,8 @@ public class Type8 {
 					if (sol.getNodeType() == Node.ELEMENT_NODE) {
 
 						Element solucion = (Element) sol; // Imprimimos las soluciones de la pregunta
-						FileOutputStream os2 = new FileOutputStream("examen.txt", true);
-						ps = new PrintStream(os2);
+						//FileOutputStream os2 = new FileOutputStream("examen.txt", true);
+						//ps = new PrintStream(os2);
 						ps.println("'" + solucion.getTextContent() + "'");
 					}
 				}
@@ -57,8 +57,8 @@ public class Type8 {
 
 			}
 
-			FileOutputStream os2 = new FileOutputStream("examen.txt", true);
-			ps = new PrintStream(os2);
+			//FileOutputStream os2 = new FileOutputStream("examen.txt", true);
+			//ps = new PrintStream(os2);
 			ps.println("'AUTOR/A: " + nombre + "'");
 			ps.println("'TEMA: " + tema + "'");
 			ps.println("'PISTA'");
@@ -67,17 +67,17 @@ public class Type8 {
 				Node pis = pista.item(g);
 
 				if (pis.getNodeType() == Node.ELEMENT_NODE) {
-					ps = new PrintStream(os2);
+					//ps = new PrintStream(os2);
 					ps.println("'" + pis.getTextContent() + "'"); // imprimimos la pista
 				}
 
 			}
 		}
-		if (preguntaTipo.getAttribute("tipo").equals("8")) {
+		if (preguntaTipo.getAttribute("tipo").equals("Tipo8")) {
 			for (int h = 0; h < numPistasRestantes8; h++) {
 				ps.println(comillas); // imprimimos las comillas restantes de las pistas posibles
 			}
-		} else if (preguntaTipo.getAttribute("tipo").equals("10")) {
+		} else if (preguntaTipo.getAttribute("tipo").equals("Tipo10")) {
 
 			for (int h = 0; h < numPistasRestantes10; h++) {
 				ps.println(comillas); // imprimimos las comillas restantes de las pistas posibles

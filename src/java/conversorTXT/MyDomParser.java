@@ -72,15 +72,15 @@ public class MyDomParser implements Serializable {
                 NodeList Pregunta = doc.getElementsByTagName("pregunta");   //creamos la lista de nodos de pregunta
                 NodeList palabras = doc.getElementsByTagName("palabra");
 
-                if (preg.getAttributes().getNamedItem("tipo").getTextContent().equals("lossabios")
-                        || preg.getAttributes().getNamedItem("tipo").getTextContent().equals("14")
-                        || preg.getAttributes().getNamedItem("tipo").getTextContent().equals("123")
-                        || preg.getAttributes().getNamedItem("tipo").getTextContent().equals("pocasPalabras")
-                        || preg.getAttributes().getNamedItem("tipo").getTextContent().equals("pistas")
-                        || preg.getAttributes().getNamedItem("tipo").getTextContent().equals("letraAletra")
-                        || preg.getAttributes().getNamedItem("tipo").getTextContent().equals("AntesyDespues")
-                        || preg.getAttributes().getNamedItem("tipo").getTextContent().equals("partextodo")
-                        || preg.getAttributes().getNamedItem("tipo").getTextContent().equals("ultimallamada")) {
+                if (preg.getAttributes().getNamedItem("tipo").getTextContent().equals("TipoSabios")
+                        || preg.getAttributes().getNamedItem("tipo").getTextContent().equals("Tipo14")
+                        || preg.getAttributes().getNamedItem("tipo").getTextContent().equals("Tipo123")
+                        || preg.getAttributes().getNamedItem("tipo").getTextContent().equals("TipoPocasPalabras")
+                        || preg.getAttributes().getNamedItem("tipo").getTextContent().equals("TipoPistas")
+                        || preg.getAttributes().getNamedItem("tipo").getTextContent().equals("TipoLetra")
+                        || preg.getAttributes().getNamedItem("tipo").getTextContent().equals("TipoAntesyDespues")
+                        || preg.getAttributes().getNamedItem("tipo").getTextContent().equals("TipoPartextodo")
+                        || preg.getAttributes().getNamedItem("tipo").getTextContent().equals("TipoLlamada")) {
 
                     //FileOutputStream os = new FileOutputStream("examen.txt", true);
                     ps = new PrintStream(out);

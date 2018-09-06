@@ -39,23 +39,23 @@ public class TypeRelacionar {
 
 
 		
-		if (preguntaTipo.getAttribute("tipo").equals("identity")) {
+		if (preguntaTipo.getAttribute("tipo").equals("TipoIdentity")) {
 			TipoIdentity=true;
 			
 		}
-		else if (preguntaTipo.getAttribute("tipo").equals("partextodo")) {
+		else if (preguntaTipo.getAttribute("tipo").equals("TipoPartextodo")) {
 			TipoPartextodo=true;
 			
 		}
-		else if (preguntaTipo.getAttribute("tipo").equals("ultimallamada")) {
+		else if (preguntaTipo.getAttribute("tipo").equals("TipoLlamada")) {
 			TipoUltimallamada=true;
 			
 		}
-		else if (preguntaTipo.getAttribute("tipo").equals("OrdenaFrase")) {
+		else if (preguntaTipo.getAttribute("tipo").equals("TipoOrdenaFrase")) {
 			TipoOrdenafrase=true;
 			
 		}
-		else if (preguntaTipo.getAttribute("tipo").equals("palabraImposible")) {
+		else if (preguntaTipo.getAttribute("tipo").equals("TipoImposible")) {
 			TipoPalabraImposible=true;
 			
 		}

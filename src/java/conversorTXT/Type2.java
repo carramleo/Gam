@@ -49,7 +49,7 @@ public class Type2 {
 					}
 
 				}
-			} else if (preguntaTipo.getAttribute("tipo").equals("18")) {
+			} else if (preguntaTipo.getAttribute("tipo").equals("Tipo18")) {
 				Tipo18 = true;
 				if (e.getNodeType() == Node.ELEMENT_NODE) {
 					ps.println("'ENUNCIADO DE LA PREGUNTA'" + "\n" + "'" + e.getTextContent() + "'" // imprimimos los
@@ -62,7 +62,7 @@ public class Type2 {
 					}
 
 				}
-			} else if (preguntaTipo.getAttribute("tipo").equals("letritas")) {
+			} else if (preguntaTipo.getAttribute("tipo").equals("TipoLetritas")) {
 				TipoLetritas=true;
 				
 				if (e.getNodeType() == Node.ELEMENT_NODE) {
@@ -93,8 +93,8 @@ public class Type2 {
 					String[] respOk = correcta.split(",");
 					Element solucion = (Element) sol; // Imprimimos las soluciones de la pregunta
 					Boolean si = false;
-					FileOutputStream os1 = new FileOutputStream("examen.txt", true);
-					ps = new PrintStream(os1);
+					//FileOutputStream os1 = new FileOutputStream("examen.txt", true);
+					//ps = new PrintStream(os1);
 					ps.println("'" + solucion.getTextContent() + "'");
 					for (int k = 0; k < respOk.length; k++) {
 						if (respOk[k].toString().equals(solucion.getAttribute("tipo"))) {
@@ -113,8 +113,8 @@ public class Type2 {
 					String[] respOk = correcta.split(",");
 					Element solucion = (Element) sol; // Imprimimos las soluciones de la pregunta
 					Boolean si = false;
-					FileOutputStream os1 = new FileOutputStream("examen.txt", true);
-					ps = new PrintStream(os1);
+					//FileOutputStream os1 = new FileOutputStream("examen.txt", true);
+					//ps = new PrintStream(os1);
 					ps.println("'OPCION " + solucion.getAttribute("num") + "'" + "\n" + "'" + solucion.getTextContent()
 							+ "'");
 					for (int k = 0; k < respOk.length; k++) {
@@ -135,8 +135,8 @@ public class Type2 {
 					
 					Element solucion = (Element) sol; // Imprimimos las soluciones de la pregunta
 					String letrita = sol.getAttributes().getNamedItem("letritas").getTextContent();
-					FileOutputStream os1 = new FileOutputStream("examen.txt", true);
-					ps = new PrintStream(os1);
+					//FileOutputStream os1 = new FileOutputStream("examen.txt", true);
+					//ps = new PrintStream(os1);
 					ps.println("'" + solucion.getTextContent() + "'");
 					ps.println(letrita);
 										

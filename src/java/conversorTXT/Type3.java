@@ -39,20 +39,20 @@ public class Type3 {
 																							// de las preguntas
 				);
 
-				if (preguntaTipo.getAttribute("tipo").equals("3")) {
+				if (preguntaTipo.getAttribute("tipo").equals("Tipo3")) {
 
 					for (int h = 0; h < NumeroLineasTipo3 - numLineas; h++) {
 						ps.println(comillas); // imprimimos las comillas restantes de laslineas del enunciado sin ocupar
 
 					}
 
-				} else if (preguntaTipo.getAttribute("tipo").equals("9")) {
+				} else if (preguntaTipo.getAttribute("tipo").equals("Tipo9")) {
 					for (int h = 0; h < NumeroLineasTipo9 - numLineas; h++) {
 						ps.println(comillas); // imprimimos las comillas restantes de laslineas del enunciado sin ocupar
 
 					}
 
-				} else if (preguntaTipo.getAttribute("tipo").equals("patatacaliente")) {
+				} else if (preguntaTipo.getAttribute("tipo").equals("TipoPatata")) {
 					for (int h = 0; h < NumeroLineasTipoPatata - numLineas; h++) {
 						ps.println(comillas); // imprimimos las comillas restantes de laslineas del enunciado sin ocupar
 
@@ -67,8 +67,8 @@ public class Type3 {
 					if (sol.getNodeType() == Node.ELEMENT_NODE) {
 
 						Element solucion = (Element) sol; // Imprimimos las soluciones de la pregunta
-						FileOutputStream os1 = new FileOutputStream("examen.txt", true);
-						ps = new PrintStream(os1);
+						//FileOutputStream os1 = new FileOutputStream("examen.txt", true);
+						//ps = new PrintStream(os1);
 						ps.println(solucion.getTextContent());
 					}
 				}

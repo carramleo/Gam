@@ -32,13 +32,13 @@ public class Type6 {
 		
 		
 		
-		if (preguntaTipo.getAttribute("tipo").equals("pistas")) {
+		if (preguntaTipo.getAttribute("tipo").equals("TipoPistas")) {
 			TipoPistas=true;
 			numRespRestantes = NumLineasPistas - pista.getLength();
-		}else if (preguntaTipo.getAttribute("tipo").equals("2palabras")) {
+		}else if (preguntaTipo.getAttribute("tipo").equals("Tipo2palabras")) {
 			Tipo2palabras=true;
 			numRespRestantes = NumeroResp - soluciones.getLength();
-		}else if (preguntaTipo.getAttribute("tipo").equals("6")) {
+		}else if (preguntaTipo.getAttribute("tipo").equals("Tipo6")) {
 			Tipo6=true;
 			numRespRestantes = NumeroResp - soluciones.getLength();
 		}
@@ -64,8 +64,8 @@ public class Type6 {
 					if (sol.getNodeType() == Node.ELEMENT_NODE) {
 
 						Element solucion = (Element) sol; // Imprimimos las soluciones de la pregunta
-						FileOutputStream os1 = new FileOutputStream("examen.txt", true);
-						ps = new PrintStream(os1);
+						//FileOutputStream os1 = new FileOutputStream("examen.txt", true);
+						//ps = new PrintStream(os1);
 						ps.println("'" + solucion.getTextContent() + "'");
 					}
 				}
@@ -81,8 +81,8 @@ public class Type6 {
 			
 			if(!Tipo2palabras && (TipoPistas || Tipo6)) {
 				
-			FileOutputStream os1 = new FileOutputStream("examen.txt", true);
-			ps = new PrintStream(os1);
+			//FileOutputStream os1 = new FileOutputStream("examen.txt", true);
+			//ps = new PrintStream(os1);
 			
 			if (Tipo6)
 				ps.println("'PISTAS DE LA PALABRA'");
@@ -95,7 +95,7 @@ public class Type6 {
 				Node pis = pista.item(g);
 
 				if (pis.getNodeType() == Node.ELEMENT_NODE) {
-					ps = new PrintStream(os1);
+					//ps = new PrintStream(os1);
 					ps.println("'" + pis.getTextContent() + "'"); // imprimimos la pista
 				}
 			}

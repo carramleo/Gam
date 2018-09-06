@@ -28,7 +28,7 @@ public class TypePalabras {
 		NodeList enunciado = pregunta.getElementsByTagName("enunciado");
 		
 		
-		if(preguntaTipo.getAttribute("tipo").equals("DueloPalabras") ){
+		if(preguntaTipo.getAttribute("tipo").equals("TipoDueloPalabras") ){
 			TipoDueloPalabras=true;
 			
 			if (id.equals("1")) {    //solo me interesa entrar aqui una vez
@@ -52,9 +52,9 @@ public class TypePalabras {
 		
 		
 		
-		}else if (preguntaTipo.getAttribute("tipo").equals("coincidencias")){
+		}else if (preguntaTipo.getAttribute("tipo").equals("TipoCoincidencias")){
 			TipoCoincidencias=true;
-		}else if (preguntaTipo.getAttribute("tipo").equals("pocasPalabras")){
+		}else if (preguntaTipo.getAttribute("tipo").equals("TipoPocasPalabras")){
 			TipoPocasPalabras=true;
 			
 			if (id.equals("1")) {    //solo me interesa entrar aqui una vez
@@ -72,9 +72,9 @@ public class TypePalabras {
 			}
 		
 			}
-		}else if (preguntaTipo.getAttribute("tipo").equals("lingo")){
+		}else if (preguntaTipo.getAttribute("tipo").equals("TipoLingo")){
 			TipoLingo=true;
-		}else if (preguntaTipo.getAttribute("tipo").equals("cuantasLetras")){
+		}else if (preguntaTipo.getAttribute("tipo").equals("TipoCuantasLetras")){
 			TipoCuantasLetras=true;
 			
 			if (id.equals("1")) {    //solo me interesa entrar aqui una vez
@@ -139,8 +139,8 @@ public class TypePalabras {
 					if (sol.getNodeType() == Node.ELEMENT_NODE) {
 
 						Element solucion = (Element) sol; // Imprimimos las soluciones de la pregunta
-						FileOutputStream os1 = new FileOutputStream("examen.txt", true);
-						ps = new PrintStream(os1);
+						//FileOutputStream os1 = new FileOutputStream("examen.txt", true);
+						//ps = new PrintStream(os1);
 						ps.println("'" + solucion.getTextContent() + "'");
 					}
 				}
