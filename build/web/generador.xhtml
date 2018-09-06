@@ -45,6 +45,7 @@
                                     <p:fileUpload  update=":juego" value="#{readXML.file}"  style="width: 300px;"  mode="simple"  allowTypes="/(\.|\/)(xml|doc|docx|xls|txt|pdf)$/"/>
                                     <h:commandButton value="Importar"  action="#{readXML.readFile(buttonView, selectOneMenuView, selectOneMenuTipos)}"  ></h:commandButton>
                                 </p:menuitem>
+                                <p:separator/>
                                 <p:menuitem value="Buscador" url="buscador.xhtml" />
 
                             </p:submenu>
@@ -55,7 +56,13 @@
                                     <h:commandButton value="TXT"  action="#{exportador.exportadorTXT()}"  ></h:commandButton>
                                 </p:menuitem>
                             </p:submenu>
-
+                            <p:submenu label="Guardar en Base de Datos"  >
+                                <p:menuitem value="Local">
+                                    <p:fileUpload  update=":juego" value="#{beanMongoDB.fileMongo}"  style="width: 300px;"  mode="simple"  allowTypes="/(\.|\/)(xml|doc|docx|xls|txt|pdf)$/"/>
+                                    <h:commandButton value="Guardar"   action="#"  ></h:commandButton>
+                                </p:menuitem>
+                                
+                            </p:submenu>
 
                         </p:menu>
                     </h:form>
@@ -66,12 +73,12 @@
 
                     <h:form id="juego" >
                         <p:growl id="growl" autoUpdate="true" showDetail="true" />
-                        
+
                         <p:selectOneMenu id="tipoSeleccionado"   var="tipoSeleccionado"  widgetVar="tipoSel" value="#{buttonView.tipo}" effect="fold"   >
                             <p:ajax event="change"  listener="#{buttonView.deleteAllLists()}" update="juego" />
                             <f:selectItem itemLabel="Selecciona tipo" itemValue="" />
                             <f:selectItems   value="#{selectOneMenuView.tiposSeleccionados}" itemValue="#{tipoSeleccionado}"   />
-                           
+
                         </p:selectOneMenu>
 
                         <p:panelGrid id="datosJuego"  columns="2" style="width: auto;"   >
@@ -83,12 +90,12 @@
                         </p:panelGrid>
 
                         <p:panelGrid id="panelesJuego"  columns="1" style="width: 100%;" rendered="#{selectOneMenuView.tipo eq 'TipoOpciones'}"  >
- 
+
                             <c:forEach items="#{buttonView.preguntas}" var="pregunta"  varStatus="preguntaLoop">
-                                
+
                                 <ui:include  src="TiposPreguntas/preguntas.xhtml" />
                             </c:forEach>
-                           
+
                             <p:commandButton id="btnNuevoPregunta" value="Nueva Pregunta"  update="panelesJuego"  action="#{buttonView.addPregunta()}"  />
                             <p:commandButton id="btnCrearFichPregunta" value="Crear fichero"  immediate="true" ajax="false"  action="#{createXML.createXML(buttonView)}"  />
                         </p:panelGrid> 
