@@ -48,6 +48,7 @@ import org.w3c.dom.Element;
 public class createXML extends ButtonView implements Serializable {
 
     private String message;
+    private boolean numRespOk=false;
 
     public String getMessage() {
         return message;
@@ -62,6 +63,15 @@ public class createXML extends ButtonView implements Serializable {
 
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Generado con éxito", "El fichero se ha guardado en base de datos"));
     }
+    
+    public void errorGenerado(String tipo, int numResp) {
+        FacesContext context = FacesContext.getCurrentInstance();
+
+        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Fallo al generar", "El numero de respuestas del juego " +tipo+ " es incorrecto."
+                + " Nº respuestas = " + numResp+" "));
+    }
+    
+    
 
     public void createXML(ButtonView b) throws Exception {
         int num = 0;
@@ -124,7 +134,8 @@ public class createXML extends ButtonView implements Serializable {
                 enunciado.appendChild(document.createTextNode(model.getEnunciado()));
                 enunciado.setAttribute("numLineas", Integer.toString(SelectOneMenuTipos.lineasEnun.get(preguntas.getAttribute("tipo"))));
                 pregunta.appendChild(enunciado);
-
+                
+                if(SelectOneMenuTipos.numOpciones.get(preguntas.getAttribute("tipo")) == model.getRespuestas().size()){
                 for (String resp : model.getRespuestas()) {
                     num++;
 
@@ -142,6 +153,11 @@ public class createXML extends ButtonView implements Serializable {
                 pista.setAttribute("numLineas", "numLineas");
                 pregunta.appendChild(pista);
                 preguntas.appendChild(pregunta);
+                }
+                else{
+                    errorGenerado(TipoJuego, SelectOneMenuTipos.numOpciones.get(preguntas.getAttribute("tipo")));
+                    numRespOk=true;
+                }
             }
         } else if (PreguntasCampoTexto != null && !PreguntasCampoTexto.isEmpty()) {
             num = 0;
@@ -411,6 +427,8 @@ public class createXML extends ButtonView implements Serializable {
                 preguntas.appendChild(pregunta);
             }
         }
+        
+        if(!numRespOk){
 
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         Transformer transformer = transformerFactory.newTransformer();
@@ -434,6 +452,7 @@ public class createXML extends ButtonView implements Serializable {
         b.deleteAllLists();
 
         ficheroGenerado(TipoJuego);
+        }
     }
 
 }

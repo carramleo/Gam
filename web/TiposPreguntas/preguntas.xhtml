@@ -15,24 +15,29 @@
             <p:panel id="#{pregunta.id}" widgetVar="wid_#{pregunta.id}" header="Pregunta" toggleable="true" closable="true"  >
                 <p:ajax event="close"  listener="#{buttonView.deletePregunta}" />
                 
-                <h:panelGrid  columns = "2" border = "1" 
+                <h:panelGrid  columns = "3" border = "1" 
                              cellpadding = "10" cellspacing = "1" style="width: 100%;" >
                     <f:facet name = "header">
                         <h:outputText value = "Pregunta"/>
                     </f:facet>
                     <h:outputLabel value = "Enunciado:" />
-                    <h:inputText size="100" value="#{pregunta.enunciado}" >
+                    <h:inputText size="100" value="#{pregunta.enunciado}" required="true">
                         <p:ajax  event="valueChange"  />
                     </h:inputText>
+                    <h:outputLabel value = "Borrar Preguntas" />
                     <c:forEach items="#{pregunta.respuestas}" var="resp" varStatus="loop">
                         <h:outputLabel value = "Respuesta #{loop.index +1}:" />
-                        <h:inputText size="50"  value="#{resp}" >
+                        <h:inputText size="50"  value="#{resp}" required="true" >
                             <p:ajax  event="valueChange"  />
                         </h:inputText>
+                        <p:commandButton value="Borrar"  action="#{buttonView.deleteRespPregunta(pregunta, loop.index )}"  >
+                            <p:ajax  event="click"  />
+                        </p:commandButton> 
                     </c:forEach>
+                    <p:commandButton value="Añadir Respuesta"  action="#{buttonView.addRespPregunta(pregunta)}" update="#{pregunta.id}"/>
 
                     <f:facet name = "footer">
-                        <h:selectOneRadio value="#{pregunta.solucion}" label="Solución" >
+                        <h:selectOneRadio value="#{pregunta.solucion}" label="Solución" required="true">
                           
                             <c:forEach items="#{pregunta.respuestas}" var="sol" varStatus="solLoop">
                                 <f:selectItem  itemValue = "#{solLoop.index +1}" itemLabel = "Respuesta #{solLoop.index +1}"  />
@@ -43,6 +48,8 @@
 
 
                 </h:panelGrid>
+                
+               
 
             </p:panel>
 

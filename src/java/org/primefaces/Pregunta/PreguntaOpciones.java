@@ -16,7 +16,8 @@ public class PreguntaOpciones implements Serializable {
         
 	private String id;
 	private String enunciado;
-	private String[] respuestas;
+	//private String[] respuestas;
+        private List<String> respuestas= new ArrayList<String>();
 	private String[] pistas;
         int lineasEnunciado;
         private String solucion;
@@ -26,9 +27,12 @@ public class PreguntaOpciones implements Serializable {
         
 	
 	public PreguntaOpciones(int numResp,int formatoOpciones, int lineasEnunciado) {
-           respuestas = new String[numResp];
-            
-           if (formatoOpciones == 1){
+           //respuestas = new String[numResp];
+            for (int i=0; i<numResp;i++){
+                
+                respuestas.add("");
+            }
+           /*if (formatoOpciones == 1){
                for(int j=0;j<numResp;j++){
                 respuestas[j] = "Respuesta "+this.formatoOpciones[j];
             } 
@@ -37,7 +41,7 @@ public class PreguntaOpciones implements Serializable {
            for(int j=0;j<numResp;j++){
                 respuestas[j] = "Respuesta "+(j+1);
             }
-           }
+           }*/
             
             this.lineasEnunciado=lineasEnunciado;
             //this.id=UUID.randomUUID().toString();
@@ -76,14 +80,24 @@ public class PreguntaOpciones implements Serializable {
         this.lineasEnunciado = lineasEnunciado;
     }
 
-    public String[] getRespuestas() {
+    /*public String[] getRespuestas() {
         return respuestas;
     }
 
     public void setRespuestas(String[] respuestas) {
         this.respuestas = respuestas;
     }
+*/
 
+    public List<String> getRespuestas() {
+        return respuestas;
+    }
+
+    public void setRespuestas(List<String> respuestas) {
+        this.respuestas = respuestas;
+    }
+    
+    
     public String getSolucion() {
         return solucion;
     }

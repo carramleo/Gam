@@ -8,6 +8,7 @@ package Lectura;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javax.faces.application.FacesMessage;
@@ -197,12 +198,13 @@ public class ReadXML {
             preg.setId("preg_" + bb.getNumber() + 1);
             bb.setNumber(bb.getNumber() + 1);
 
-            String[] respuestasXML = new String[element.getElementsByTagName("respuesta").getLength()];
+            //String[] respuestasXML = new String[element.getElementsByTagName("respuesta").getLength()];
+            ArrayList<String> respuestasXML = new ArrayList<String>(element.getElementsByTagName("respuesta").getLength());
             for (int i = 0; i < element.getElementsByTagName("respuesta").getLength(); i++) {
 
                 NodeList nodeListResp = element.getElementsByTagName("respuesta").item(i).getChildNodes();
                 Node nodeResp = (Node) nodeListResp.item(0);
-                respuestasXML[i] = nodeResp.getNodeValue();
+                respuestasXML.add(i, nodeResp.getNodeValue()); 
 
             }
             preg.setRespuestas(respuestasXML);
