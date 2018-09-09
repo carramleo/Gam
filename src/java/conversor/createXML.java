@@ -16,6 +16,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.servlet.ServletOutputStream;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.Transformer;
@@ -48,7 +49,7 @@ import org.w3c.dom.Element;
 public class createXML extends ButtonView implements Serializable {
 
     private String message;
-    private boolean numRespOk=false;
+    private boolean numRespOk;
 
     public String getMessage() {
         return message;
@@ -75,7 +76,7 @@ public class createXML extends ButtonView implements Serializable {
 
     public void createXML(ButtonView b) throws Exception {
         int num = 0;
-
+        numRespOk=false;
         List<PreguntaOpciones> Preguntas = b.getPreguntas();
         List<PreguntaCifras> PreguntasCifras = b.getPreguntasCifras();
         List<PreguntaCampoTexto> PreguntasCampoTexto = b.getPreguntasCampoTexto();
@@ -118,7 +119,8 @@ public class createXML extends ButtonView implements Serializable {
             for (PreguntaOpciones model : Preguntas) {
                 Element pregunta = document.createElement("pregunta");
                 pregunta.setAttribute("id", model.getId());
-
+                
+                if(SelectOneMenuTipos.numOpciones.get(preguntas.getAttribute("tipo")) == model.getRespuestas().size()){
                 if (SelectOneMenuTipos.formatoOp.get(preguntas.getAttribute("tipo")) == 1) {
                     pregunta.setAttribute("sol", String.valueOf(formatoOpciones[Integer.parseInt(model.getSolucion()) - 1]));
                 } else {
@@ -135,8 +137,9 @@ public class createXML extends ButtonView implements Serializable {
                 enunciado.setAttribute("numLineas", Integer.toString(SelectOneMenuTipos.lineasEnun.get(preguntas.getAttribute("tipo"))));
                 pregunta.appendChild(enunciado);
                 
-                if(SelectOneMenuTipos.numOpciones.get(preguntas.getAttribute("tipo")) == model.getRespuestas().size()){
-                for (String resp : model.getRespuestas()) {
+                
+                    
+                    for (String resp : model.getRespuestas()) {
                     num++;
 
                     Element respuesta = document.createElement("respuesta");
@@ -145,7 +148,7 @@ public class createXML extends ButtonView implements Serializable {
                     respuesta.setAttribute("num", Integer.toString(num));
                     respuesta.setAttribute("numLetras", "5");
                     pregunta.appendChild(respuesta);
-
+                    
                 }
                 num = 0;
                 Element pista = document.createElement("pista");
@@ -155,8 +158,10 @@ public class createXML extends ButtonView implements Serializable {
                 preguntas.appendChild(pregunta);
                 }
                 else{
+                    
                     errorGenerado(TipoJuego, SelectOneMenuTipos.numOpciones.get(preguntas.getAttribute("tipo")));
                     numRespOk=true;
+                    
                 }
             }
         } else if (PreguntasCampoTexto != null && !PreguntasCampoTexto.isEmpty()) {
@@ -429,7 +434,8 @@ public class createXML extends ButtonView implements Serializable {
         }
         
         if(!numRespOk){
-
+        
+            ServletOutputStream outputStream;
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         Transformer transformer = transformerFactory.newTransformer();
         DOMSource source = new DOMSource(document);
@@ -442,15 +448,15 @@ public class createXML extends ButtonView implements Serializable {
         externalContext.setResponseHeader("Cache-Control", "must-revalidate, post-check=0, pre-check=0");
         externalContext.setResponseHeader("Pragma", "public");
         externalContext.setResponseHeader("Content-disposition", "attachment;filename=" + "juego_" +TipoJuego +".xml");
+       
         OutputStream out = externalContext.getResponseOutputStream();
        
         transformer.transform(source, new StreamResult(out));
 
         externalContext.responseFlushBuffer();
 
-
+        out.close();
         b.deleteAllLists();
-
         ficheroGenerado(TipoJuego);
         }
     }

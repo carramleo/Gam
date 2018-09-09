@@ -71,7 +71,7 @@
                 <p:layoutUnit position="center">
 
 
-                    <h:form id="juego" >
+                    <h:form id="juego" enctype='multipart/form-data' >
                         <p:growl id="growl" autoUpdate="true" showDetail="true" />
 
                         <p:selectOneMenu id="tipoSeleccionado"   var="tipoSeleccionado"  widgetVar="tipoSel" value="#{buttonView.tipo}" effect="fold"   >
@@ -88,7 +88,7 @@
                             <h:outputLabel value = "Título" />
                             <h:inputText size="50" value="#{buttonView.titulo}" />
                         </p:panelGrid>
-
+                    
                         <p:panelGrid id="panelesJuego"  columns="1" style="width: 100%;" rendered="#{selectOneMenuView.tipo eq 'TipoOpciones'}"  >
 
                             <c:forEach items="#{buttonView.preguntas}" var="pregunta"  varStatus="preguntaLoop">
@@ -97,7 +97,7 @@
                             </c:forEach>
 
                             <p:commandButton id="btnNuevoPregunta" value="Nueva Pregunta"  update="panelesJuego"  action="#{buttonView.addPregunta()}"  />
-                            <p:commandButton id="btnCrearFichPregunta" value="Crear fichero"  immediate="true" ajax="false"  action="#{createXML.createXML(buttonView)}"  />
+                            <h:commandButton id="btnCrearFichPregunta" value="Crear fichero"    action="#{createXML.createXML(buttonView)}"  />
                         </p:panelGrid> 
 
                         <p:panelGrid id="panelesJuegoCifras" columns="1" style="width: 100%;" rendered="#{selectOneMenuView.tipo eq 'TipoCifras'}" >
@@ -105,7 +105,7 @@
                                 <ui:include  src="TiposPreguntas/preguntasCifras.xhtml"/>
                             </c:forEach>
                             <p:commandButton id="btnNuevoPreguntaCifras" value="Nueva Pregunta" update="panelesJuegoCifras" action="#{buttonView.addPreguntaCifras()}"  />
-                            <p:commandButton id="btnCrearFichPreguntaCifras" value="Crear fichero"  immediate="true" ajax="false"  action="#{createXML.createXML(buttonView)}"  />
+                            <h:commandButton id="btnCrearFichPreguntaCifras" value="Crear fichero"  action="#{createXML.createXML(buttonView)}"  />
                         </p:panelGrid> 
 
                         <p:panelGrid id="panelesJuegoCampoTexto" columns="1" style="width: 100%;" rendered="#{selectOneMenuView.tipo eq 'TipoCampoTexto'}" >
@@ -113,7 +113,7 @@
                                 <ui:include  src="TiposPreguntas/preguntasCampoTexto.xhtml"/>
                             </c:forEach>
                             <p:commandButton id="btnNuevoPreguntaCampoTexto" value="Nueva Pregunta" action="#{buttonView.addPreguntaCampoTexto()}"  update="panelesJuegoCampoTexto"/>
-                            <p:commandButton id="btnCrearFichPreguntaCampoTexto" value="Crear fichero"  immediate="true" ajax="false"  action="#{createXML.createXML(buttonView)}"  />
+                            <h:commandButton id="btnCrearFichPreguntaCampoTexto" value="Crear fichero"    action="#{createXML.createXML(buttonView)}"  />
                         </p:panelGrid>
 
                         <p:panelGrid id="panelesJuegoSiNo" columns="1" style="width: 100%;" rendered="#{selectOneMenuView.tipo eq 'TipoSiNo'}" >
@@ -121,7 +121,7 @@
                                 <ui:include  src="TiposPreguntas/preguntasSiNo.xhtml"/>
                             </c:forEach>
                             <p:commandButton id="btnNuevoPreguntaSiNo" value="Nueva Pregunta" action="#{buttonView.addPreguntaSiNo()}"  update="panelesJuegoSiNo"/>
-                            <p:commandButton id="btnCrearFichPreguntaSiNo" value="Crear fichero"  immediate="true" ajax="false"  action="#{createXML.createXML(buttonView)}"  />
+                            <h:commandButton id="btnCrearFichPreguntaSiNo" value="Crear fichero"  action="#{createXML.createXML(buttonView)}"  />
                         </p:panelGrid>
 
                         <p:panelGrid id="panelesJuegoPanelesLetras" columns="1" style="width: 100%;" rendered="#{selectOneMenuView.tipo eq 'TipoPanelesLetras'}" >
@@ -129,7 +129,7 @@
                                 <ui:include  src="TiposPreguntas/preguntasPanelesLetras.xhtml"/>
                             </c:forEach>
                             <p:commandButton id="btnNuevoPreguntaPanelesLetras" value="Nueva Pregunta" action="#{buttonView.addPreguntaPanelesLetras()}"  update="panelesJuegoPanelesLetras"/>
-                            <p:commandButton id="btnCrearFichPreguntaPanelesLetras" value="Crear fichero"  immediate="true" ajax="false"  action="#{createXML.createXML(buttonView)}"  />
+                            <h:commandButton id="btnCrearFichPreguntaPanelesLetras" value="Crear fichero"   action="#{createXML.createXML(buttonView)}"  />
                         </p:panelGrid>
 
                         <p:panelGrid id="panelesJuegoRelacionar" columns="1" style="width: 100%;" rendered="#{selectOneMenuView.tipo eq 'TipoRelacionar'}" >
@@ -137,7 +137,7 @@
                                 <ui:include  src="TiposPreguntas/preguntasRelacionar.xhtml"/>
                             </c:forEach>
                             <p:commandButton id="btnNuevoPreguntaRelacionar" value="Nueva Pregunta" action="#{buttonView.addPreguntaRelacionar()}"  update="panelesJuegoRelacionar"/>
-                            <p:commandButton id="btnCrearFichPreguntaRelacionar" value="Crear fichero"  immediate="true" ajax="false"  action="#{createXML.createXML(buttonView)}"  />
+                            <h:commandButton id="btnCrearFichPreguntaRelacionar" value="Crear fichero" action="#{createXML.createXML(buttonView)}"  />
                         </p:panelGrid>
 
                         <p:panelGrid id="panelesJuegoRespAbierta" columns="1" style="width: 100%;" rendered="#{selectOneMenuView.tipo eq 'TipoRespAbierta'}" >
@@ -145,7 +145,7 @@
                                 <ui:include  src="TiposPreguntas/preguntasRespAbiertas.xhtml"/>
                             </c:forEach>
                             <p:commandButton id="btnNuevoPreguntaRespAbierta" value="Nueva Pregunta" action="#{buttonView.addPreguntaRespAbierta()}"  update="panelesJuegoRespAbierta"/>
-                            <p:commandButton id="btnCrearFichPreguntaRespAbierta" value="Crear fichero"  immediate="true" ajax="false"  action="#{createXML.createXML(buttonView)}"  />
+                            <h:commandButton id="btnCrearFichPreguntaRespAbierta" value="Crear fichero"    action="#{createXML.createXML(buttonView)}"  />
                         </p:panelGrid>
 
                         <p:panelGrid id="panelesJuegoContarLetras" columns="1" style="width: 100%;" rendered="#{selectOneMenuView.tipo eq 'TipoContarLetras'}" >
@@ -153,7 +153,7 @@
                                 <ui:include  src="TiposPreguntas/preguntasContarLetras.xhtml"/>
                             </c:forEach>
                             <p:commandButton id="btnNuevoPreguntaContarLetras" value="Nueva Pregunta" disabled="#{buttonView.preguntasContarLetras.size() > 0}" action="#{buttonView.addPreguntaContarLetras()}"  update="panelesJuegoContarLetras"/>
-                            <p:commandButton id="btnCrearFichPreguntaContarLetras" value="Crear fichero"  immediate="true" ajax="false"  action="#{createXML.createXML(buttonView)}"  />
+                            <h:commandButton id="btnCrearFichPreguntaContarLetras" value="Crear fichero"   action="#{createXML.createXML(buttonView)}"  />
                         </p:panelGrid>
 
                     </h:form>
