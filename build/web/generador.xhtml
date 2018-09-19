@@ -42,8 +42,8 @@
                             </p:submenu>
                             <p:submenu label="Cargar"  >
                                 <p:menuitem value="Local">
-                                    <p:fileUpload  update=":juego" value="#{readXML.file}"  style="width: 300px;"  mode="simple"  allowTypes="/(\.|\/)(xml|doc|docx|xls|txt|pdf)$/"/>
-                                    <h:commandButton value="Importar"  action="#{readXML.readFile(buttonView, selectOneMenuView, selectOneMenuTipos)}"  ></h:commandButton>
+                                    <p:fileUpload  update=":juego" value="#{importador.file}"  style="width: 300px;"  mode="simple"  allowTypes="/(\.|\/)(xml|doc|docx|xls|txt|pdf)$/"/>
+                                    <h:commandButton value="Importar"  action="#{importador.importador(buttonView, selectOneMenuView, selectOneMenuTipos)}"  ></h:commandButton>
                                 </p:menuitem>
                                 <p:separator/>
                                 <p:menuitem value="Buscador" url="buscador.xhtml" />

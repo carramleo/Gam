@@ -47,16 +47,7 @@ public class ReadXML {
 
     private boolean compatible = false;
 
-    private UploadedFile file;
-
-    public UploadedFile getFile() {
-        return file;
-    }
-
-    public void setFile(UploadedFile file) {
-        this.file = file;
-    }
-
+   
     private String message;
 
     public String getMessage() {
@@ -79,7 +70,7 @@ public class ReadXML {
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al importar", "No ha seleccionado un fichero"));
     }
 
-    public void readFile(ButtonView b, SelectOneMenuView tipos, SelectOneMenuTipos opcionesTipos) throws SAXException, IOException, ParserConfigurationException {
+    public void readFile(UploadedFile file,ButtonView b, SelectOneMenuView tipos, SelectOneMenuTipos opcionesTipos) throws SAXException, IOException, ParserConfigurationException {
 
         if (file.getFileName() == null || file.getFileName().isEmpty() ) {
             errorFile();

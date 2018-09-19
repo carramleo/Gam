@@ -44,6 +44,7 @@ public class XMLtoPDF implements Serializable {
             externalContext.setResponseContentType("application/pdf");
             externalContext.setResponseHeader("Cache-Control", "must-revalidate, post-check=0, pre-check=0");
             externalContext.setResponseHeader("Pragma", "public");
+            externalContext.setResponseCharacterEncoding("UTF-8");
             externalContext.setResponseHeader("Content-disposition", "attachment;filename=" + "juego.pdf");
             OutputStream out = externalContext.getResponseOutputStream();
 
