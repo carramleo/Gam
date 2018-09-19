@@ -163,6 +163,7 @@ public class ReadTXT {
                                 }
                             }
                             pregCreada.setSolucion(String.valueOf(numSol));
+                            respuestas=new ArrayList<String>();
                         }
                         contadorLineasEnunciado++;
 

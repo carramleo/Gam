@@ -29,7 +29,7 @@
 					<p>Solucion: <xsl:value-of select="@sol" /></p>
 					 <xsl:for-each select="respuesta">
 						
-							<p><xsl:value-of select="." /></p>
+							<p><xsl:value-of select="position()" />: <xsl:value-of select="." /></p>
 						
 					</xsl:for-each>
             
