@@ -32,9 +32,6 @@ public class XMLtoPDF implements Serializable {
         Transformer transformer = tFactory.newTransformer(new StreamSource(getClass().getResource("convertToPDF.xsl").getFile()));
         transformer.transform(new StreamSource(XML), new StreamResult(new FileOutputStream(getClass().getResource("/").getPath().concat("/convertToPDF.html"))));
         String File_To_Convert = getClass().getResource("/convertToPDF.html").getFile();
-        
-       
-
 
         Document document = new Document();
         try {
@@ -42,18 +39,17 @@ public class XMLtoPDF implements Serializable {
             FacesContext context = FacesContext.getCurrentInstance();
             ExternalContext externalContext = context.getExternalContext();
             externalContext.responseReset();
-            externalContext.setResponseContentType("application/pdf");
-            externalContext.setResponseCharacterEncoding("UTF-8");
-            externalContext.setResponseCharacterEncoding("iso-8859-1");
+            externalContext.setResponseContentType("application/pdf; charset=UTF-8");
+            externalContext.setResponseHeader("Cache-Control", "must-revalidate, post-check=0, pre-check=0");
+            externalContext.setResponseHeader("Pragma", "public");
             externalContext.setResponseHeader("Content-disposition", "attachment;filename=" + "juego.pdf");
             OutputStream out = externalContext.getResponseOutputStream();
-
+            context.responseComplete();
             PdfWriter.getInstance(document, out);
             document.open();
             HTMLWorker htmlWorker = new HTMLWorker(document);
             htmlWorker.parse(new FileReader(new File(File_To_Convert)));
-           
-            
+
             externalContext.responseFlushBuffer();
 
             document.close();

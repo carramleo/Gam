@@ -2,6 +2,7 @@ package org.primefaces.showcase.view.button;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -78,16 +79,26 @@ public class ButtonView implements Serializable {
         pregAdd.setId("preg_" + number++);
         Preguntas.add(pregAdd);
     }
-    
-    public void addRespPregunta(PreguntaOpciones pregActual){
-        
+
+    public void addRespPregunta(PreguntaOpciones pregActual) {
+
         pregActual.getRespuestas().add("");
     }
-    
-    public void deleteRespPregunta(PreguntaOpciones pregActual, String resp){
-        
-         pregActual.getRespuestas().remove(resp);
-        
+
+    public void deleteRespPregunta(PreguntaOpciones pregActual, String resp) {
+
+        //pregActual.getRespuestas().remove(resp);
+
+        Iterator<String> i = pregActual.getRespuestas().iterator();
+        while (i.hasNext()) {
+            String s = i.next(); // must be called before you can call i.remove()
+            
+            if(s.equals(resp)){
+                i.remove();
+            }
+            
+        }
+
     }
 
     public void deletePregunta(CloseEvent event) {

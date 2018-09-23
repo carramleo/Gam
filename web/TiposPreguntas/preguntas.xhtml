@@ -15,35 +15,42 @@
             <p:panel id="#{pregunta.id}" widgetVar="wid_#{pregunta.id}" header="Pregunta" toggleable="true" closable="true"  >
                 <p:ajax event="close"  listener="#{buttonView.deletePregunta}" />
 
-                <h:panelGrid id="panelgrid_#{pregunta.id}"  border = "1" columns="2"
+                <h:panelGrid id="panelgrid_#{pregunta.id}"  border = "1" 
                              cellpadding = "10" cellspacing = "1" style="width: 100%;" >
                     <f:facet name = "header">
                         <h:outputText value = "Pregunta"/>
                     </f:facet>
-
-                    <h:outputLabel value = "Enunciado: " />
-
-                    <p:inputText size="100" value="#{pregunta.enunciado}" required="true">
-                        <p:ajax  event="valueChange"  />
-                    </p:inputText>
-
-
-
-
-                    <c:forEach  items="#{pregunta.respuestas}" var="resp" varStatus="loop"  >
-
-                        <h:outputLabel value = "Respuesta #{loop.index +1}: " />
-                        <p:column>
-                            <p:inputText  size="50"  value="#{resp}" required="true"  >
-                                <p:ajax  event="valueChange"  />
-                            </p:inputText>
-
-                            <p:commandButton value="X" action="#{buttonView.deleteRespPregunta(pregunta, resp)}" />
-                        </p:column>
-                    </c:forEach>
                     <p:column>
-                        <p:commandButton value="Añadir Respuesta"  action="#{buttonView.addRespPregunta(pregunta)}"  />
+                        <h:outputLabel value = "Enunciado: " />
+
+                        <p:inputText size="100" value="#{pregunta.enunciado}" required="true">
+                            <p:ajax  event="valueChange"  />
+                        </p:inputText>
+
                     </p:column>
+
+                    
+                    <ui:repeat  value="#{pregunta.respuestas}" var="resp" varStatus="loop"  >
+                            <p:column>
+                                <h:outputLabel value = "Respuesta #{loop.index +1}: " />
+                            
+                                <p:inputText  size="50"  value="#{pregunta.respuestas[loop.index]}" required="true"  >
+                                    
+                                </p:inputText>
+
+                                <p:commandButton value="X" action="#{buttonView.deleteRespPregunta(pregunta, resp)}" update=":juego:panelesJuego"  />
+                                <h:outputText value="&lt;br/&gt;" escape="false" />
+                            </p:column>
+                            
+                    </ui:repeat>
+
+                        <p:column>
+                            <p:commandButton value="Añadir Respuesta"  action="#{buttonView.addRespPregunta(pregunta)}" update=":juego:panelesJuego"   />
+
+                            </p:column>
+
+                    
+
                     <f:facet  name = "footer">
                         <h:selectOneRadio value="#{pregunta.solucion}" label="Solución" required="true">
 

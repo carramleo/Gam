@@ -21,6 +21,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.context.*;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -50,19 +51,20 @@ public class MyDomParser implements Serializable {
             FacesContext context = FacesContext.getCurrentInstance();
             ExternalContext externalContext = context.getExternalContext();
             externalContext.responseReset();
-            externalContext.setResponseContentType("application/txt");
+            externalContext.setResponseContentType("text/plain");
+            //externalContext.setResponseCharacterEncoding("UTF-8");
             externalContext.setResponseHeader("Cache-Control", "must-revalidate, post-check=0, pre-check=0");
             externalContext.setResponseHeader("Pragma", "public");
             externalContext.setResponseHeader("Content-disposition", "attachment;filename=" + "juego.txt");
             OutputStream out = externalContext.getResponseOutputStream();
-            
-            
+            //String encode = externalContext.getResponseContentType() +" hola "+ externalContext.getResponseCharacterEncoding();
+            context.responseComplete();
 
             NodeList Autor = doc.getElementsByTagName("autor");  //Obtenemos el nombre del autor del XML
             Node nombre = Autor.item(0);
             NodeList Titulo = doc.getElementsByTagName("titulo");
             Node tema = Titulo.item(0);
-            int numId=0;
+            int numId = 0;
             if (nombre.getNodeType() == Node.ELEMENT_NODE && tema.getNodeType() == Node.ELEMENT_NODE) {   //Imprimimos el nombre del autor en el txt
 
                 NodeList Preguntas = doc.getElementsByTagName("preguntas");
@@ -225,9 +227,11 @@ public class MyDomParser implements Serializable {
                 //FileOutputStream os = new FileOutputStream("examen.txt", true);
                 ps = new PrintStream(out);
                 ps.println("'Compatibilidad " + preg.getAttributes().getNamedItem("tipo").getTextContent() + "'");
-                
-                
-                externalContext.responseFlushBuffer();
+
+                //externalContext.responseFlushBuffer();
+                out.flush();
+                out.close();
+
             }
         } catch (ParserConfigurationException e) {
             // TODO Auto-generated catch block

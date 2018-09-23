@@ -56,13 +56,7 @@
                                     <h:commandButton value="TXT"  action="#{exportador.exportadorTXT()}"  ></h:commandButton>
                                 </p:menuitem>
                             </p:submenu>
-                            <p:submenu label="Guardar en Base de Datos"  >
-                                <p:menuitem value="Local">
-                                    <p:fileUpload  update=":juego" value="#{beanMongoDB.fileMongo}"  style="width: 300px;"  mode="simple"  allowTypes="/(\.|\/)(xml|doc|docx|xls|txt|pdf)$/"/>
-                                    <h:commandButton value="Guardar"   action="#"  ></h:commandButton>
-                                </p:menuitem>
-                                
-                            </p:submenu>
+                            
 
                         </p:menu>
                     </h:form>

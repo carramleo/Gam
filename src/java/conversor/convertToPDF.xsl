@@ -14,8 +14,7 @@
     <xsl:template match="/Gamificacion">
         <html>
             <head>
-                <title>Gamificacion</title>
-                <meta name="description" content="Nuevo Juego"/>
+               
                 
             </head>
             <body style='font-family:Tahoma;font-size:9pt;letter-spacing:0.5px'>

@@ -444,7 +444,7 @@ public class createXML extends ButtonView implements Serializable {
         FacesContext context = FacesContext.getCurrentInstance();
         ExternalContext externalContext = context.getExternalContext();
         externalContext.responseReset();
-        externalContext.setResponseContentType("application/xml");
+        externalContext.setResponseContentType("text/xml");
         externalContext.setResponseHeader("Cache-Control", "must-revalidate, post-check=0, pre-check=0");
         externalContext.setResponseHeader("Pragma", "public");
         externalContext.setResponseHeader("Content-disposition", "attachment;filename=" + "juego_" +TipoJuego +".xml");
