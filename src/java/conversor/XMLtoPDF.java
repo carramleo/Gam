@@ -40,8 +40,7 @@ public class XMLtoPDF implements Serializable {
             ExternalContext externalContext = context.getExternalContext();
             externalContext.responseReset();
             externalContext.setResponseContentType("application/pdf; charset=UTF-8");
-            externalContext.setResponseHeader("Cache-Control", "must-revalidate, post-check=0, pre-check=0");
-            externalContext.setResponseHeader("Pragma", "public");
+            
             externalContext.setResponseHeader("Content-disposition", "attachment;filename=" + "juego.pdf");
             OutputStream out = externalContext.getResponseOutputStream();
             context.responseComplete();
@@ -49,7 +48,8 @@ public class XMLtoPDF implements Serializable {
             document.open();
             HTMLWorker htmlWorker = new HTMLWorker(document);
             htmlWorker.parse(new FileReader(new File(File_To_Convert)));
-
+            
+            
             externalContext.responseFlushBuffer();
 
             document.close();

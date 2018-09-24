@@ -9,7 +9,7 @@ import com.itextpdf.text.DocumentException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
-import conversorTXT.MyDomParser;
+import conversorTXT.XMLtoTXT;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -60,7 +60,7 @@ public class exportador implements Serializable {
             errorFileExp();
         } else {
             
-            MyDomParser txt = new MyDomParser();
+            XMLtoTXT txt = new XMLtoTXT();
             
             InputStream fichero = fileExp.getInputstream();
             

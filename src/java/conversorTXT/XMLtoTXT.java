@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.io.Serializable;
-import conversorTXT.Type1;
+import conversorTXT.FichTipo1;
 import conversorTXT.Type11;
 import conversorTXT.Type2;
 import conversorTXT.Type3;
@@ -35,7 +35,7 @@ import org.xml.sax.SAXException;
 
 @ManagedBean
 @SessionScoped
-public class MyDomParser implements Serializable {
+public class XMLtoTXT implements Serializable {
 
     public static PrintStream ps;
 
@@ -45,19 +45,16 @@ public class MyDomParser implements Serializable {
 
         try {
             DocumentBuilder builder = factory.newDocumentBuilder();
-
+            
             Document doc = builder.parse(XML);
 
             FacesContext context = FacesContext.getCurrentInstance();
             ExternalContext externalContext = context.getExternalContext();
             externalContext.responseReset();
-            externalContext.setResponseContentType("text/plain");
-            //externalContext.setResponseCharacterEncoding("UTF-8");
-            externalContext.setResponseHeader("Cache-Control", "must-revalidate, post-check=0, pre-check=0");
-            externalContext.setResponseHeader("Pragma", "public");
+            externalContext.setResponseContentType("text/plain; charset=UTF-8");
+            
             externalContext.setResponseHeader("Content-disposition", "attachment;filename=" + "juego.txt");
             OutputStream out = externalContext.getResponseOutputStream();
-            //String encode = externalContext.getResponseContentType() +" hola "+ externalContext.getResponseCharacterEncoding();
             context.responseComplete();
 
             NodeList Autor = doc.getElementsByTagName("autor");  //Obtenemos el nombre del autor del XML
@@ -134,7 +131,7 @@ public class MyDomParser implements Serializable {
                                 || preguntaTipo.getAttribute("tipo").equals("TipoTrampa")
                                 || preguntaTipo.getAttribute("tipo").equals("TipoLetra")) {
 
-                            Type1 tipo1 = new Type1();
+                            FichTipo1 tipo1 = new FichTipo1();
                             tipo1.imprimirTipo1(id, preguntaTipo, pregunta, ps);
 
                         } else if (preguntaTipo.getAttribute("tipo").equals("Tipo2")

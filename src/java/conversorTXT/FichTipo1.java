@@ -9,7 +9,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-public class Type1 {
+public class FichTipo1 {
 
     private static int NumeroLineasTipo1 = 3;      //Numero de lineas de enunciado de cada tipo
     private static int NumeroLineasTipo5 = 6;
@@ -22,7 +22,7 @@ public class Type1 {
     private static int numOpcionesSoluciontrampa = 9;
     private static int numLineasSol50x50 = 2;
     private static String comillas = "''";
-    private static int numCaracteres = 44; //numero de caracteres alfanumericos que caben en una linea del generador de juegos tipo1
+    private static int numCaracteres = 54; //numero de caracteres alfanumericos que caben en una linea del generador de juegos tipo1
     private static int IdRonda = 1;
     private static int IdPanel = 0;
     private boolean Tipo1 = false;
@@ -33,7 +33,7 @@ public class Type1 {
     private boolean TipoTrampa = false;
     private boolean TipoletraAletra = false;
 
-    public Type1() {
+    public FichTipo1() {
     }
 
     ;
