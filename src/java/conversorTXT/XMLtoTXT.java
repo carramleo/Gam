@@ -16,7 +16,12 @@ import conversorTXT.Type7;
 import conversorTXT.Type8;
 import conversorTXT.TypePalabras;
 import conversorTXT.TypeRelacionar;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Reader;
+import java.io.Writer;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
@@ -31,6 +36,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 @ManagedBean
@@ -44,17 +50,16 @@ public class XMLtoTXT implements Serializable {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 
         try {
-            DocumentBuilder builder = factory.newDocumentBuilder();
-            
-            Document doc = builder.parse(XML);
-
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(XML);
             FacesContext context = FacesContext.getCurrentInstance();
             ExternalContext externalContext = context.getExternalContext();
             externalContext.responseReset();
             externalContext.setResponseContentType("text/plain; charset=UTF-8");
-            
             externalContext.setResponseHeader("Content-disposition", "attachment;filename=" + "juego.txt");
             OutputStream out = externalContext.getResponseOutputStream();
+
             context.responseComplete();
 
             NodeList Autor = doc.getElementsByTagName("autor");  //Obtenemos el nombre del autor del XML
@@ -82,21 +87,21 @@ public class XMLtoTXT implements Serializable {
                         || preg.getAttributes().getNamedItem("tipo").getTextContent().equals("TipoLlamada")) {
 
                     //FileOutputStream os = new FileOutputStream("examen.txt", true);
-                    ps = new PrintStream(out);
+                    ps = new PrintStream(out, false, "UTF-8");
                 } else if (preg.getAttributes().getNamedItem("tipo").getTextContent().equals("identity")) {
                     //FileOutputStream os = new FileOutputStream("examen.txt", true);
-                    ps = new PrintStream(out);
+                    ps = new PrintStream(out, false, "UTF-8");
                     ps.println("'TEMA: " + tema.getTextContent() + "'");
                 } else if (preg.getAttributes().getNamedItem("tipo").getTextContent().equals("palabraImposible")) {
                     //FileOutputStream os = new FileOutputStream("examen.txt", true);
-                    ps = new PrintStream(out);
+                    ps = new PrintStream(out, false, "UTF-8");
                     ps.println("60");
                     ps.println("'Compatibilidad " + preg.getAttributes().getNamedItem("tipo").getTextContent() + "'");
                     ps.println("'AUTOR/A: " + nombre.getTextContent() + "'");
                 } else {
 
                     //FileOutputStream os = new FileOutputStream("examen.txt", true);
-                    ps = new PrintStream(out);
+                    ps = new PrintStream(out, false, "UTF-8");
                     ps.println("'AUTOR/A: " + nombre.getTextContent() + "'");
                     ps.println("'TEMA: " + tema.getTextContent() + "'");
                 }
@@ -222,11 +227,13 @@ public class XMLtoTXT implements Serializable {
                     ps.println("'TEMA: " + tema.getTextContent() + "'");
                 }
                 //FileOutputStream os = new FileOutputStream("examen.txt", true);
-                ps = new PrintStream(out);
+                ps = new PrintStream(out, false, "UTF-8");
                 ps.println("'Compatibilidad " + preg.getAttributes().getNamedItem("tipo").getTextContent() + "'");
+                
+                
+                
+                externalContext.responseFlushBuffer();
 
-                //externalContext.responseFlushBuffer();
-                out.flush();
                 out.close();
 
             }
