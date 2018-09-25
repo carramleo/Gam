@@ -227,8 +227,8 @@ public class XMLtoTXT implements Serializable {
                     ps.println("'TEMA: " + tema.getTextContent() + "'");
                 }
                 //FileOutputStream os = new FileOutputStream("examen.txt", true);
-                ps = new PrintStream(out, false, "UTF-8");
-                ps.println("'Compatibilidad " + preg.getAttributes().getNamedItem("tipo").getTextContent() + "'");
+                //ps = new PrintStream(out, false, "UTF-8");
+                //ps.println("'Compatibilidad " + preg.getAttributes().getNamedItem("tipo").getTextContent() + "'");
                 
                 
                 

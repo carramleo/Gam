@@ -22,7 +22,7 @@ public class FichTipo1 {
     private static int numOpcionesSoluciontrampa = 9;
     private static int numLineasSol50x50 = 2;
     private static String comillas = "''";
-    private static int numCaracteres = 54; //numero de caracteres alfanumericos que caben en una linea del generador de juegos tipo1
+    private static int numCaracteres = 80; //numero de caracteres alfanumericos que caben en una linea del generador de juegos tipo1
     private static int IdRonda = 1;
     private static int IdPanel = 0;
     private boolean Tipo1 = false;
@@ -63,8 +63,8 @@ public class FichTipo1 {
             List<String> stringsEnunciado = new ArrayList<String>();
             int index = 0;
             while (index < enunciadoStr.length()) {
-                stringsEnunciado.add(enunciadoStr.substring(index, Math.min(index + 44, enunciadoStr.length())));
-                index += 44;
+                stringsEnunciado.add(enunciadoStr.substring(index, Math.min(index + numCaracteres, enunciadoStr.length())));
+                index += numCaracteres;
             }
             
             int numLineas = stringsEnunciado.size();
