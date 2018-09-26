@@ -12,14 +12,15 @@
     <body>
         <ui:composition  >
 
-            <p:panel id="#{pregunta.id}" widgetVar="wid_#{pregunta.id}" header="Pregunta" toggleable="true" closable="true"  >
-                <p:ajax event="close"  listener="#{buttonView.deletePregunta}" />
+            <p:panel id="#{pregunta.id}" widgetVar="wid_#{pregunta.id}"  toggleable="true"   >
+                <f:facet name = "header">
+                    <h:outputText value="Pregunta #{buttonView.preguntas.indexOf(pregunta)+1} "/>
+                    <p:commandButton style="" value="Eliminar pregunta" action="#{buttonView.deletePregunta(pregunta.id)}" update=":juego:panelesJuego"  /> 
+                    </f:facet>
 
                 <h:panelGrid id="panelgrid_#{pregunta.id}"  border = "1" 
                              cellpadding = "10" cellspacing = "1" style="width: 100%;" >
-                    <f:facet name = "header">
-                        <h:outputText value = "Pregunta"/>
-                    </f:facet>
+                    
                     <p:column>
                         <h:outputLabel value = "Enunciado: " />
 

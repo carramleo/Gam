@@ -95,8 +95,8 @@ public class ReadXML {
             List<PreguntaRelacionar> PreguntasRelacionar = b.getPreguntasRelacionar();
             List<PreguntaRespAbierta> PreguntasRespAbierta = b.getPreguntasRespAbierta();
             List<PreguntaContarLetras> PreguntasContarLetras = b.getPreguntasContarLetras();
-            autor = b.getAutor();
-            titulo = b.getTitulo();
+            b.setAutor(autor);
+            b.setTitulo(titulo);
             String TipoJuego = b.getTipo();
 
             String tipoSeleccionado = tipos.getTipo();  //tipo  seleccionado en el menu de la izq

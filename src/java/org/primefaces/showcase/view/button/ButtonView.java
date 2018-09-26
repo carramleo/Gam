@@ -101,11 +101,11 @@ public class ButtonView implements Serializable {
 
     }
 
-    public void deletePregunta(CloseEvent event) {
+    public void deletePregunta(String id) {
 
         for (int i = 0; i < Preguntas.size(); i++) {
 
-            if (Preguntas.get(i).getId().equals(event.getComponent().getId())) {
+            if (Preguntas.get(i).getId().equals(id)) {
 
                 Preguntas.remove(i);
 
