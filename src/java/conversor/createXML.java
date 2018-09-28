@@ -34,8 +34,8 @@ import org.primefaces.Pregunta.PreguntaRelacionar;
 import org.primefaces.Pregunta.PreguntaRespAbierta;
 import org.primefaces.Pregunta.PreguntaSiNo;
 
-import org.primefaces.showcase.view.button.ButtonView;
-import org.primefaces.showcase.view.input.SelectOneMenuTipos;
+import org.primefaces.showcase.view.button.AdminPreguntas;
+import org.primefaces.showcase.view.input.MenuMapTiposOpciones;
 
 /**
  *
@@ -46,7 +46,7 @@ import org.w3c.dom.Element;
 
 @ManagedBean
 @SessionScoped
-public class createXML extends ButtonView implements Serializable {
+public class createXML extends AdminPreguntas implements Serializable {
 
     private String message;
     private boolean numRespOk;
@@ -74,7 +74,7 @@ public class createXML extends ButtonView implements Serializable {
     
     
 
-    public void createXML(ButtonView b) throws Exception {
+    public void createXML(AdminPreguntas b) throws Exception {
         int num = 0;
         numRespOk=false;
         List<PreguntaOpciones> Preguntas = b.getPreguntas();
@@ -120,8 +120,8 @@ public class createXML extends ButtonView implements Serializable {
                 Element pregunta = document.createElement("pregunta");
                 pregunta.setAttribute("id", model.getId());
                 
-                if(SelectOneMenuTipos.numOpciones.get(preguntas.getAttribute("tipo")) == model.getRespuestas().size()){
-                if (SelectOneMenuTipos.formatoOp.get(preguntas.getAttribute("tipo")) == 1) {
+                if(MenuMapTiposOpciones.numOpciones.get(preguntas.getAttribute("tipo")) == model.getRespuestas().size()){
+                if (MenuMapTiposOpciones.formatoOp.get(preguntas.getAttribute("tipo")) == 1) {
                     pregunta.setAttribute("sol", String.valueOf(formatoOpciones[Integer.parseInt(model.getSolucion()) - 1]));
                 } else {
                     pregunta.setAttribute("sol", model.getSolucion());
@@ -134,7 +134,7 @@ public class createXML extends ButtonView implements Serializable {
                 pregunta.appendChild(tema);
                 Element enunciado = document.createElement("enunciado");
                 enunciado.appendChild(document.createTextNode(model.getEnunciado()));
-                enunciado.setAttribute("numLineas", Integer.toString(SelectOneMenuTipos.lineasEnun.get(preguntas.getAttribute("tipo"))));
+                enunciado.setAttribute("numLineas", Integer.toString(MenuMapTiposOpciones.lineasEnun.get(preguntas.getAttribute("tipo"))));
                 pregunta.appendChild(enunciado);
                 
                 
@@ -159,7 +159,7 @@ public class createXML extends ButtonView implements Serializable {
                 }
                 else{
                     
-                    errorGenerado(TipoJuego, SelectOneMenuTipos.numOpciones.get(preguntas.getAttribute("tipo")));
+                    errorGenerado(TipoJuego, MenuMapTiposOpciones.numOpciones.get(preguntas.getAttribute("tipo")));
                     numRespOk=true;
                     
                 }

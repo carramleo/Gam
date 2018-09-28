@@ -28,9 +28,9 @@ import org.primefaces.Pregunta.PreguntaRespAbierta;
 import org.primefaces.Pregunta.PreguntaSiNo;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
-import org.primefaces.showcase.view.button.ButtonView;
-import org.primefaces.showcase.view.input.SelectOneMenuTipos;
-import org.primefaces.showcase.view.input.SelectOneMenuView;
+import org.primefaces.showcase.view.button.AdminPreguntas;
+import org.primefaces.showcase.view.input.MenuMapTiposOpciones;
+import org.primefaces.showcase.view.input.MenuMapTipos;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -70,7 +70,7 @@ public class ReadXML {
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al importar", "No ha seleccionado un fichero"));
     }
 
-    public void readFile(UploadedFile file,ButtonView b, SelectOneMenuView tipos, SelectOneMenuTipos opcionesTipos) throws SAXException, IOException, ParserConfigurationException {
+    public void readFile(UploadedFile file,AdminPreguntas b, MenuMapTipos tipos, MenuMapTiposOpciones opcionesTipos) throws SAXException, IOException, ParserConfigurationException {
 
         if (file.getFileName() == null || file.getFileName().isEmpty() ) {
             errorFile();
@@ -177,9 +177,9 @@ public class ReadXML {
         this.compatible = compatible;
     }
 
-    private static PreguntaOpciones getPreguntaOpciones(Node node, String tipo, ButtonView bb) {
+    private static PreguntaOpciones getPreguntaOpciones(Node node, String tipo, AdminPreguntas bb) {
         //XMLReaderDOM domReader = new XMLReaderDOM();
-        PreguntaOpciones preg = new PreguntaOpciones(SelectOneMenuTipos.numOpciones.get(tipo), SelectOneMenuTipos.formatoOp.get(tipo), SelectOneMenuTipos.lineasEnun.get(tipo));
+        PreguntaOpciones preg = new PreguntaOpciones(MenuMapTiposOpciones.numOpciones.get(tipo), MenuMapTiposOpciones.formatoOp.get(tipo), MenuMapTiposOpciones.lineasEnun.get(tipo));
          char[] formatoOpciones = new char[]{'A', 'B', 'C', 'D', 'E', 'F'};
         if (node.getNodeType() == Node.ELEMENT_NODE) {
             Element element = (Element) node;
@@ -212,9 +212,9 @@ public class ReadXML {
         return preg;
     }
 
-    private static PreguntaCampoTexto getPreguntaCampoTexto(Node node, String tipo, ButtonView bb) {
+    private static PreguntaCampoTexto getPreguntaCampoTexto(Node node, String tipo, AdminPreguntas bb) {
         //XMLReaderDOM domReader = new XMLReaderDOM();
-        PreguntaCampoTexto preg = new PreguntaCampoTexto(SelectOneMenuTipos.lineasEnun.get(tipo), SelectOneMenuTipos.posiblesSol.get(tipo), SelectOneMenuTipos.Pistas.get(tipo));
+        PreguntaCampoTexto preg = new PreguntaCampoTexto(MenuMapTiposOpciones.lineasEnun.get(tipo), MenuMapTiposOpciones.posiblesSol.get(tipo), MenuMapTiposOpciones.Pistas.get(tipo));
 
         if (node.getNodeType() == Node.ELEMENT_NODE) {
             Element element = (Element) node;
@@ -233,7 +233,7 @@ public class ReadXML {
 
             }
             preg.setRespuestas(respuestasXML);*/
-            String soluciones[] = new String[SelectOneMenuTipos.posiblesSol.get(tipo)];
+            String soluciones[] = new String[MenuMapTiposOpciones.posiblesSol.get(tipo)];
 
             String solSplit = element.getAttribute("sol");
 
@@ -261,9 +261,9 @@ public class ReadXML {
         return preg;
     }
 
-    private static PreguntaCifras getPreguntaCifras(Node node, String tipo, ButtonView bb) {
+    private static PreguntaCifras getPreguntaCifras(Node node, String tipo, AdminPreguntas bb) {
         //XMLReaderDOM domReader = new XMLReaderDOM();
-        PreguntaCifras preg = new PreguntaCifras(SelectOneMenuTipos.lineasEnun.get(tipo));
+        PreguntaCifras preg = new PreguntaCifras(MenuMapTiposOpciones.lineasEnun.get(tipo));
 
         if (node.getNodeType() == Node.ELEMENT_NODE) {
             Element element = (Element) node;
@@ -299,9 +299,9 @@ public class ReadXML {
         return preg;
     }
 
-    private static PreguntaSiNo getPreguntaSiNo(Node node, String tipo, ButtonView bb) {
+    private static PreguntaSiNo getPreguntaSiNo(Node node, String tipo, AdminPreguntas bb) {
         //XMLReaderDOM domReader = new XMLReaderDOM();
-        PreguntaSiNo preg = new PreguntaSiNo(SelectOneMenuTipos.elementosPanel.get(tipo), SelectOneMenuTipos.lineasEnun.get(tipo));
+        PreguntaSiNo preg = new PreguntaSiNo(MenuMapTiposOpciones.elementosPanel.get(tipo), MenuMapTiposOpciones.lineasEnun.get(tipo));
 
         if (node.getNodeType() == Node.ELEMENT_NODE) {
             Element element = (Element) node;
@@ -340,9 +340,9 @@ public class ReadXML {
         return preg;
     }
 
-    private static PreguntaPanelesLetras getPreguntaPanelesLetras(Node node, String tipo, ButtonView bb) {
+    private static PreguntaPanelesLetras getPreguntaPanelesLetras(Node node, String tipo, AdminPreguntas bb) {
         //XMLReaderDOM domReader = new XMLReaderDOM();
-        PreguntaPanelesLetras preg = new PreguntaPanelesLetras(SelectOneMenuTipos.letrasPanel.get(tipo), SelectOneMenuTipos.Pistas.get(tipo));
+        PreguntaPanelesLetras preg = new PreguntaPanelesLetras(MenuMapTiposOpciones.letrasPanel.get(tipo), MenuMapTiposOpciones.Pistas.get(tipo));
 
         if (node.getNodeType() == Node.ELEMENT_NODE) {
             Element element = (Element) node;
@@ -376,9 +376,9 @@ public class ReadXML {
         return preg;
     }
 
-    private static PreguntaRelacionar getPreguntaRelacionar(Node node, String tipo, ButtonView bb) {
+    private static PreguntaRelacionar getPreguntaRelacionar(Node node, String tipo, AdminPreguntas bb) {
         //XMLReaderDOM domReader = new XMLReaderDOM();
-        PreguntaRelacionar preg = new PreguntaRelacionar(SelectOneMenuTipos.filasColumna.get(tipo), SelectOneMenuTipos.filasColumna.get(tipo));
+        PreguntaRelacionar preg = new PreguntaRelacionar(MenuMapTiposOpciones.filasColumna.get(tipo), MenuMapTiposOpciones.filasColumna.get(tipo));
 
         if (node.getNodeType() == Node.ELEMENT_NODE) {
             Element element = (Element) node;
@@ -427,9 +427,9 @@ public class ReadXML {
         return preg;
     }
 
-    private static PreguntaRespAbierta getPreguntaRespAbierta(Node node, String tipo, ButtonView bb) {
+    private static PreguntaRespAbierta getPreguntaRespAbierta(Node node, String tipo, AdminPreguntas bb) {
         //XMLReaderDOM domReader = new XMLReaderDOM();
-        PreguntaRespAbierta preg = new PreguntaRespAbierta(SelectOneMenuTipos.lineasEnun.get(tipo));
+        PreguntaRespAbierta preg = new PreguntaRespAbierta(MenuMapTiposOpciones.lineasEnun.get(tipo));
 
         if (node.getNodeType() == Node.ELEMENT_NODE) {
             Element element = (Element) node;
@@ -445,7 +445,7 @@ public class ReadXML {
         return preg;
     }
 
-    private static PreguntaContarLetras getPreguntaContarLetras(Node node, String tipo, ButtonView bb) {
+    private static PreguntaContarLetras getPreguntaContarLetras(Node node, String tipo, AdminPreguntas bb) {
         //XMLReaderDOM domReader = new XMLReaderDOM();
         PreguntaContarLetras preg = new PreguntaContarLetras(18);
 

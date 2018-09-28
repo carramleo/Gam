@@ -20,7 +20,7 @@ import javax.faces.bean.SessionScoped;
  */
 @ManagedBean
 @SessionScoped
-public class SelectOneMenuView implements Serializable{
+public class MenuMapTipos implements Serializable{
 
     private String tipo;
     private Map<String, String> tipos = new HashMap<String, String>();

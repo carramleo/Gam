@@ -8,12 +8,12 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-public class Type7 {
+public class FichTipo7 {
 
 	private static int NumeroLineasTipo3 = 3;
 	private static int NumeroResp = 2;
 
-	public Type7() {
+	public FichTipo7() {
 	};
 
 	public void imprimirTipo7(String id, Element pregunta, PrintStream ps) throws FileNotFoundException {

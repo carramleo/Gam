@@ -8,9 +8,9 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-public class Type11 {
+public class FichTipo11 {
 
-	public Type11() {
+	public FichTipo11() {
 	};
 
 	public void imprimirTipo11(String id, Element pregunta, PrintStream ps) throws FileNotFoundException {

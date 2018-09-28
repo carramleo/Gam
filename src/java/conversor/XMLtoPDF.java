@@ -19,7 +19,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.xml.transform.*;
 import javax.xml.transform.stream.*;
-import org.primefaces.showcase.view.button.ButtonView;
+import org.primefaces.showcase.view.button.AdminPreguntas;
 
 @ManagedBean
 @SessionScoped

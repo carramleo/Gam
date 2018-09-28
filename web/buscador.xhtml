@@ -48,45 +48,45 @@
                                 <h:outputLabel for="tema" value="Tema del fichero: " />
 
 
-                                <p:selectCheckboxMenu id="etapa" value="#{search.etapa}"  widgetVar="etapa" required="true" label="Etapa" >
-                                    <f:selectItems   value="#{search.etapas}" itemValue="#{etapa}"  />
+                                <p:selectCheckboxMenu id="etapa" value="#{filtroBuscador.etapa}"  widgetVar="etapa" required="true" label="Etapa" >
+                                    <f:selectItems   value="#{filtroBuscador.etapas}" itemValue="#{etapa}"  />
                                 </p:selectCheckboxMenu>
 
 
-                                <p:inputText value="#{search.asignatura}" id="asignatura" />
+                                <p:inputText value="#{filtroBuscador.asignatura}" id="asignatura" />
 
 
-                                <p:inputText value="#{search.tema}" id="tema" />
+                                <p:inputText value="#{filtroBuscador.tema}" id="tema" />
 
                                 <h:outputLabel for="nombrefich" value="Nombre del fichero: " />
                                 <h:outputLabel for="autor" value="Autor del fichero: " />
                                 <h:outputLabel for="idioma" value="*Idioma:" />
 
-                                <p:inputText value="#{search.nombreFich}" id="nombrefich" />
+                                <p:inputText value="#{filtroBuscador.nombreFich}" id="nombrefich" />
 
 
-                                <p:inputText value="#{search.autor}" id="autor" />
+                                <p:inputText value="#{filtroBuscador.autor}" id="autor" />
 
-                                <p:selectCheckboxMenu id="idioma" value="#{search.idioma}"  widgetVar="idioma" required="true" label="Idioma">
-                                    <f:selectItems   value="#{search.idiomas}" itemValue="#{idioma}"  />
+                                <p:selectCheckboxMenu id="idioma" value="#{filtroBuscador.idioma}"  widgetVar="idioma" required="true" label="Idioma">
+                                    <f:selectItems   value="#{filtroBuscador.idiomas}" itemValue="#{idioma}"  />
                                 </p:selectCheckboxMenu>
 
                                 <h:outputLabel for="tipo" value="Tipo ficheros" />
                                 <h:outputLabel for="individual" value="Ficheros individuales" />
                                 <h:outputLabel for="intervalo" value="Intervalo preg." />
 
-                                <p:selectCheckboxMenu id="tipo" value="#{search.tipo}" widgetVar="tipo"  label="Tipos de ficheros">
-                                    <f:selectItems   value="#{search.tipos}" itemValue="#{tipo}"  />
+                                <p:selectCheckboxMenu id="tipo" value="#{filtroBuscador.tipo}" widgetVar="tipo"  label="Tipos de ficheros">
+                                    <f:selectItems   value="#{filtroBuscador.tipos}" itemValue="#{tipo}"  />
                                 </p:selectCheckboxMenu>
 
 
-                                <p:selectCheckboxMenu id="individual" value="#{search.individual}" widgetVar="individual"  label="Ficheros individuales">
-                                    <f:selectItems   value="#{search.individuales}" itemValue="#{individual}"  />
+                                <p:selectCheckboxMenu id="individual" value="#{filtroBuscador.individual}" widgetVar="individual"  label="Ficheros individuales">
+                                    <f:selectItems   value="#{filtroBuscador.individuales}" itemValue="#{individual}"  />
                                 </p:selectCheckboxMenu>
 
 
-                                <p:selectCheckboxMenu id="intervalo" value="#{search.intervalo}"  widgetVar="intervalo" label="Intervalos preg">
-                                    <f:selectItems   value="#{search.intervalos}" itemValue="#{intervalo}"  />
+                                <p:selectCheckboxMenu id="intervalo" value="#{filtroBuscador.intervalo}"  widgetVar="intervalo" label="Intervalos preg">
+                                    <f:selectItems   value="#{filtroBuscador.intervalos}" itemValue="#{intervalo}"  />
                                 </p:selectCheckboxMenu>
                                 
                                 
@@ -94,7 +94,7 @@
                                  <h:outputLabel />
                                  <h:outputLabel  />
 
-                                 <p:inputText value="#{search.palabra}" id="palabra" />
+                                 <p:inputText value="#{filtroBuscador.palabra}" id="palabra" />
 
                             </h:panelGrid>
 

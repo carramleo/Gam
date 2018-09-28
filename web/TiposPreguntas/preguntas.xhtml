@@ -14,8 +14,8 @@
 
             <p:panel id="#{pregunta.id}" widgetVar="wid_#{pregunta.id}"  toggleable="true"   >
                 <f:facet name = "header">
-                    <h:outputText value="Pregunta #{buttonView.preguntas.indexOf(pregunta)+1} "/>
-                    <p:commandButton style="" value="Eliminar pregunta" action="#{buttonView.deletePregunta(pregunta.id)}" update=":juego:panelesJuego" immediate="true" /> 
+                    <h:outputText value="Pregunta #{adminPreguntas.preguntas.indexOf(pregunta)+1} "/>
+                    <p:commandButton style="" value="Eliminar pregunta" action="#{adminPreguntas.deletePregunta(pregunta.id)}" update=":juego"  /> 
                     </f:facet>
 
                 <h:panelGrid id="panelgrid_#{pregunta.id}"  border = "1" 
@@ -39,14 +39,14 @@
                                     
                                 </p:inputText>
 
-                                <p:commandButton value="X" action="#{buttonView.deleteRespPregunta(pregunta, resp)}" update=":juego:panelesJuego"  />
+                                <p:commandButton value="X" action="#{adminPreguntas.deleteRespPregunta(pregunta, resp)}" update=":juego:panelesJuego"  />
                                 <h:outputText value="&lt;br/&gt;" escape="false" />
                             </p:column>
                             
                     </ui:repeat>
 
                         <p:column>
-                            <p:commandButton value="Añadir Respuesta"  action="#{buttonView.addRespPregunta(pregunta)}" update=":juego:panelesJuego"   />
+                            <p:commandButton value="Añadir Respuesta"  action="#{adminPreguntas.addRespPregunta(pregunta)}" update=":juego:panelesJuego"   />
 
                             </p:column>
 

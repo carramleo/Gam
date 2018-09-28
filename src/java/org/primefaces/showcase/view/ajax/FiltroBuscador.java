@@ -9,7 +9,7 @@ import javax.faces.bean.SessionScoped;
 
 @ManagedBean
 @SessionScoped
-public class Search implements Serializable {
+public class FiltroBuscador implements Serializable {
 
     private String etapa;
     private Map<String, String> etapas = new HashMap<String, String>();

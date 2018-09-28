@@ -13,9 +13,9 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.xml.parsers.ParserConfigurationException;
 import org.primefaces.model.UploadedFile;
-import org.primefaces.showcase.view.button.ButtonView;
-import org.primefaces.showcase.view.input.SelectOneMenuTipos;
-import org.primefaces.showcase.view.input.SelectOneMenuView;
+import org.primefaces.showcase.view.button.AdminPreguntas;
+import org.primefaces.showcase.view.input.MenuMapTiposOpciones;
+import org.primefaces.showcase.view.input.MenuMapTipos;
 import org.xml.sax.SAXException;
 
 /**
@@ -43,7 +43,7 @@ public class Importador implements Serializable{
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al importar", "No ha seleccionado un fichero"));
     }
     
-    public void importador(ButtonView b, SelectOneMenuView tipos, SelectOneMenuTipos opcionesTipos) throws SAXException, IOException, ParserConfigurationException{
+    public void importador(AdminPreguntas b, MenuMapTipos tipos, MenuMapTiposOpciones opcionesTipos) throws SAXException, IOException, ParserConfigurationException{
         
         if (file.getFileName() == null || file.getFileName().isEmpty() ) {
             errorFile();

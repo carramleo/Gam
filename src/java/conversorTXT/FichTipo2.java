@@ -8,7 +8,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-public class Type2 {
+public class FichTipo2 {
 
 	private static String comillas = "''";
 	private static int NumeroLineasTipo2 = 3;
@@ -19,7 +19,7 @@ public class Type2 {
 	private static boolean TipoLetritas = false;
 
 
-	public Type2() {
+	public FichTipo2() {
 	};
 
 	public void imprimirTipo2(String id, Element preguntaTipo, Element pregunta, PrintStream ps)

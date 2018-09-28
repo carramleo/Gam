@@ -8,7 +8,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-public class Type4 {
+public class FichTipo4 {
 
 	private static int NumeroLineasTipo4 = 3;
 	private static int NumeroLineasTipoSabio = 5;
@@ -19,7 +19,7 @@ public class Type4 {
 	private Boolean tipoSabio=false;
 	
 	
-	public Type4() {
+	public FichTipo4() {
 	};
 
 	public void imprimirTipo4(String id,Element preguntaTipo, Element pregunta, PrintStream ps) throws FileNotFoundException {

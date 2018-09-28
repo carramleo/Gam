@@ -32,12 +32,12 @@ import org.primefaces.component.inputtextarea.InputTextarea;
 import org.primefaces.component.panel.Panel;
 import org.primefaces.component.selectoneradio.SelectOneRadio;
 import org.primefaces.event.CloseEvent;
-import org.primefaces.showcase.view.input.SelectOneMenuTipos;
-import org.primefaces.showcase.view.input.SelectOneMenuView;
+import org.primefaces.showcase.view.input.MenuMapTiposOpciones;
+import org.primefaces.showcase.view.input.MenuMapTipos;
 
 @ManagedBean
 @SessionScoped
-public class ButtonView implements Serializable {
+public class AdminPreguntas implements Serializable {
 
     private List<PreguntaOpciones> Preguntas = new ArrayList<PreguntaOpciones>();
     private List<PreguntaCifras> PreguntasCifras = new ArrayList<PreguntaCifras>();
@@ -74,7 +74,7 @@ public class ButtonView implements Serializable {
 
     public void addPregunta() {
 
-        PreguntaOpciones pregAdd = new PreguntaOpciones(SelectOneMenuTipos.numOpciones.get(Tipo), SelectOneMenuTipos.formatoOp.get(Tipo), SelectOneMenuTipos.lineasEnun.get(Tipo));
+        PreguntaOpciones pregAdd = new PreguntaOpciones(MenuMapTiposOpciones.numOpciones.get(Tipo), MenuMapTiposOpciones.formatoOp.get(Tipo), MenuMapTiposOpciones.lineasEnun.get(Tipo));
         //this.number = Preguntas.size();
         pregAdd.setId("preg_" + number++);
         Preguntas.add(pregAdd);
@@ -119,7 +119,7 @@ public class ButtonView implements Serializable {
 
     public void addPreguntaCifras() {
 
-        PreguntaCifras pregAdd = new PreguntaCifras(SelectOneMenuTipos.lineasEnun.get(Tipo));
+        PreguntaCifras pregAdd = new PreguntaCifras(MenuMapTiposOpciones.lineasEnun.get(Tipo));
         //this.number = PreguntasCifras.size();
         pregAdd.setId("preg_" + number++);
         PreguntasCifras.add(pregAdd);
@@ -139,7 +139,7 @@ public class ButtonView implements Serializable {
     }
 
     public void addPreguntaCampoTexto() {
-        PreguntaCampoTexto pregAdd3 = new PreguntaCampoTexto(SelectOneMenuTipos.lineasEnun.get(Tipo), SelectOneMenuTipos.posiblesSol.get(Tipo), 1);
+        PreguntaCampoTexto pregAdd3 = new PreguntaCampoTexto(MenuMapTiposOpciones.lineasEnun.get(Tipo), MenuMapTiposOpciones.posiblesSol.get(Tipo), 1);
         // this.number = PreguntasCampoTexto.size();
         pregAdd3.setId("preg_" + number++);
         PreguntasCampoTexto.add(pregAdd3);
@@ -161,7 +161,7 @@ public class ButtonView implements Serializable {
 
     public void addPreguntaSiNo() {
 
-        PreguntaSiNo pregAdd = new PreguntaSiNo(SelectOneMenuTipos.elementosPanel.get(Tipo), SelectOneMenuTipos.lineasEnun.get(Tipo));
+        PreguntaSiNo pregAdd = new PreguntaSiNo(MenuMapTiposOpciones.elementosPanel.get(Tipo), MenuMapTiposOpciones.lineasEnun.get(Tipo));
         //this.number = PreguntasSiNo.size();
         pregAdd.setId("preg_" + number++);
         PreguntasSiNo.add(pregAdd);
@@ -182,7 +182,7 @@ public class ButtonView implements Serializable {
 
     public void addPreguntaPanelesLetras() {
 
-        PreguntaPanelesLetras pregAdd = new PreguntaPanelesLetras(SelectOneMenuTipos.letrasPanel.get(Tipo), SelectOneMenuTipos.Pistas.get(Tipo));
+        PreguntaPanelesLetras pregAdd = new PreguntaPanelesLetras(MenuMapTiposOpciones.letrasPanel.get(Tipo), MenuMapTiposOpciones.Pistas.get(Tipo));
         //this.number = PreguntasPanelesLetras.size();
         pregAdd.setId("preg_" + number++);
         PreguntasPanelesLetras.add(pregAdd);
@@ -203,7 +203,7 @@ public class ButtonView implements Serializable {
 
     public void addPreguntaRelacionar() {
 
-        PreguntaRelacionar pregAdd = new PreguntaRelacionar(SelectOneMenuTipos.filasColumna.get(Tipo), SelectOneMenuTipos.filasColumna.get(Tipo));
+        PreguntaRelacionar pregAdd = new PreguntaRelacionar(MenuMapTiposOpciones.filasColumna.get(Tipo), MenuMapTiposOpciones.filasColumna.get(Tipo));
         //this.number = PreguntasRelacionar.size();
         pregAdd.setId("preg_" + number++);
         PreguntasRelacionar.add(pregAdd);
@@ -224,7 +224,7 @@ public class ButtonView implements Serializable {
 
     public void addPreguntaRespAbierta() {
 
-        PreguntaRespAbierta pregAdd = new PreguntaRespAbierta(SelectOneMenuTipos.lineasEnun.get(Tipo));
+        PreguntaRespAbierta pregAdd = new PreguntaRespAbierta(MenuMapTiposOpciones.lineasEnun.get(Tipo));
         //this.number = PreguntasRespAbierta.size();
         pregAdd.setId("preg_" + number++);
         PreguntasRespAbierta.add(pregAdd);

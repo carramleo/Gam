@@ -32,9 +32,9 @@ import org.primefaces.Pregunta.PreguntaRespAbierta;
 import org.primefaces.Pregunta.PreguntaSiNo;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
-import org.primefaces.showcase.view.button.ButtonView;
-import org.primefaces.showcase.view.input.SelectOneMenuTipos;
-import org.primefaces.showcase.view.input.SelectOneMenuView;
+import org.primefaces.showcase.view.button.AdminPreguntas;
+import org.primefaces.showcase.view.input.MenuMapTiposOpciones;
+import org.primefaces.showcase.view.input.MenuMapTipos;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -73,7 +73,7 @@ public class ReadTXT {
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al importar", "No ha seleccionado un fichero"));
     }
 
-    public void readFile(UploadedFile fichero, ButtonView b, SelectOneMenuView tipos, SelectOneMenuTipos opcionesTipos) throws SAXException, IOException, ParserConfigurationException {
+    public void readFile(UploadedFile fichero, AdminPreguntas b, MenuMapTipos tipos, MenuMapTiposOpciones opcionesTipos) throws SAXException, IOException, ParserConfigurationException {
 
         if (fichero.getFileName() == null || fichero.getFileName().isEmpty()) {
             errorFile();
@@ -131,7 +131,7 @@ public class ReadTXT {
                         numPreguntas++;
                         contadorLineasEnunciado = 0;
                         respuestas.removeAll(respuestas);
-                        PreguntaOpciones pregAdd = new PreguntaOpciones(SelectOneMenuTipos.numOpciones.get("Tipo1"), SelectOneMenuTipos.formatoOp.get("Tipo1"), SelectOneMenuTipos.lineasEnun.get("Tipo1"));
+                        PreguntaOpciones pregAdd = new PreguntaOpciones(MenuMapTiposOpciones.numOpciones.get("Tipo1"), MenuMapTiposOpciones.formatoOp.get("Tipo1"), MenuMapTiposOpciones.lineasEnun.get("Tipo1"));
 
                         pregAdd.setId("preg_" + b.getNumber() + 1);
                         b.setNumber(b.getNumber() + 1);

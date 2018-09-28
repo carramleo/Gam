@@ -8,14 +8,14 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-public class Type8 {
+public class FichTipo8 {
 
 	private static int NumeroResp = 63;
 	private static int NumeroLineasPista8 = 3;
 	private static int NumeroLineasPista10 = 9;
 	private static String comillas = "''";
 
-	public Type8() {
+	public FichTipo8() {
 	};
 
 	public void imprimirTipo8(Element preguntaTipo, String nombre, String tema, String id, Element pregunta,

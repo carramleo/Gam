@@ -8,13 +8,13 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-public class Type3 {
+public class FichTipo3 {
 
 	private static int NumeroLineasTipo3 = 5;
 	private static int NumeroLineasTipo9 = 3;
 	private static int NumeroLineasTipoPatata = 7;
 
-	public Type3() {
+	public FichTipo3() {
 	};
 
 	public void imprimirTipo3(String id, Element preguntaTipo, Element pregunta, PrintStream ps)

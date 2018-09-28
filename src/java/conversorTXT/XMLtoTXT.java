@@ -7,15 +7,15 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.io.Serializable;
 import conversorTXT.FichTipo1;
-import conversorTXT.Type11;
-import conversorTXT.Type2;
-import conversorTXT.Type3;
-import conversorTXT.Type4;
-import conversorTXT.Type6;
-import conversorTXT.Type7;
-import conversorTXT.Type8;
-import conversorTXT.TypePalabras;
-import conversorTXT.TypeRelacionar;
+import conversorTXT.FichTipo11;
+import conversorTXT.FichTipo2;
+import conversorTXT.FichTipo3;
+import conversorTXT.FichTipo4;
+import conversorTXT.FichTipo6;
+import conversorTXT.FichTipo7;
+import conversorTXT.FichTipo8;
+import conversorTXT.FichTipoPalabras;
+import conversorTXT.FichTipoRelacionar;
 import java.io.BufferedWriter;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -143,44 +143,44 @@ public class XMLtoTXT implements Serializable {
                                 || preguntaTipo.getAttribute("tipo").equals("Tipo18")
                                 || preguntaTipo.getAttribute("tipo").equals("TipoLetritas")) {
 
-                            Type2 tipo2 = new Type2();
+                            FichTipo2 tipo2 = new FichTipo2();
                             tipo2.imprimirTipo2(id, preguntaTipo, pregunta, ps);
 
                         } else if (preguntaTipo.getAttribute("tipo").equals("Tipo3")
                                 || preguntaTipo.getAttribute("tipo").equals("Tipo9")
                                 || preguntaTipo.getAttribute("tipo").equals("TipoPatata")) {
 
-                            Type3 tipo3 = new Type3();
+                            FichTipo3 tipo3 = new FichTipo3();
                             tipo3.imprimirTipo3(id, preguntaTipo, pregunta, ps);
 
                         } else if (preguntaTipo.getAttribute("tipo").equals("Tipo4")
                                 || preguntaTipo.getAttribute("tipo").equals("TipoSabio")) {
 
-                            Type4 tipo4 = new Type4();
+                            FichTipo4 tipo4 = new FichTipo4();
                             tipo4.imprimirTipo4(id, preguntaTipo, pregunta, ps);
 
                         } else if (preguntaTipo.getAttribute("tipo").equals("Tipo6")
                                 || preguntaTipo.getAttribute("tipo").equals("Yipo2palabras")
                                 || preguntaTipo.getAttribute("tipo").equals("TipoPistas")) {
 
-                            Type6 tipo6 = new Type6();
+                            FichTipo6 tipo6 = new FichTipo6();
                             tipo6.imprimirTipo6(id, preguntaTipo, pregunta, ps);
 
                         } else if (preguntaTipo.getAttribute("tipo").equals("Tipo7")) {
 
-                            Type7 tipo7 = new Type7();
+                            FichTipo7 tipo7 = new FichTipo7();
                             tipo7.imprimirTipo7(id, pregunta, ps);
 
                         } else if (preguntaTipo.getAttribute("tipo").equals("Tipo8")
                                 || preguntaTipo.getAttribute("tipo").equals("Tipo10")) {
 
-                            Type8 tipo8 = new Type8();
+                            FichTipo8 tipo8 = new FichTipo8();
                             tipo8.imprimirTipo8(preguntaTipo, nombre.getTextContent(), tema.getTextContent(), id, pregunta, ps);
 
                         } else if (preguntaTipo.getAttribute("tipo").equals("Tipo11")
                                 || preguntaTipo.getAttribute("tipo").equals("Tipo16")) {
 
-                            Type11 tipo11 = new Type11();
+                            FichTipo11 tipo11 = new FichTipo11();
                             tipo11.imprimirTipo11(id, pregunta, ps);
 
                         } else if (preguntaTipo.getAttribute("tipo").equals("Tipocoincidencias")
@@ -189,7 +189,7 @@ public class XMLtoTXT implements Serializable {
                                 || preguntaTipo.getAttribute("tipo").equals("TipoLingo")
                                 || preguntaTipo.getAttribute("tipo").equals("TipoCuantasLetras")) {
 
-                            TypePalabras tipoPalabras = new TypePalabras();
+                            FichTipoPalabras tipoPalabras = new FichTipoPalabras();
                             tipoPalabras.imprimirTipoPalabras(id, palabras, preguntaTipo, pregunta, ps);
 
                         } else if (preguntaTipo.getAttribute("tipo").equals("TipoAntesyDespues")
@@ -199,7 +199,7 @@ public class XMLtoTXT implements Serializable {
                                 || preguntaTipo.getAttribute("tipo").equals("TipoOrdenaFrase")
                                 || preguntaTipo.getAttribute("tipo").equals("TipoImposible")) {
 
-                            TypeRelacionar tipoRelacionar = new TypeRelacionar();
+                            FichTipoRelacionar tipoRelacionar = new FichTipoRelacionar();
                             tipoRelacionar.imprimirTipoRelacionar(id, preguntaTipo, pregunta, ps);
 
                         }
