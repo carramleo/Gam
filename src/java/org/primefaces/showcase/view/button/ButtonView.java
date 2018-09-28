@@ -83,6 +83,7 @@ public class ButtonView implements Serializable {
     public void addRespPregunta(PreguntaOpciones pregActual) {
 
         pregActual.getRespuestas().add("");
+        pregActual.getSolucionList().add(pregActual.getSolucionList().get(pregActual.getSolucionList().size()-1) +1);
     }
 
     public void deleteRespPregunta(PreguntaOpciones pregActual, String resp) {
@@ -95,6 +96,7 @@ public class ButtonView implements Serializable {
             
             if(s.equals(resp)){
                 i.remove();
+                pregActual.getSolucionList().remove(pregActual.getSolucionList().size()-1) ;
             }
             
         }

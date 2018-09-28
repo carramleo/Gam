@@ -36,12 +36,14 @@
                                    <strong> <xsl:value-of  select="position()" />:
                                     <xsl:value-of select="enunciado" /></strong>
                                 </h4>
-					<p style="text-decoration: underline;" >Solucion: <xsl:value-of select="@sol" /></p>
 					 <xsl:for-each select="respuesta">
 						
-							<p><xsl:value-of select="position()" />: <xsl:value-of select="." /></p>
+							<p><xsl:number value="position()" format="A"/>: <xsl:value-of select="." /></p>
 						
 					</xsl:for-each>
+                                        
+                                        <p style="text-decoration: underline;" >Solucion: <xsl:value-of select="@sol" /></p>
+                                        <br></br>
             
 			</xsl:for-each>
             </body>
