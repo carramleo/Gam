@@ -109,7 +109,7 @@ public class ReadXML {
                 }
             }
 
-            if (compatible) {
+            if (compatible && TipoJuego!=null && !TipoJuego.isEmpty() && tipoSeleccionado!=null && !tipoSeleccionado.isEmpty()) {
 
                 NodeList preguntasElement = document.getElementsByTagName("pregunta");
 

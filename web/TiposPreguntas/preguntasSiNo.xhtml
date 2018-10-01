@@ -12,8 +12,13 @@
     <body>
         <ui:composition >
 
-            <p:panel id="#{pregunta.id}"  header="Pregunta" toggleable="true" closable="true"  toggleSpeed="500" closeSpeed="500" widgetVar="preg_#{pregunta.id}" >
-                <p:ajax event="close" listener="#{adminPreguntas.deletePreguntaSiNo}"/>
+            <p:panel id="#{pregunta.id}"  toggleable="true"  toggleSpeed="500"  widgetVar="preg_#{pregunta.id}" >
+                
+                <f:facet name = "header">
+                    <h:outputText value="Pregunta #{adminPreguntas.preguntasSiNo.indexOf(pregunta)+1} "/>
+                    <p:commandButton style="" value="Eliminar pregunta" action="#{adminPreguntas.deletePreguntaSiNo(pregunta.id)}" update=":juego"  /> 
+                    </f:facet>
+                
                 <h:panelGrid columns = "3" border = "1" 
                              cellpadding = "10" cellspacing = "1"  style="width: 100%;">
 

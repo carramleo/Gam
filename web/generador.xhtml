@@ -46,7 +46,7 @@
                                     <h:commandButton value="Importar"  action="#{importador.importador(adminPreguntas, menuMapTipos, menuMapTiposOpciones)}"  ></h:commandButton>
                                 </p:menuitem>
                                 <p:separator/>
-                                <p:menuitem value="Buscador" url="buscador.xhtml" />
+                                <p:menuitem value="Buscador" url="faces/buscador.xhtml"  />
 
                             </p:submenu>
                             <p:submenu label="Exportar"  >
@@ -76,7 +76,7 @@
                         </p:selectOneMenu>
                         <br/>
                         <br/>
-                        <p:commandButton  value="Borrar Preguntas" id="BorrarTodo" action="#{adminPreguntas.deleteAllLists()}" rendered="#{menuMapTipos.tipo ne null}" />
+                        <p:commandButton  value="Borrar Preguntas" id="BorrarTodo" action="#{adminPreguntas.deleteAllLists()}" rendered="#{menuMapTipos.tipo ne null}" update=":juego" />
 
                         <h:outputText value="Selecciona un tipo de formato y de juego para crear un nuevo fichero o para importarlo"  rendered="#{menuMapTipos.tipo eq null}" />
 

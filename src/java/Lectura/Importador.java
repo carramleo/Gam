@@ -42,12 +42,19 @@ public class Importador implements Serializable{
 
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al importar", "No ha seleccionado un fichero"));
     }
+    public void errorFileSinTipo() {
+        FacesContext context = FacesContext.getCurrentInstance();
+
+        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al importar", "No ha seleccionado ningún tipo"));
+    }
     
     public void importador(AdminPreguntas b, MenuMapTipos tipos, MenuMapTiposOpciones opcionesTipos) throws SAXException, IOException, ParserConfigurationException{
         
         if (file.getFileName() == null || file.getFileName().isEmpty() ) {
             errorFile();
-        } else {
+        }else if (b.getTipo()==null || b.getTipo().isEmpty())
+            errorFileSinTipo();
+        else {
             
             if(file.getContentType().equals("text/xml")){
                 ReadXML xml = new ReadXML();

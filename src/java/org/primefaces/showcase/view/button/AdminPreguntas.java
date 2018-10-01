@@ -125,10 +125,10 @@ public class AdminPreguntas implements Serializable {
         PreguntasCifras.add(pregAdd);
     }
 
-    public void deletePreguntaCifras(CloseEvent event) {
+    public void deletePreguntaCifras(String id) {
         for (int i = 0; i < PreguntasCifras.size(); i++) {
 
-            if (PreguntasCifras.get(i).getId().equals(event.getComponent().getId())) {
+            if (PreguntasCifras.get(i).getId().equals(id)) {
 
                 PreguntasCifras.remove(i);
 
@@ -146,10 +146,10 @@ public class AdminPreguntas implements Serializable {
 
     }
 
-    public void deletePreguntaCampoTexto(CloseEvent event) {
+    public void deletePreguntaCampoTexto(String id) {
         for (int i = 0; i < PreguntasCampoTexto.size(); i++) {
 
-            if (PreguntasCampoTexto.get(i).getId().equals(event.getComponent().getId())) {
+            if (PreguntasCampoTexto.get(i).getId().equals(id)) {
 
                 PreguntasCampoTexto.remove(i);
 
@@ -167,10 +167,10 @@ public class AdminPreguntas implements Serializable {
         PreguntasSiNo.add(pregAdd);
     }
 
-    public void deletePreguntaSiNo(CloseEvent event) {
+    public void deletePreguntaSiNo(String id) {
         for (int i = 0; i < PreguntasSiNo.size(); i++) {
 
-            if (PreguntasSiNo.get(i).getId().equals(event.getComponent().getId())) {
+            if (PreguntasSiNo.get(i).getId().equals(id)) {
 
                 PreguntasSiNo.remove(i);
 
@@ -188,10 +188,10 @@ public class AdminPreguntas implements Serializable {
         PreguntasPanelesLetras.add(pregAdd);
     }
 
-    public void deletePreguntaPanelesLetras(CloseEvent event) {
+    public void deletePreguntaPanelesLetras(String id) {
         for (int i = 0; i < PreguntasPanelesLetras.size(); i++) {
 
-            if (PreguntasPanelesLetras.get(i).getId().equals(event.getComponent().getId())) {
+            if (PreguntasPanelesLetras.get(i).getId().equals(id)) {
 
                 PreguntasPanelesLetras.remove(i);
 
@@ -209,10 +209,10 @@ public class AdminPreguntas implements Serializable {
         PreguntasRelacionar.add(pregAdd);
     }
 
-    public void deletePreguntaRelacionar(CloseEvent event) {
+    public void deletePreguntaRelacionar(String id) {
         for (int i = 0; i < PreguntasRelacionar.size(); i++) {
 
-            if (PreguntasRelacionar.get(i).getId().equals(event.getComponent().getId())) {
+            if (PreguntasRelacionar.get(i).getId().equals(id)) {
 
                 PreguntasRelacionar.remove(i);
 
@@ -230,10 +230,10 @@ public class AdminPreguntas implements Serializable {
         PreguntasRespAbierta.add(pregAdd);
     }
 
-    public void deletePreguntaRespAbierta(CloseEvent event) {
+    public void deletePreguntaRespAbierta(String id) {
         for (int i = 0; i < PreguntasRespAbierta.size(); i++) {
 
-            if (PreguntasRespAbierta.get(i).getId().equals(event.getComponent().getId())) {
+            if (PreguntasRespAbierta.get(i).getId().equals(id)) {
 
                 PreguntasRespAbierta.remove(i);
 
@@ -251,10 +251,10 @@ public class AdminPreguntas implements Serializable {
         PreguntasContarLetras.add(pregAdd);
     }
 
-    public void deletePreguntaContarLetras(CloseEvent event) {
+    public void deletePreguntaContarLetras(String id) {
         for (int i = 0; i < PreguntasContarLetras.size(); i++) {
 
-            if (PreguntasContarLetras.get(i).getId().equals(event.getComponent().getId())) {
+            if (PreguntasContarLetras.get(i).getId().equals(id)) {
 
                 PreguntasContarLetras.remove(i);
 
