@@ -16,15 +16,19 @@
         <h:body>
 
             <p:layout fullPage="true" >
-
+                
+                <!-- Titular página -->
                 <p:layoutUnit position="north" style="text-align: center; font-size: xx-large;" size="100" resizable="true" closable="true" collapsible="true">
                     <h:outputText value="Generador de Juegos"></h:outputText>
                 </p:layoutUnit>
-
+                
+                
+                <!-- Pie de página -->
                 <p:layoutUnit position="south" style="text-align: center; font-size: x-large;" size="100" closable="true" collapsible="true">
                     <h:outputText value="Aplicación de juegos didácticos en el aula"></h:outputText>
                 </p:layoutUnit>
-
+                
+                <!-- Menú de acciones -->
                 <p:layoutUnit position="west" size="340"  header="Opciones" collapsible="true" >
                     <h:form id="menu" enctype='multipart/form-data' >
                         <p:menu style="width: auto !important;" >
@@ -61,7 +65,8 @@
                         </p:menu>
                     </h:form>
                 </p:layoutUnit>
-
+                
+                <!-- Paneles de preguntas -->
                 <p:layoutUnit position="center">
 
 
@@ -94,7 +99,8 @@
                             </p:column>
                             
                         </p:panelGrid>
-
+                        
+                        <!-- Todos los paneles de los distintos tipos de juegos agrupados y ocultos hasta que en la lista de preguntas de cada tipo exista al menos un elemento -->
                         <p:panelGrid id="panelesJuego"  columns="1" style="width: 100%;" rendered="#{menuMapTipos.tipo eq 'TipoOpciones'}"  >
 
                             <c:forEach items="#{adminPreguntas.preguntas}" var="pregunta"  varStatus="preguntaLoop">

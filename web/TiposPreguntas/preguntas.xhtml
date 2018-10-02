@@ -21,6 +21,7 @@
                 <h:panelGrid id="panelgrid_#{pregunta.id}"  border = "1" 
                              cellpadding = "10" cellspacing = "1" style="width: 100%;" >
                     
+                    <!-- Enunciado de cada Panel -->
                     <p:column>
                         <h:outputLabel value = "Enunciado: " />
 
@@ -30,7 +31,7 @@
 
                     </p:column>
 
-                    
+                    <!-- Lista de respuestas de cada panel -->
                     <ui:repeat  value="#{pregunta.respuestas}" var="resp" varStatus="loop"  >
                             <p:column>
                                 <h:outputLabel value = "Respuesta #{loop.index +1}: " />
@@ -51,7 +52,7 @@
                             </p:column>
 
                     
-
+                    <!-- Respuestas de cada panel -->
                     <f:facet  name = "footer">
                         <h:selectOneRadio value="#{pregunta.solucion}" label="Solución" required="true">
 

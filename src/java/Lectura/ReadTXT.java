@@ -49,7 +49,7 @@ import org.xml.sax.SAXException;
 @SessionScoped
 public class ReadTXT {
 
-    private boolean compatible = false;
+    
 
     private String message;
 
@@ -77,6 +77,7 @@ public class ReadTXT {
 
     public void readFile(UploadedFile fichero, AdminPreguntas b, MenuMapTipos tipos, MenuMapTiposOpciones opcionesTipos) throws SAXException, IOException, ParserConfigurationException {
 
+        //Comprobamos que el fichero no es nulo  ni vacio.
         if (fichero.getFileName() == null || fichero.getFileName().isEmpty()) {
             errorFile();
         } else {
@@ -97,28 +98,31 @@ public class ReadTXT {
             String tipoSeleccionado = tipos.getTipo();
             List<String> respuestas = new ArrayList<String>();
 
+            //Si se ha seleccionado un tipo en la página web podemos seguir leyendo.
             if (TipoJuego != null && !TipoJuego.isEmpty() && tipoSeleccionado!=null && !tipoSeleccionado.isEmpty()) {
-
+                
+                //Leemos el fichero línea a línea y en formato UTF-8.
                 BufferedReader in = new BufferedReader(new InputStreamReader(ficheroImp, "UTF-8"));
 
                 String line2;
                 int numPreguntas = 0;
                 int contadorLineasEnunciado = 0;
                 int numLinea = 0;
+                //Variable para transformar las respuesta elegida en caracteres alfanuméricos.
                 char[] formatoOpciones = new char[]{'A', 'B', 'C', 'D', 'E', 'F'};
                 while ((line2 = in.readLine()) != null) {
 
-                    if (numLinea == 0) {
+                    if (numLinea == 0) { //Si es la primera línea estamos ante el autor.
                         String[] aut = line2.split(":");
                         autor = aut[1].substring(0, aut[1].length() - 1);
                         b.setAutor(autor);
-                    } else if (numLinea == 1) {
+                    } else if (numLinea == 1) { //Si es la segunda línea estamos ante el título.
                         String[] tit = line2.split(":");
                         titulo = tit[1].substring(0, tit[1].length() - 1);
                         b.setTitulo(titulo);
                     } else {
-                        int sigPreg = line2.indexOf("PREGUNTA");
-                        if (sigPreg != -1) {
+                        int sigPreg = line2.indexOf("PREGUNTA"); //Si la linea actual es PREGUNTA estamos ante una nueva pregunta.
+                        if (sigPreg != -1) { //Si esxiste la  linea, creamos una nueva pregunta en el bean.
                             numPreguntas++;
                             contadorLineasEnunciado = 0;
                             respuestas.removeAll(respuestas);
@@ -127,11 +131,11 @@ public class ReadTXT {
                             pregAdd.setId("preg_" + b.getNumber() + 1);
                             b.setNumber(b.getNumber() + 1);
                             Preguntas.add(pregAdd);
-                        } else {
+                        } else { //Si no, estamos ante el enunciado o sus respuestas.
                             PreguntaOpciones pregCreada = Preguntas.get(Preguntas.size() - 1);
                             String enun = line2.substring(1, line2.length() - 1);
                             String resp = line2.substring(1, line2.length() - 1);
-                            if (contadorLineasEnunciado >= 0 && contadorLineasEnunciado < 3) {
+                            if (contadorLineasEnunciado >= 0 && contadorLineasEnunciado < 3) { //Comprobamos si estamos leyendo el enunciado
 
                                 if (pregCreada.getEnunciado() != null) {
                                     pregCreada.setEnunciado(pregCreada.getEnunciado() + enun);
@@ -139,10 +143,10 @@ public class ReadTXT {
                                     pregCreada.setEnunciado(enun);
                                 }
 
-                            } else if (contadorLineasEnunciado >= 3 && contadorLineasEnunciado < 7) {
+                            } else if (contadorLineasEnunciado >= 3 && contadorLineasEnunciado < 7) { //Comprobamos si estamos leyendo las respuestas
 
                                 respuestas.add(resp);
-                            } else if (contadorLineasEnunciado == 7) {
+                            } else if (contadorLineasEnunciado == 7) { //Comprobamos si estamos leyendo la solución.
 
                                 pregCreada.setRespuestas(respuestas);
 
@@ -173,12 +177,6 @@ public class ReadTXT {
         }
     }
 
-    public boolean isCompatible() {
-        return compatible;
-    }
 
-    public void setCompatible(boolean compatible) {
-        this.compatible = compatible;
-    }
 
 }

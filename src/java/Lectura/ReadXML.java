@@ -86,7 +86,7 @@ public class ReadXML {
             String autor = document.getElementsByTagName("autor").item(0).getTextContent();
 
             String tipo = document.getElementsByTagName("preguntas").item(0).getAttributes().getNamedItem("tipo").getNodeValue();
-
+            //Creamos todas las listas de preguntas vacías.
             List<PreguntaOpciones> Preguntas = b.getPreguntas();
             List<PreguntaCifras> PreguntasCifras = b.getPreguntasCifras();
             List<PreguntaCampoTexto> PreguntasCampoTexto = b.getPreguntasCampoTexto();
@@ -108,16 +108,16 @@ public class ReadXML {
                     compatible = true;
                 }
             }
-
+            //Comprobamos si se ha seleccionado un tipo en la página web.
             if (compatible && TipoJuego!=null && !TipoJuego.isEmpty() && tipoSeleccionado!=null && !tipoSeleccionado.isEmpty()) {
 
                 NodeList preguntasElement = document.getElementsByTagName("pregunta");
-
+                //Comprobamos ante qué tipo estamos para crear un tipo de panel u otro.
                 if (tipoSeleccionado.equals("TipoOpciones")) {
 
                     for (int i = 0; i < preguntasElement.getLength(); i++) {
 
-                        Preguntas.add(getPreguntaOpciones(preguntasElement.item(i), tipo, b));
+                        Preguntas.add(getPreguntaOpciones(preguntasElement.item(i), tipo, b)); //añadimos una pregunta del tipo que corresponde.
                     }
                 } else if (tipoSeleccionado.equals("TipoCampoTexto")) {
 
@@ -183,13 +183,12 @@ public class ReadXML {
          char[] formatoOpciones = new char[]{'A', 'B', 'C', 'D', 'E', 'F'};
         if (node.getNodeType() == Node.ELEMENT_NODE) {
             Element element = (Element) node;
-
+            //creamos el enunciado
             preg.setEnunciado(getTagValuePregunta("enunciado", element));
 
             preg.setId("preg_" + bb.getNumber() + 1);
             bb.setNumber(bb.getNumber() + 1);
-
-            //String[] respuestasXML = new String[element.getElementsByTagName("respuesta").getLength()];
+            //Creamos las respuestas.
             ArrayList<String> respuestasXML = new ArrayList<String>(element.getElementsByTagName("respuesta").getLength());
             for (int i = 0; i < element.getElementsByTagName("respuesta").getLength(); i++) {
 
@@ -199,6 +198,7 @@ public class ReadXML {
 
             }
             preg.setRespuestas(respuestasXML);
+            //Creamos las soluciones
             int numSol=0;
             for(int j =0;j<formatoOpciones.length;j++){
                 if(String.valueOf(formatoOpciones[j]).equals(element.getAttributeNode("sol").getValue())){
@@ -213,7 +213,6 @@ public class ReadXML {
     }
 
     private static PreguntaCampoTexto getPreguntaCampoTexto(Node node, String tipo, AdminPreguntas bb) {
-        //XMLReaderDOM domReader = new XMLReaderDOM();
         PreguntaCampoTexto preg = new PreguntaCampoTexto(MenuMapTiposOpciones.lineasEnun.get(tipo), MenuMapTiposOpciones.posiblesSol.get(tipo), MenuMapTiposOpciones.Pistas.get(tipo));
 
         if (node.getNodeType() == Node.ELEMENT_NODE) {
@@ -223,16 +222,7 @@ public class ReadXML {
             preg.setId("preg_" + bb.getNumber() + 1);
             bb.setNumber(bb.getNumber() + 1);
 
-            /*String[] respuestasXML = new String[element.getElementsByTagName("respuesta").getLength()];
-            for (int i = 0; i < element.getElementsByTagName("respuesta").getLength(); i++) {
-       
-                    
-                   NodeList nodeListResp   = element.getElementsByTagName("respuesta").item(i).getChildNodes();
-                   Node nodeResp = (Node) nodeListResp.item(0);
-                     respuestasXML[i]=nodeResp.getNodeValue();
-
-            }
-            preg.setRespuestas(respuestasXML);*/
+            
             String soluciones[] = new String[MenuMapTiposOpciones.posiblesSol.get(tipo)];
 
             String solSplit = element.getAttribute("sol");
@@ -262,7 +252,6 @@ public class ReadXML {
     }
 
     private static PreguntaCifras getPreguntaCifras(Node node, String tipo, AdminPreguntas bb) {
-        //XMLReaderDOM domReader = new XMLReaderDOM();
         PreguntaCifras preg = new PreguntaCifras(MenuMapTiposOpciones.lineasEnun.get(tipo));
 
         if (node.getNodeType() == Node.ELEMENT_NODE) {
@@ -272,27 +261,9 @@ public class ReadXML {
             preg.setId("preg_" + bb.getNumber() + 1);
             bb.setNumber(bb.getNumber() + 1);
 
-            /*String[] respuestasXML = new String[element.getElementsByTagName("respuesta").getLength()];
-            for (int i = 0; i < element.getElementsByTagName("respuesta").getLength(); i++) {
-       
-                    
-                   NodeList nodeListResp   = element.getElementsByTagName("respuesta").item(i).getChildNodes();
-                   Node nodeResp = (Node) nodeListResp.item(0);
-                     respuestasXML[i]=nodeResp.getNodeValue();
-
-            }
-            preg.setRespuestas(respuestasXML);*/
+            
             preg.setSolucion(element.getAttribute("sol"));
-            /*
-            String[] pistasXML = new String[element.getElementsByTagName("pista").getLength()];
-            for (int i = 0; i < element.getElementsByTagName("pista").getLength(); i++) {
-                NodeList nodeListPista   = element.getElementsByTagName("pista").item(i).getChildNodes();
-               
-                Node nodeResp = (Node) nodeListPista.item(0);
-                     pistasXML[i]=nodeResp.getNodeValue();
-            }
-            preg.setPistas(pistasXML);
-             */
+            
 
         }
 
@@ -300,7 +271,6 @@ public class ReadXML {
     }
 
     private static PreguntaSiNo getPreguntaSiNo(Node node, String tipo, AdminPreguntas bb) {
-        //XMLReaderDOM domReader = new XMLReaderDOM();
         PreguntaSiNo preg = new PreguntaSiNo(MenuMapTiposOpciones.elementosPanel.get(tipo), MenuMapTiposOpciones.lineasEnun.get(tipo));
 
         if (node.getNodeType() == Node.ELEMENT_NODE) {
@@ -325,23 +295,13 @@ public class ReadXML {
             preg.setRespuestas(respuestasXML);
             preg.setSolucion(solucionesXML);
 
-            /*
-            String[] pistasXML = new String[element.getElementsByTagName("pista").getLength()];
-            for (int i = 0; i < element.getElementsByTagName("pista").getLength(); i++) {
-                NodeList nodeListPista   = element.getElementsByTagName("pista").item(i).getChildNodes();
-               
-                Node nodeResp = (Node) nodeListPista.item(0);
-                     pistasXML[i]=nodeResp.getNodeValue();
-            }
-            preg.setPistas(pistasXML);
-             */
+            
         }
 
         return preg;
     }
 
     private static PreguntaPanelesLetras getPreguntaPanelesLetras(Node node, String tipo, AdminPreguntas bb) {
-        //XMLReaderDOM domReader = new XMLReaderDOM();
         PreguntaPanelesLetras preg = new PreguntaPanelesLetras(MenuMapTiposOpciones.letrasPanel.get(tipo), MenuMapTiposOpciones.Pistas.get(tipo));
 
         if (node.getNodeType() == Node.ELEMENT_NODE) {
@@ -360,16 +320,7 @@ public class ReadXML {
 
             }
             preg.setPistas(pistasXML);
-            /*
-            String[] pistasXML = new String[element.getElementsByTagName("pista").getLength()];
-            for (int i = 0; i < element.getElementsByTagName("pista").getLength(); i++) {
-                NodeList nodeListPista   = element.getElementsByTagName("pista").item(i).getChildNodes();
-               
-                Node nodeResp = (Node) nodeListPista.item(0);
-                     pistasXML[i]=nodeResp.getNodeValue();
-            }
-            preg.setPistas(pistasXML);
-             */
+            
 
         }
 
@@ -377,13 +328,11 @@ public class ReadXML {
     }
 
     private static PreguntaRelacionar getPreguntaRelacionar(Node node, String tipo, AdminPreguntas bb) {
-        //XMLReaderDOM domReader = new XMLReaderDOM();
         PreguntaRelacionar preg = new PreguntaRelacionar(MenuMapTiposOpciones.filasColumna.get(tipo), MenuMapTiposOpciones.filasColumna.get(tipo));
 
         if (node.getNodeType() == Node.ELEMENT_NODE) {
             Element element = (Element) node;
 
-            //preg.setEnunciado(getTagValuePregunta("enunciado", element));
             preg.setId("preg_" + bb.getNumber() + 1);
             bb.setNumber(bb.getNumber() + 1);
 
@@ -412,23 +361,13 @@ public class ReadXML {
 
             h = 0;
 
-            /*
-            String[] pistasXML = new String[element.getElementsByTagName("pista").getLength()];
-            for (int i = 0; i < element.getElementsByTagName("pista").getLength(); i++) {
-                NodeList nodeListPista   = element.getElementsByTagName("pista").item(i).getChildNodes();
-               
-                Node nodeResp = (Node) nodeListPista.item(0);
-                     pistasXML[i]=nodeResp.getNodeValue();
-            }
-            preg.setPistas(pistasXML);
-             */
+           
         }
 
         return preg;
     }
 
     private static PreguntaRespAbierta getPreguntaRespAbierta(Node node, String tipo, AdminPreguntas bb) {
-        //XMLReaderDOM domReader = new XMLReaderDOM();
         PreguntaRespAbierta preg = new PreguntaRespAbierta(MenuMapTiposOpciones.lineasEnun.get(tipo));
 
         if (node.getNodeType() == Node.ELEMENT_NODE) {
@@ -446,7 +385,6 @@ public class ReadXML {
     }
 
     private static PreguntaContarLetras getPreguntaContarLetras(Node node, String tipo, AdminPreguntas bb) {
-        //XMLReaderDOM domReader = new XMLReaderDOM();
         PreguntaContarLetras preg = new PreguntaContarLetras(18);
 
         if (node.getNodeType() == Node.ELEMENT_NODE) {
@@ -482,7 +420,7 @@ public class ReadXML {
 
         return preg;
     }
-
+    //función para obtener el text value de la etiqueta que se le pasa.
     private static String getTagValuePregunta(String tag, Element element) {
         NodeList nodeList = element.getElementsByTagName(tag).item(0).getChildNodes();
         Node node = (Node) nodeList.item(0);

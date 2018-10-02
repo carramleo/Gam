@@ -26,9 +26,10 @@ import org.xml.sax.SAXException;
 @SessionScoped
 public class Importador implements Serializable{
     
-    
+    // Variable donde se guarda el fichero que se sube
     private UploadedFile file;
 
+    
     public UploadedFile getFile() {
         return file;
     }
@@ -36,12 +37,14 @@ public class Importador implements Serializable{
     public void setFile(UploadedFile file) {
         this.file = file;
     }
-    
+    //Mensaje de error cuando no se seleccione ningún fichero e intento importar.
     public void errorFile() {
         FacesContext context = FacesContext.getCurrentInstance();
 
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al importar", "No ha seleccionado un fichero"));
     }
+    
+   //Mensaje de error cuando no se seleccione ningún tipo  e intento importar.
     public void errorFileSinTipo() {
         FacesContext context = FacesContext.getCurrentInstance();
 
@@ -50,12 +53,14 @@ public class Importador implements Serializable{
     
     public void importador(AdminPreguntas b, MenuMapTipos tipos, MenuMapTiposOpciones opcionesTipos) throws SAXException, IOException, ParserConfigurationException{
         
+        //compruebo si se ha subido el fichero o si está vacío y también si se ha seleccionao.
         if (file.getFileName() == null || file.getFileName().isEmpty() ) {
             errorFile();
         }else if (b.getTipo()==null || b.getTipo().isEmpty())
             errorFileSinTipo();
         else {
             
+            //Comprobamos de qué tipo es el fichero subido.
             if(file.getContentType().equals("text/xml")){
                 ReadXML xml = new ReadXML();
                 
