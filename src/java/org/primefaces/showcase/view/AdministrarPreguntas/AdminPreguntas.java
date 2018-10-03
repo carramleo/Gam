@@ -1,4 +1,9 @@
-package org.primefaces.showcase.view.button;
+/*
+ * Clase que Contiene todas las listas de preguntas que se generan en el juego,
+ *  las funciones de borrado y añadido de preguntas y respuestas.
+ */
+
+package org.primefaces.showcase.view.AdministrarPreguntas;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -32,13 +37,13 @@ import org.primefaces.component.inputtextarea.InputTextarea;
 import org.primefaces.component.panel.Panel;
 import org.primefaces.component.selectoneradio.SelectOneRadio;
 import org.primefaces.event.CloseEvent;
-import org.primefaces.showcase.view.input.MenuMapTiposOpciones;
-import org.primefaces.showcase.view.input.MenuMapTipos;
+import org.primefaces.showcase.view.MapaTipos.MenuMapTiposOpciones;
+import org.primefaces.showcase.view.MapaTipos.MenuMapTipos;
 
 @ManagedBean
 @SessionScoped
 public class AdminPreguntas implements Serializable {
-
+    //Creamos todas las listas de preguntas de todos los tipos de juegos.
     private List<PreguntaOpciones> Preguntas = new ArrayList<PreguntaOpciones>();
     private List<PreguntaCifras> PreguntasCifras = new ArrayList<PreguntaCifras>();
     private List<PreguntaCampoTexto> PreguntasCampoTexto = new ArrayList<PreguntaCampoTexto>();
@@ -60,7 +65,8 @@ public class AdminPreguntas implements Serializable {
     public void setNumber(int number) {
         this.number = number;
     }
-
+    //Función para resetear todas lass listas, utilizado cuando se pulsa el botón de "borrar preguntas" o cuando se cambia
+    //de tipo de juego de tipo opciones.
     public void deleteAllLists() {
         Preguntas.removeAll(Preguntas);
         PreguntasCampoTexto.removeAll(PreguntasCampoTexto);
@@ -71,7 +77,7 @@ public class AdminPreguntas implements Serializable {
         PreguntasRespAbierta.removeAll(PreguntasRespAbierta);
         PreguntasSiNo.removeAll(PreguntasSiNo);
     }
-
+    //Funcion para añadir pregunta a la lista  de tipo test
     public void addPregunta() {
 
         PreguntaOpciones pregAdd = new PreguntaOpciones(MenuMapTiposOpciones.numOpciones.get(Tipo), MenuMapTiposOpciones.formatoOp.get(Tipo), MenuMapTiposOpciones.lineasEnun.get(Tipo));
@@ -79,13 +85,13 @@ public class AdminPreguntas implements Serializable {
         pregAdd.setId("preg_" + number++);
         Preguntas.add(pregAdd);
     }
-
+    //Funcion para añadir respuesta a la lista de respuestas  de tipo test
     public void addRespPregunta(PreguntaOpciones pregActual) {
 
         pregActual.getRespuestas().add("");
         pregActual.getSolucionList().add(pregActual.getSolucionList().get(pregActual.getSolucionList().size()-1) +1);
     }
-
+    //Funcion para borrar respuesta de la lista de respuestas  de tipo test
     public void deleteRespPregunta(PreguntaOpciones pregActual, String resp) {
 
         //pregActual.getRespuestas().remove(resp);
@@ -102,7 +108,7 @@ public class AdminPreguntas implements Serializable {
         }
 
     }
-
+    //Funcion para borrar pregunta de la lista  de tipo test
     public void deletePregunta(String id) {
 
         for (int i = 0; i < Preguntas.size(); i++) {
@@ -116,7 +122,7 @@ public class AdminPreguntas implements Serializable {
         }
 
     }
-
+    //Funcion para añadir pregunta a la lista  de tipo cifras
     public void addPreguntaCifras() {
 
         PreguntaCifras pregAdd = new PreguntaCifras(MenuMapTiposOpciones.lineasEnun.get(Tipo));
@@ -124,7 +130,7 @@ public class AdminPreguntas implements Serializable {
         pregAdd.setId("preg_" + number++);
         PreguntasCifras.add(pregAdd);
     }
-
+    //Funcion para borrar pregunta de la lista  de tipo cifras
     public void deletePreguntaCifras(String id) {
         for (int i = 0; i < PreguntasCifras.size(); i++) {
 
@@ -137,7 +143,7 @@ public class AdminPreguntas implements Serializable {
         }
 
     }
-
+    //Funcion para añadir pregunta a la lista  de tipo campo texto
     public void addPreguntaCampoTexto() {
         PreguntaCampoTexto pregAdd3 = new PreguntaCampoTexto(MenuMapTiposOpciones.lineasEnun.get(Tipo), MenuMapTiposOpciones.posiblesSol.get(Tipo), 1);
         // this.number = PreguntasCampoTexto.size();
@@ -145,7 +151,7 @@ public class AdminPreguntas implements Serializable {
         PreguntasCampoTexto.add(pregAdd3);
 
     }
-
+    //Funcion para borrar pregunta de la lista  de tipo campo texto
     public void deletePreguntaCampoTexto(String id) {
         for (int i = 0; i < PreguntasCampoTexto.size(); i++) {
 
@@ -158,7 +164,7 @@ public class AdminPreguntas implements Serializable {
         }
 
     }
-
+    //Funcion para añadir pregunta a la lista  de tipo respuesta si o no
     public void addPreguntaSiNo() {
 
         PreguntaSiNo pregAdd = new PreguntaSiNo(MenuMapTiposOpciones.elementosPanel.get(Tipo), MenuMapTiposOpciones.lineasEnun.get(Tipo));
@@ -166,7 +172,7 @@ public class AdminPreguntas implements Serializable {
         pregAdd.setId("preg_" + number++);
         PreguntasSiNo.add(pregAdd);
     }
-
+    //Funcion para borrar pregunta de la lista  de tipo respuesta si o no
     public void deletePreguntaSiNo(String id) {
         for (int i = 0; i < PreguntasSiNo.size(); i++) {
 
@@ -179,7 +185,7 @@ public class AdminPreguntas implements Serializable {
         }
 
     }
-
+    //Funcion para añadir pregunta a la lista  de tipo paneles con letras
     public void addPreguntaPanelesLetras() {
 
         PreguntaPanelesLetras pregAdd = new PreguntaPanelesLetras(MenuMapTiposOpciones.letrasPanel.get(Tipo), MenuMapTiposOpciones.Pistas.get(Tipo));
@@ -187,7 +193,7 @@ public class AdminPreguntas implements Serializable {
         pregAdd.setId("preg_" + number++);
         PreguntasPanelesLetras.add(pregAdd);
     }
-
+    //Funcion para borrar pregunta de la lista  de tipo paneles con letras
     public void deletePreguntaPanelesLetras(String id) {
         for (int i = 0; i < PreguntasPanelesLetras.size(); i++) {
 
@@ -200,7 +206,7 @@ public class AdminPreguntas implements Serializable {
         }
 
     }
-
+    //Funcion para añadir pregunta a la lista  de tipo relacionar columnas
     public void addPreguntaRelacionar() {
 
         PreguntaRelacionar pregAdd = new PreguntaRelacionar(MenuMapTiposOpciones.filasColumna.get(Tipo), MenuMapTiposOpciones.filasColumna.get(Tipo));
@@ -208,7 +214,7 @@ public class AdminPreguntas implements Serializable {
         pregAdd.setId("preg_" + number++);
         PreguntasRelacionar.add(pregAdd);
     }
-
+    //Funcion para borrar pregunta de la lista  de tipo relacionar columnas
     public void deletePreguntaRelacionar(String id) {
         for (int i = 0; i < PreguntasRelacionar.size(); i++) {
 
@@ -221,7 +227,7 @@ public class AdminPreguntas implements Serializable {
         }
 
     }
-
+    //Funcion para añadir pregunta a la lista  de tipo respuesta abierta
     public void addPreguntaRespAbierta() {
 
         PreguntaRespAbierta pregAdd = new PreguntaRespAbierta(MenuMapTiposOpciones.lineasEnun.get(Tipo));
@@ -229,7 +235,7 @@ public class AdminPreguntas implements Serializable {
         pregAdd.setId("preg_" + number++);
         PreguntasRespAbierta.add(pregAdd);
     }
-
+    //Funcion para borrar pregunta de la lista  de tipo respuesta abierta
     public void deletePreguntaRespAbierta(String id) {
         for (int i = 0; i < PreguntasRespAbierta.size(); i++) {
 
@@ -242,7 +248,7 @@ public class AdminPreguntas implements Serializable {
         }
 
     }
-
+    //Funcion para añadir pregunta a la lista  de tipo contar letras
     public void addPreguntaContarLetras() {
 
         PreguntaContarLetras pregAdd = new PreguntaContarLetras(18);
@@ -250,7 +256,7 @@ public class AdminPreguntas implements Serializable {
         pregAdd.setId("preg_" + number++);
         PreguntasContarLetras.add(pregAdd);
     }
-
+    //Funcion para borrar pregunta de la lista  de tipo contar letras
     public void deletePreguntaContarLetras(String id) {
         for (int i = 0; i < PreguntasContarLetras.size(); i++) {
 

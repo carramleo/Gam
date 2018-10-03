@@ -1,3 +1,8 @@
+/*
+ * Clase utilizada para imprimir en el fichero TXT a generar el formato de las preguntas según corresponda,
+ *  en este caso, del tipo 1 y parecidos.
+ */
+
 package conversorTXT;
 
 import java.io.FileNotFoundException;
@@ -59,7 +64,7 @@ public class FichTipo1 {
 
             
             
-
+            //Frgmentamos en enunciado en tantas lineas como admita el tipo.
             List<String> stringsEnunciado = new ArrayList<String>();
             int index = 0;
             while (index < enunciadoStr.length()) {
@@ -74,7 +79,8 @@ public class FichTipo1 {
             int temaJurado = (idPreg - 1) % 1;
             int ronda123 = (idPreg - 1) % 6;
             int panelesLetraAletra = (idPreg - 1) % 5;
-
+            
+            //En función del tipo de Juego, se utiliza un nombre distinto pa designar una pregunta nueva o panel.
             if (e.getNodeType() == Node.ELEMENT_NODE) {
 
                 if (preguntaTipo.getAttribute("tipo").equals("TipoDuelo")) {
@@ -111,6 +117,9 @@ public class FichTipo1 {
                     
 
                 }
+                
+                //En función del tipo elegido contamos las lineas de enunciado que ocupa e imprimimos comillas vacías para las líneas desocupadas
+                //como así indica el formato de la aplicación AJDA
                 if (preguntaTipo.getAttribute("tipo").equals("Tipo1") || preguntaTipo.getAttribute("tipo").equals("Tipo12")
                         || preguntaTipo.getAttribute("tipo").equals("Tipo13")
                         || preguntaTipo.getAttribute("tipo").equals("Tipo15")
@@ -136,7 +145,7 @@ public class FichTipo1 {
                     
                     for (int h = 0; h < NumeroLineasTipo1 - numLineas; h++) {
 
-                        ps.println(comillas); // imprimimos las comillas restantes de laslineas del enunciado sin ocupar
+                        ps.println(comillas); // imprimimos las comillas restantes de las lineas del enunciado sin ocupar
 
                     }
 
@@ -218,6 +227,7 @@ public class FichTipo1 {
                     }
                 }
             }
+            //Imprimimos las distintas respuestas y sus correspondientes comillas para las lineas sin ocupar de cada pregunta dependiendo del tipo de juego.
             if (!preguntaTipo.getAttribute("tipo").equals("TipoJurado") && !preguntaTipo.getAttribute("tipo").equals("Tipo123")) {
 
                 if (!preguntaTipo.getAttribute("tipo").equals("TipoLetra")) {
@@ -281,7 +291,7 @@ public class FichTipo1 {
                     }
 
                 }
-
+                //Imprimimos la solución de cada pregunta en función de su tipo.
                 if (!TipoJurado && !Tipo123 && (Tipo1 || Tipo14 || TipoletraAletra)) {
 
                     if (preguntaTipo.getAttribute("tipo").equals("TipoBombaDorada")

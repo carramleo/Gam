@@ -1,3 +1,7 @@
+/*
+ * Clase que en convierte un fichero XML en formato TXT con formato de juego AJDA.
+ */
+
 package conversorTXT;
 
 import java.io.File;
@@ -47,9 +51,10 @@ public class XMLtoTXT implements Serializable {
 
     public void conversorXMLtoTXT(InputStream XML) {
 
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 
         try {
+            
+            //Pedimos al servlet que nos mande u fichero descargable de tipo TXT para escribir contenido en él.
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(XML);
@@ -64,18 +69,19 @@ public class XMLtoTXT implements Serializable {
 
             NodeList Autor = doc.getElementsByTagName("autor");  //Obtenemos el nombre del autor del XML
             Node nombre = Autor.item(0);
-            NodeList Titulo = doc.getElementsByTagName("titulo");
+            NodeList Titulo = doc.getElementsByTagName("titulo");  //Obtenemos el títilo del XML
             Node tema = Titulo.item(0);
             int numId = 0;
             if (nombre.getNodeType() == Node.ELEMENT_NODE && tema.getNodeType() == Node.ELEMENT_NODE) {   //Imprimimos el nombre del autor en el txt
-
-                NodeList Preguntas = doc.getElementsByTagName("preguntas");
+                //Obtenemos la etiqueta Preguntas donde están todas las preguntas del juego
+                NodeList Preguntas = doc.getElementsByTagName("preguntas");  
 
                 Node preg = Preguntas.item(0);
 
                 NodeList Pregunta = doc.getElementsByTagName("pregunta");   //creamos la lista de nodos de pregunta
                 NodeList palabras = doc.getElementsByTagName("palabra");
-
+                //Comprobamos ante qué tipo estamos para imprimir en el orden y con los datos que necesita la aplicación web AJDA
+                //para procesar cada tipo de juego
                 if (preg.getAttributes().getNamedItem("tipo").getTextContent().equals("TipoSabios")
                         || preg.getAttributes().getNamedItem("tipo").getTextContent().equals("Tipo14")
                         || preg.getAttributes().getNamedItem("tipo").getTextContent().equals("Tipo123")
@@ -86,21 +92,20 @@ public class XMLtoTXT implements Serializable {
                         || preg.getAttributes().getNamedItem("tipo").getTextContent().equals("TipoPartextodo")
                         || preg.getAttributes().getNamedItem("tipo").getTextContent().equals("TipoLlamada")) {
 
-                    //FileOutputStream os = new FileOutputStream("examen.txt", true);
                     ps = new PrintStream(out, false, "UTF-8");
                 } else if (preg.getAttributes().getNamedItem("tipo").getTextContent().equals("identity")) {
-                    //FileOutputStream os = new FileOutputStream("examen.txt", true);
+                    //Este tipo requiere de una línea con el tema del juego antes de imprimir las pregntas.
                     ps = new PrintStream(out, false, "UTF-8");
                     ps.println("'TEMA: " + tema.getTextContent() + "'");
                 } else if (preg.getAttributes().getNamedItem("tipo").getTextContent().equals("palabraImposible")) {
-                    //FileOutputStream os = new FileOutputStream("examen.txt", true);
+                    //Este tipo requiere del numero de letras de la palbra, acompañado de la compatibilidad y autor antes de las preguntas.
                     ps = new PrintStream(out, false, "UTF-8");
                     ps.println("60");
                     ps.println("'Compatibilidad " + preg.getAttributes().getNamedItem("tipo").getTextContent() + "'");
                     ps.println("'AUTOR/A: " + nombre.getTextContent() + "'");
                 } else {
 
-                    //FileOutputStream os = new FileOutputStream("examen.txt", true);
+                    //Para los demás tipos es igual, autor y tema
                     ps = new PrintStream(out, false, "UTF-8");
                     ps.println("'AUTOR/A: " + nombre.getTextContent() + "'");
                     ps.println("'TEMA: " + tema.getTextContent() + "'");
@@ -109,7 +114,7 @@ public class XMLtoTXT implements Serializable {
                 for (int i = 0; i < Pregunta.getLength(); i++) {
 
                     Node p = Pregunta.item(i);
-
+                    //Comprobamos ante qué tipo estamos para imprimir las preguntas según corresponda.
                     if (preg.getNodeType() == Node.ELEMENT_NODE && p.getNodeType() == Node.ELEMENT_NODE) {
 
                         Element preguntaTipo = (Element) preg;
@@ -207,6 +212,7 @@ public class XMLtoTXT implements Serializable {
                     }
 
                 }
+                //Comprobamos el tipo de fichero que es para saber la información que hay que añadir al final de las pregutas.
                 if (preg.getAttributes().getNamedItem("tipo").getTextContent().equals("TipoSabios")
                         || preg.getAttributes().getNamedItem("tipo").getTextContent().equals("Tipo14")
                         || preg.getAttributes().getNamedItem("tipo").getTextContent().equals("Tipo123")
@@ -226,10 +232,7 @@ public class XMLtoTXT implements Serializable {
 
                     ps.println("'TEMA: " + tema.getTextContent() + "'");
                 }
-                //FileOutputStream os = new FileOutputStream("examen.txt", true);
-                //ps = new PrintStream(out, false, "UTF-8");
-                //ps.println("'Compatibilidad " + preg.getAttributes().getNamedItem("tipo").getTextContent() + "'");
-                
+
                 
                 
                 externalContext.responseFlushBuffer();

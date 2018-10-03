@@ -1,3 +1,6 @@
+/*
+ * Clase que define el formato de pregunta del tipo Relacionar columnas.
+ */
 package org.primefaces.Pregunta;
 
 import java.io.Serializable;
@@ -6,31 +9,25 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-
-
-
 public class PreguntaRelacionar implements Serializable {
-	
-	
-        private int numCol;
-	private String id;
-	private String enunciado;
-	private String[] columnaRespuesta;
-        private String[] columnaSolucion;
-        private int filasCol;
-        
-        
-	
-	public PreguntaRelacionar(int filasCol,int numFilaSoluciones) {
-           
-            columnaRespuesta = new String[numFilaSoluciones];
-            columnaSolucion = new String[numFilaSoluciones];
-            for(int j=0;j<numFilaSoluciones;j++){
-                columnaRespuesta[j] = "Respuesta columna "+(j+1);
-                columnaSolucion[j] = "Solucion columna "+(j+1);
-            }
-            this.filasCol=filasCol;
-	}
+
+    private int numCol;
+    private String id;
+    private String enunciado;
+    private String[] columnaRespuesta;
+    private String[] columnaSolucion;
+    private int filasCol;
+
+    public PreguntaRelacionar(int filasCol, int numFilaSoluciones) {
+
+        columnaRespuesta = new String[numFilaSoluciones];
+        columnaSolucion = new String[numFilaSoluciones];
+        for (int j = 0; j < numFilaSoluciones; j++) {
+            columnaRespuesta[j] = "Respuesta columna " + (j + 1);
+            columnaSolucion[j] = "Solucion columna " + (j + 1);
+        }
+        this.filasCol = filasCol;
+    }
 
     public int getNumCol() {
         return numCol;
@@ -79,11 +76,5 @@ public class PreguntaRelacionar implements Serializable {
     public void setFilasCol(int filasCol) {
         this.filasCol = filasCol;
     }
-	
 
-
-
-
-
-	
 }

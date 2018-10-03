@@ -1,3 +1,7 @@
+/*
+ * Clase que define el formato de pregunta del tipo test.
+ */
+
 package org.primefaces.Pregunta;
 
 import java.io.Serializable;
@@ -16,7 +20,6 @@ public class PreguntaOpciones implements Serializable {
         
 	private String id;
 	private String enunciado;
-	//private String[] respuestas;
         private List<String> respuestas= new ArrayList<String>();
 	private String[] pistas;
         int lineasEnunciado;
@@ -79,14 +82,6 @@ public class PreguntaOpciones implements Serializable {
         this.lineasEnunciado = lineasEnunciado;
     }
 
-    /*public String[] getRespuestas() {
-        return respuestas;
-    }
-
-    public void setRespuestas(String[] respuestas) {
-        this.respuestas = respuestas;
-    }
-*/
 
     public List<String> getRespuestas() {
         return respuestas;
@@ -121,9 +116,4 @@ public class PreguntaOpciones implements Serializable {
         this.solucionList = solucionList;
     }
 
-
-
-
-
-	
 }

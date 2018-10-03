@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Clase que genera un fichero XML en función del tipo seleccionado en la aplicación y del contenido del bean, el cual
+ *  contiene toda la información de las preguntas, respuestas, soluciones, autor y título.
  */
 package conversor;
 
@@ -34,8 +33,8 @@ import org.primefaces.Pregunta.PreguntaRelacionar;
 import org.primefaces.Pregunta.PreguntaRespAbierta;
 import org.primefaces.Pregunta.PreguntaSiNo;
 
-import org.primefaces.showcase.view.button.AdminPreguntas;
-import org.primefaces.showcase.view.input.MenuMapTiposOpciones;
+import org.primefaces.showcase.view.AdministrarPreguntas.AdminPreguntas;
+import org.primefaces.showcase.view.MapaTipos.MenuMapTiposOpciones;
 
 /**
  *
@@ -64,7 +63,7 @@ public class createXML extends AdminPreguntas implements Serializable {
 
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Generado con éxito", "El fichero se ha guardado en base de datos"));
     }
-    
+    //Mensaje de error que sale al no corresponderse el número de respuestas actual con el tipo de juego elegido.
     public void errorGenerado(String tipo, int numResp) {
         FacesContext context = FacesContext.getCurrentInstance();
 
@@ -72,11 +71,17 @@ public class createXML extends AdminPreguntas implements Serializable {
                 + " Nº respuestas = " + numResp+" "));
     }
     
-    
+    public void errorSinPreguntas() {
+        FacesContext context = FacesContext.getCurrentInstance();
 
+        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Fallo al generar", "Para generar un fichero XML se necesita al menos una pregunta."));
+    }
+    
+    
+    //Función para crear el XML, recibeel bean con las preguntas.
     public void createXML(AdminPreguntas b) throws Exception {
         int num = 0;
-        numRespOk=false;
+        numRespOk=false;  //Comprueba q el numero de rspuestas sea el correcto en función del tipo elegido.
         List<PreguntaOpciones> Preguntas = b.getPreguntas();
         List<PreguntaCifras> PreguntasCifras = b.getPreguntasCifras();
         List<PreguntaCampoTexto> PreguntasCampoTexto = b.getPreguntasCampoTexto();
@@ -431,16 +436,19 @@ public class createXML extends AdminPreguntas implements Serializable {
                 pregunta.appendChild(pista);
                 preguntas.appendChild(pregunta);
             }
+        }else{
+            errorSinPreguntas();
+            
         }
         
         if(!numRespOk){
         
-            ServletOutputStream outputStream;
+         
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         Transformer transformer = transformerFactory.newTransformer();
         DOMSource source = new DOMSource(document);
 
-
+        //Pedimos al servlet que nos mande u fichero descargable de tipo XML para escribir contenido en él.
         FacesContext context = FacesContext.getCurrentInstance();
         ExternalContext externalContext = context.getExternalContext();
         externalContext.responseReset();
@@ -452,7 +460,7 @@ public class createXML extends AdminPreguntas implements Serializable {
         OutputStream out = externalContext.getResponseOutputStream();
        
         transformer.transform(source, new StreamResult(out));
-
+         //Pedimos al servlet que nos descargue el fichero en la carpeta de descargas de nuestro equipo.
         externalContext.responseFlushBuffer();
 
         out.close();

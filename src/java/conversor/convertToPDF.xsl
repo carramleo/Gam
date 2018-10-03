@@ -3,9 +3,9 @@
 <!--
     Document   : convertToPDF.xsl
     Created on : 31 de agosto de 2018, 19:09
-    Author     : carlo
+    Author     : Carlos
     Description:
-        Purpose of transformation follows.
+        Dar formato al fichero PDF de Salida.
 -->
 
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">

@@ -1,8 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+* Clase que lee un fichero de tipo TXT con formato Juego Tipo 1 del proyecto AJDA
+*/
 package Lectura;
 
 import java.io.BufferedReader;
@@ -32,9 +30,9 @@ import org.primefaces.Pregunta.PreguntaRespAbierta;
 import org.primefaces.Pregunta.PreguntaSiNo;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
-import org.primefaces.showcase.view.button.AdminPreguntas;
-import org.primefaces.showcase.view.input.MenuMapTiposOpciones;
-import org.primefaces.showcase.view.input.MenuMapTipos;
+import org.primefaces.showcase.view.AdministrarPreguntas.AdminPreguntas;
+import org.primefaces.showcase.view.MapaTipos.MenuMapTiposOpciones;
+import org.primefaces.showcase.view.MapaTipos.MenuMapTipos;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;

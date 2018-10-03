@@ -1,3 +1,6 @@
+/*
+ * Clase que define el formato de pregunta del tipo cifras.
+ */
 package org.primefaces.Pregunta;
 
 import java.io.Serializable;
@@ -6,33 +9,28 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-
-
-
 public class PreguntaCifras implements Serializable {
-	
-	
-        private int numResp;
-	private String id;
-	private String enunciado;
-	private String[] respuestas;
-	private String[] pistas;
-        private String solucion;
-        private int numLineas;
-        
-        
-	
-	public PreguntaCifras(int numLineas) {
-          
-            this.numLineas=numLineas;
-	}
-	
-	public String getEnunciado() {
-		return enunciado;
-	}
-	public void setEnunciado(String enunciado) {
-		this.enunciado = enunciado;
-	}
+
+    private int numResp;
+    private String id;
+    private String enunciado;
+    private String[] respuestas;
+    private String[] pistas;
+    private String solucion;
+    private int numLineas;
+
+    public PreguntaCifras(int numLineas) {
+
+        this.numLineas = numLineas;
+    }
+
+    public String getEnunciado() {
+        return enunciado;
+    }
+
+    public void setEnunciado(String enunciado) {
+        this.enunciado = enunciado;
+    }
 
     public int getNumResp() {
         return this.numResp;
@@ -41,23 +39,22 @@ public class PreguntaCifras implements Serializable {
     public void setNumResp(int numResp) {
         this.numResp = numResp;
     }
-        
-    
-	
-	public String[] getPistas() {
-		return pistas;
-	}
-	public void setPistas(String[] pistas) {
-		this.pistas = pistas;
-	}
 
-	public String getId() {
-		return id;
-	}
+    public String[] getPistas() {
+        return pistas;
+    }
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    public void setPistas(String[] pistas) {
+        this.pistas = pistas;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String[] getRespuestas() {
         return respuestas;
@@ -83,9 +80,4 @@ public class PreguntaCifras implements Serializable {
         this.numLineas = numLineas;
     }
 
-
-
-
-
-	
 }

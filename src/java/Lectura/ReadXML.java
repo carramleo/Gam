@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Clase que lee un fichero de tipo XML de cualquier tipo de juego del proyecto AJDA, distingue entre los distintos de tipos 
+ *  para crear paneles en función del tipo de juego al que pertenezcan.
  */
 package Lectura;
 
@@ -28,9 +27,9 @@ import org.primefaces.Pregunta.PreguntaRespAbierta;
 import org.primefaces.Pregunta.PreguntaSiNo;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
-import org.primefaces.showcase.view.button.AdminPreguntas;
-import org.primefaces.showcase.view.input.MenuMapTiposOpciones;
-import org.primefaces.showcase.view.input.MenuMapTipos;
+import org.primefaces.showcase.view.AdministrarPreguntas.AdminPreguntas;
+import org.primefaces.showcase.view.MapaTipos.MenuMapTiposOpciones;
+import org.primefaces.showcase.view.MapaTipos.MenuMapTipos;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -178,7 +177,6 @@ public class ReadXML {
     }
 
     private static PreguntaOpciones getPreguntaOpciones(Node node, String tipo, AdminPreguntas bb) {
-        //XMLReaderDOM domReader = new XMLReaderDOM();
         PreguntaOpciones preg = new PreguntaOpciones(MenuMapTiposOpciones.numOpciones.get(tipo), MenuMapTiposOpciones.formatoOp.get(tipo), MenuMapTiposOpciones.lineasEnun.get(tipo));
          char[] formatoOpciones = new char[]{'A', 'B', 'C', 'D', 'E', 'F'};
         if (node.getNodeType() == Node.ELEMENT_NODE) {

@@ -1,3 +1,6 @@
+/*
+ * Clase que define el formato de pregunta del tipo Respuesta Abierta.
+ */
 package org.primefaces.Pregunta;
 
 import java.io.Serializable;
@@ -6,33 +9,26 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-
-
-
 public class PreguntaRespAbierta implements Serializable {
-	
-	
-	private String id;
-	private String enunciado;
-        private String tema;
-	
-        private int numLineas;
-        
-        
-	
-	public PreguntaRespAbierta(int numLineas) {
-           
-            
-            
-            this.numLineas=numLineas;
-	}
-	
-	public String getEnunciado() {
-		return enunciado;
-	}
-	public void setEnunciado(String enunciado) {
-		this.enunciado = enunciado;
-	}
+
+    private String id;
+    private String enunciado;
+    private String tema;
+
+    private int numLineas;
+
+    public PreguntaRespAbierta(int numLineas) {
+
+        this.numLineas = numLineas;
+    }
+
+    public String getEnunciado() {
+        return enunciado;
+    }
+
+    public void setEnunciado(String enunciado) {
+        this.enunciado = enunciado;
+    }
 
     public String getId() {
         return id;
@@ -58,9 +54,4 @@ public class PreguntaRespAbierta implements Serializable {
         this.tema = tema;
     }
 
-   
-
-
-
-	
 }

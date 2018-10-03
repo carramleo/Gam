@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Clase que identifica el fichero subido y en función de su tipo llama a la clase correspondiente
+*   para su lectura.
  */
 package Lectura;
 
@@ -13,9 +12,9 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.xml.parsers.ParserConfigurationException;
 import org.primefaces.model.UploadedFile;
-import org.primefaces.showcase.view.button.AdminPreguntas;
-import org.primefaces.showcase.view.input.MenuMapTiposOpciones;
-import org.primefaces.showcase.view.input.MenuMapTipos;
+import org.primefaces.showcase.view.AdministrarPreguntas.AdminPreguntas;
+import org.primefaces.showcase.view.MapaTipos.MenuMapTiposOpciones;
+import org.primefaces.showcase.view.MapaTipos.MenuMapTipos;
 import org.xml.sax.SAXException;
 
 /**

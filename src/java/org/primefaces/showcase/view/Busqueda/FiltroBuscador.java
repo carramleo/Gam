@@ -1,4 +1,4 @@
-package org.primefaces.showcase.view.ajax;
+package org.primefaces.showcase.view.Busqueda;
 
 import java.io.Serializable;
 import java.util.HashMap;

@@ -1,3 +1,6 @@
+/*
+ * Clase que define el formato de pregunta del tipo respuesta Sí o No.
+ */
 package org.primefaces.Pregunta;
 
 import java.io.Serializable;
@@ -6,39 +9,33 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-
-
-
 public class PreguntaSiNo implements Serializable {
-	
-	
-        private int numResp=8;
-	private String id;
-	private String enunciado;
-	private String[] respuestas;
-	private String[] pistas;
-        int lineasEnunciado;
-        private String[] solucion;
-        
-        
-	
-	public PreguntaSiNo(int numResp, int lineasEnunciado) {
-           
-            
-            respuestas = new String[numResp];
-            solucion = new String[numResp];
-            for(int j=0;j<numResp;j++){
-                respuestas[j] = "Respuesta "+(j+1);
-            }
-            this.lineasEnunciado=lineasEnunciado;
-	}
-	
-	public String getEnunciado() {
-		return enunciado;
-	}
-	public void setEnunciado(String enunciado) {
-		this.enunciado = enunciado;
-	}
+
+    private int numResp = 8;
+    private String id;
+    private String enunciado;
+    private String[] respuestas;
+    private String[] pistas;
+    int lineasEnunciado;
+    private String[] solucion;
+
+    public PreguntaSiNo(int numResp, int lineasEnunciado) {
+
+        respuestas = new String[numResp];
+        solucion = new String[numResp];
+        for (int j = 0; j < numResp; j++) {
+            respuestas[j] = "Respuesta " + (j + 1);
+        }
+        this.lineasEnunciado = lineasEnunciado;
+    }
+
+    public String getEnunciado() {
+        return enunciado;
+    }
+
+    public void setEnunciado(String enunciado) {
+        this.enunciado = enunciado;
+    }
 
     public int getNumResp() {
         return this.numResp;
@@ -47,23 +44,22 @@ public class PreguntaSiNo implements Serializable {
     public void setNumResp(int numResp) {
         this.numResp = numResp;
     }
-    
-    
-	
-	public String[] getPistas() {
-		return pistas;
-	}
-	public void setPistas(String[] pistas) {
-		this.pistas = pistas;
-	}
 
-	public String getId() {
-		return id;
-	}
+    public String[] getPistas() {
+        return pistas;
+    }
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    public void setPistas(String[] pistas) {
+        this.pistas = pistas;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public int getLineasEnunciado() {
         return lineasEnunciado;
@@ -89,12 +85,4 @@ public class PreguntaSiNo implements Serializable {
         this.solucion = solucion;
     }
 
-   
-    
-
-
-
-
-
-	
 }

@@ -1,3 +1,6 @@
+/*
+ * Clase que define el formato de pregunta del tipo contar letras.
+ */
 package org.primefaces.Pregunta;
 
 import java.io.Serializable;
@@ -6,26 +9,19 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-
-
-
 public class PreguntaContarLetras implements Serializable {
-	
-	
-	private String id;
-	private String palabra;
-	private String[] letras;
-	
-        private String[] numLetras;
-        
-        
-	
-	public PreguntaContarLetras(int numLetras) {
-           
-            
-            letras= new String[numLetras];
-            this.numLetras= new String[numLetras];
-	}
+
+    private String id;
+    private String palabra;
+    private String[] letras;
+
+    private String[] numLetras;
+
+    public PreguntaContarLetras(int numLetras) {
+
+        letras = new String[numLetras];
+        this.numLetras = new String[numLetras];
+    }
 
     public String getId() {
         return id;
@@ -58,9 +54,5 @@ public class PreguntaContarLetras implements Serializable {
     public void setNumLetras(String[] numLetras) {
         this.numLetras = numLetras;
     }
-	
-	
 
-
-	
 }

@@ -1,9 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Clase que simula el contenido de base de datos donde se almacena
+ * toda la información de todos los tipos de juegos.
  */
-package org.primefaces.showcase.view.input;
+package org.primefaces.showcase.view.MapaTipos;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -16,7 +15,7 @@ import javax.faces.bean.SessionScoped;
 
 /**
  *
- * @author carlo
+ * @author carlos
  */
 @ManagedBean
 @SessionScoped
