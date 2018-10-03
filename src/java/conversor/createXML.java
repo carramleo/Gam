@@ -32,6 +32,7 @@ import org.primefaces.Pregunta.PreguntaPanelesLetras;
 import org.primefaces.Pregunta.PreguntaRelacionar;
 import org.primefaces.Pregunta.PreguntaRespAbierta;
 import org.primefaces.Pregunta.PreguntaSiNo;
+import org.primefaces.context.RequestContext;
 
 import org.primefaces.showcase.view.AdministrarPreguntas.AdminPreguntas;
 import org.primefaces.showcase.view.MapaTipos.MenuMapTiposOpciones;
@@ -464,7 +465,7 @@ public class createXML extends AdminPreguntas implements Serializable {
         externalContext.responseFlushBuffer();
 
         out.close();
-        b.deleteAllLists();
+        //b.deleteAllLists();
         ficheroGenerado(TipoJuego);
         }
     }
