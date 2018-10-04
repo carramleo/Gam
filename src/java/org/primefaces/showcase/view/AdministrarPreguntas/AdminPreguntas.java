@@ -92,21 +92,14 @@ public class AdminPreguntas implements Serializable {
         pregActual.getSolucionList().add(pregActual.getSolucionList().get(pregActual.getSolucionList().size()-1) +1);
     }
     //Funcion para borrar respuesta de la lista de respuestas  de tipo test
-    public void deleteRespPregunta(PreguntaOpciones pregActual, String resp) {
+    public void deleteRespPregunta(PreguntaOpciones pregActual, int resp) {
 
         //pregActual.getRespuestas().remove(resp);
 
-        Iterator<String> i = pregActual.getRespuestas().iterator();
-        while (i.hasNext()) {
-            String s = i.next(); // must be called before you can call i.remove()
-            
-            if(s.equals(resp)){
-                i.remove();
-                pregActual.getSolucionList().remove(pregActual.getSolucionList().size()-1) ;
-            }
-            
-        }
-
+        
+            pregActual.getRespuestas().remove(resp);
+            pregActual.getSolucionList().remove(pregActual.getSolucionList().size()-1) ;
+ 
     }
     //Funcion para borrar pregunta de la lista  de tipo test
     public void deletePregunta(String id) {

@@ -42,7 +42,7 @@
                                     
                                 </p:inputText>
 
-                                <p:commandButton value="X" action="#{adminPreguntas.deleteRespPregunta(pregunta, resp)}" update=":juego:panelesJuego"  />
+                                <p:commandButton value="X" action="#{adminPreguntas.deleteRespPregunta(pregunta, loop.index)}" update=":juego:panelesJuego"  />
                                 <h:outputText value="&lt;br/&gt;" escape="false" />
                             </p:column>
                             
