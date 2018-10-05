@@ -94,6 +94,7 @@ public class createXML extends AdminPreguntas implements Serializable {
         String autorJuego = b.getAutor();
         String tituloJuego = b.getTitulo();
         String TipoJuego = b.getTipo();
+        String temaJuego = b.getTemaJuego();
 
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
@@ -114,6 +115,10 @@ public class createXML extends AdminPreguntas implements Serializable {
         Element autor = document.createElement("autor");
         autor.appendChild(document.createTextNode(autorJuego));
         element.appendChild(autor);
+        
+        Element temaJug = document.createElement("tema");
+        temaJug.appendChild(document.createTextNode(temaJuego));
+        element.appendChild(temaJug);
 
         Element preguntas = document.createElement("preguntas");
         preguntas.setAttribute("tipo", TipoJuego);

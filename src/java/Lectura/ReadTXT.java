@@ -106,8 +106,8 @@ public class ReadTXT {
                 //Leemos el fichero línea a línea y en formato UTF-8.
                 in = new BufferedReader(new InputStreamReader(ficheroImp, "UTF-8"));
 
-               
-                String line2=null;
+                String line1 = null;
+                ArrayList<String> leerOtraVez = new ArrayList<String>();
 
                 int numPreguntas = 0;
                 int contadorLineasEnunciado = 0;
@@ -115,13 +115,14 @@ public class ReadTXT {
                 //Variable para transformar las respuesta elegida en caracteres alfanuméricos.
                 char[] formatoOpciones = new char[]{'A', 'B', 'C', 'D', 'E', 'F'};
                 String aux = "";
-                while ((line2 = in.readLine()) != null) {
+                while ((line1 = in.readLine()) != null) {
 
-                    aux = line2;
+                    aux = line1;
+                    leerOtraVez.add(line1);
 
                 }
                 in.close();
-                
+
                 aux = aux.substring(1, aux.length() - 1);
                 String comp = "Compatibilidad ";
                 String tipoImportado = "";
@@ -146,18 +147,17 @@ public class ReadTXT {
                 }
 
                 if (compatibleTipoOpciones) {
-                    
-                    
+
                     in = new BufferedReader(new InputStreamReader(ficheroImp, "UTF-8"));
 
-                    while ((line2 = in.readLine()) != null) {
+                    for (String line2 : leerOtraVez) {
 
                         if (numLinea == Integer.parseInt(posAutor)) { //Comprobamos si estamos en la linea del autor.
                             String[] aut = line2.split(":");
                             autor = aut[1].substring(0, aut[1].length() - 1);
                             b.setAutor(autor);
                         } else if (numLinea == Integer.parseInt(posTema)) {   //Comprobamos si estamos en la linea del titulo.
-                            String tema = line2.substring(0, line2.length() - 1);
+                            String tema = line2.substring(1, line2.length() - 1);
                             b.setTemaJuego(tema);
 
                         } else if (numLinea == Integer.parseInt(posTitulo)) { //Comprobamos si estamos en la linea del titulo.
@@ -170,17 +170,16 @@ public class ReadTXT {
                                 numPreguntas++;
                                 contadorLineasEnunciado = 0;
                                 respuestas.removeAll(respuestas);
-                                PreguntaOpciones pregAdd = new PreguntaOpciones(MenuMapTiposOpciones.numOpciones.get("Tipo1"), MenuMapTiposOpciones.formatoOp.get(tipoImportado), MenuMapTiposOpciones.lineasEnun.get(tipoImportado));
+                                PreguntaOpciones pregAdd = new PreguntaOpciones(MenuMapTiposOpciones.numOpciones.get(tipoImportado), MenuMapTiposOpciones.formatoOp.get(tipoImportado), MenuMapTiposOpciones.lineasEnun.get(tipoImportado));
 
                                 pregAdd.setId("preg_" + b.getNumber() + 1);
                                 b.setNumber(b.getNumber() + 1);
                                 Preguntas.add(pregAdd);
                             } else { //Si no, estamos ante el enunciado o sus respuestas.
                                 PreguntaOpciones pregCreada = Preguntas.get(Preguntas.size() - 1);
-                                String enun = line2.substring(1, line2.length() - 1);
-                                String resp = line2.substring(1, line2.length() - 1);
-                                if (contadorLineasEnunciado >= 0 && contadorLineasEnunciado < Integer.parseInt(lineasEnun)) { //Comprobamos si estamos leyendo el enunciado
 
+                                if (contadorLineasEnunciado >= 0 && contadorLineasEnunciado < Integer.parseInt(lineasEnun)) { //Comprobamos si estamos leyendo el enunciado
+                                    String enun = line2.substring(1, line2.length() - 1);
                                     if (pregCreada.getEnunciado() != null) {
                                         pregCreada.setEnunciado(pregCreada.getEnunciado() + enun);
                                     } else {
@@ -188,7 +187,7 @@ public class ReadTXT {
                                     }
 
                                 } else if (contadorLineasEnunciado >= Integer.parseInt(lineasEnun) && contadorLineasEnunciado < Integer.parseInt(lineasEnun) + Integer.parseInt(numResp)) { //Comprobamos si estamos leyendo las respuestas
-
+                                    String resp = line2.substring(1, line2.length() - 1);
                                     respuestas.add(resp);
                                 } else if (contadorLineasEnunciado == Integer.parseInt(lineasEnun) + Integer.parseInt(numResp)) { //Comprobamos si estamos leyendo la solución.
 

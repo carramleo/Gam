@@ -26,6 +26,10 @@
                     <strong>Autor: <xsl:value-of select="autor" /></strong>
                 </h2>
                 <br></br>
+                <h2>
+                    <strong>Tema: <xsl:value-of select="tema" /></strong>
+                </h2>
+                <br></br>
                 <h3>Preguntas:</h3>
                 <br></br>
                 <xsl:for-each select="/Gamificacion/preguntas/pregunta">
