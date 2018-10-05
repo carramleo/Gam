@@ -13,6 +13,7 @@ import javax.faces.context.FacesContext;
 import javax.xml.parsers.ParserConfigurationException;
 import org.primefaces.model.UploadedFile;
 import org.primefaces.showcase.view.AdministrarPreguntas.AdminPreguntas;
+import org.primefaces.showcase.view.MapaTipos.MapaTiposTXT;
 import org.primefaces.showcase.view.MapaTipos.MenuMapTiposOpciones;
 import org.primefaces.showcase.view.MapaTipos.MenuMapTipos;
 import org.xml.sax.SAXException;
@@ -59,6 +60,7 @@ public class Importador implements Serializable{
             errorFileSinTipo();
         else {
             
+            
             //Comprobamos de qué tipo es el fichero subido.
             if(file.getContentType().equals("text/xml")){
                 ReadXML xml = new ReadXML();
@@ -66,6 +68,11 @@ public class Importador implements Serializable{
                 xml.readFile(file,b, tipos, opcionesTipos);
                 
             }else if(file.getContentType().equals("text/plain")){
+                
+                //Iniciamos el mapa de TXT
+                
+                MapaTiposTXT mapa = new MapaTiposTXT();
+                mapa.iniciarMapa();
                 
                 ReadTXT txt = new ReadTXT();
                 

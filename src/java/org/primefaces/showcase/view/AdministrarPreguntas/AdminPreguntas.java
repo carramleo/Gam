@@ -7,22 +7,10 @@ package org.primefaces.showcase.view.AdministrarPreguntas;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
-import javax.faces.component.UIOutput;
-import javax.faces.component.html.HtmlInputText;
-import javax.faces.component.html.HtmlOutputText;
-import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
-import javax.faces.model.SelectItem;
 import org.primefaces.Pregunta.PreguntaCampoTexto;
 import org.primefaces.Pregunta.PreguntaCifras;
 import org.primefaces.Pregunta.PreguntaContarLetras;
@@ -32,13 +20,7 @@ import org.primefaces.Pregunta.PreguntaRelacionar;
 import org.primefaces.Pregunta.PreguntaRespAbierta;
 import org.primefaces.Pregunta.PreguntaSiNo;
 
-import org.primefaces.component.inputtext.InputText;
-import org.primefaces.component.inputtextarea.InputTextarea;
-import org.primefaces.component.panel.Panel;
-import org.primefaces.component.selectoneradio.SelectOneRadio;
-import org.primefaces.event.CloseEvent;
 import org.primefaces.showcase.view.MapaTipos.MenuMapTiposOpciones;
-import org.primefaces.showcase.view.MapaTipos.MenuMapTipos;
 
 @ManagedBean
 @SessionScoped
@@ -55,6 +37,7 @@ public class AdminPreguntas implements Serializable {
     private String autor;
     private String titulo;
     private String Tipo;
+    private String TemaJuego;
 
     int number = 0;
 
@@ -342,5 +325,15 @@ public class AdminPreguntas implements Serializable {
     public void setTipo(String Tipo) {
         this.Tipo = Tipo;
     }
+
+    public String getTemaJuego() {
+        return TemaJuego;
+    }
+
+    public void setTemaJuego(String TemaJuego) {
+        this.TemaJuego = TemaJuego;
+    }
+    
+    
 
 }

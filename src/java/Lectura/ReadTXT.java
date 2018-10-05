@@ -1,6 +1,6 @@
 /*
 * Clase que lee un fichero de tipo TXT con formato Juego Tipo 1 del proyecto AJDA
-*/
+ */
 package Lectura;
 
 import java.io.BufferedReader;
@@ -20,6 +20,7 @@ import javax.faces.context.FacesContext;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import org.apache.jasper.tagplugins.jstl.core.ForEach;
 import org.primefaces.Pregunta.PreguntaCampoTexto;
 import org.primefaces.Pregunta.PreguntaCifras;
 import org.primefaces.Pregunta.PreguntaContarLetras;
@@ -31,6 +32,7 @@ import org.primefaces.Pregunta.PreguntaSiNo;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 import org.primefaces.showcase.view.AdministrarPreguntas.AdminPreguntas;
+import org.primefaces.showcase.view.MapaTipos.MapaTiposTXT;
 import org.primefaces.showcase.view.MapaTipos.MenuMapTiposOpciones;
 import org.primefaces.showcase.view.MapaTipos.MenuMapTipos;
 import org.w3c.dom.Document;
@@ -46,8 +48,6 @@ import org.xml.sax.SAXException;
 @ManagedBean
 @SessionScoped
 public class ReadTXT {
-
-    
 
     private String message;
 
@@ -70,11 +70,15 @@ public class ReadTXT {
 
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al importar", "No ha seleccionado un fichero"));
     }
-    
-    
+
+    public void tipoCompatible() {
+        FacesContext context = FacesContext.getCurrentInstance();
+
+        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al importar", "Tipo de juego incompatible"));
+    }
 
     public void readFile(UploadedFile fichero, AdminPreguntas b, MenuMapTipos tipos, MenuMapTiposOpciones opcionesTipos) throws SAXException, IOException, ParserConfigurationException {
-
+        boolean compatibleTipoOpciones = false;
         //Comprobamos que el fichero no es nulo  ni vacio.
         if (fichero.getFileName() == null || fichero.getFileName().isEmpty()) {
             errorFile();
@@ -95,86 +99,133 @@ public class ReadTXT {
             String TipoJuego = b.getTipo();
             String tipoSeleccionado = tipos.getTipo();
             List<String> respuestas = new ArrayList<String>();
-
+            BufferedReader in;
             //Si se ha seleccionado un tipo en la página web podemos seguir leyendo.
-            if (TipoJuego != null && !TipoJuego.isEmpty() && tipoSeleccionado!=null && !tipoSeleccionado.isEmpty()) {
-                
-                //Leemos el fichero línea a línea y en formato UTF-8.
-                BufferedReader in = new BufferedReader(new InputStreamReader(ficheroImp, "UTF-8"));
+            if (TipoJuego != null && !TipoJuego.isEmpty() && tipoSeleccionado != null && !tipoSeleccionado.isEmpty()) {
 
-                String line2;
+                //Leemos el fichero línea a línea y en formato UTF-8.
+                in = new BufferedReader(new InputStreamReader(ficheroImp, "UTF-8"));
+
+               
+                String line2=null;
+
                 int numPreguntas = 0;
                 int contadorLineasEnunciado = 0;
                 int numLinea = 0;
                 //Variable para transformar las respuesta elegida en caracteres alfanuméricos.
                 char[] formatoOpciones = new char[]{'A', 'B', 'C', 'D', 'E', 'F'};
+                String aux = "";
                 while ((line2 = in.readLine()) != null) {
 
-                    if (numLinea == 0) { //Si es la primera línea estamos ante el autor.
-                        String[] aut = line2.split(":");
-                        autor = aut[1].substring(0, aut[1].length() - 1);
-                        b.setAutor(autor);
-                    } else if (numLinea == 1) { //Si es la segunda línea estamos ante el título.
-                        String[] tit = line2.split(":");
-                        titulo = tit[1].substring(0, tit[1].length() - 1);
-                        b.setTitulo(titulo);
-                    } else {
-                        int sigPreg = line2.indexOf("PREGUNTA"); //Si la linea actual es PREGUNTA estamos ante una nueva pregunta.
-                        if (sigPreg != -1) { //Si esxiste la  linea, creamos una nueva pregunta en el bean.
-                            numPreguntas++;
-                            contadorLineasEnunciado = 0;
-                            respuestas.removeAll(respuestas);
-                            PreguntaOpciones pregAdd = new PreguntaOpciones(MenuMapTiposOpciones.numOpciones.get("Tipo1"), MenuMapTiposOpciones.formatoOp.get("Tipo1"), MenuMapTiposOpciones.lineasEnun.get("Tipo1"));
+                    aux = line2;
 
-                            pregAdd.setId("preg_" + b.getNumber() + 1);
-                            b.setNumber(b.getNumber() + 1);
-                            Preguntas.add(pregAdd);
-                        } else { //Si no, estamos ante el enunciado o sus respuestas.
-                            PreguntaOpciones pregCreada = Preguntas.get(Preguntas.size() - 1);
-                            String enun = line2.substring(1, line2.length() - 1);
-                            String resp = line2.substring(1, line2.length() - 1);
-                            if (contadorLineasEnunciado >= 0 && contadorLineasEnunciado < 3) { //Comprobamos si estamos leyendo el enunciado
+                }
+                in.close();
+                
+                aux = aux.substring(1, aux.length() - 1);
+                String comp = "Compatibilidad ";
+                String tipoImportado = "";
+                String lineasEnun = "";
+                String numResp = "";
+                String posAutor = "";
+                String posTitulo = "";
+                String posTema = "";
+                for (Map.Entry<String, String[]> key : MapaTiposTXT.filtroTXT.entrySet()) {
 
-                                if (pregCreada.getEnunciado() != null) {
-                                    pregCreada.setEnunciado(pregCreada.getEnunciado() + enun);
-                                } else {
-                                    pregCreada.setEnunciado(enun);
-                                }
+                    if (aux.equals(comp + key.getKey())) {
+                        compatibleTipoOpciones = true;
 
-                            } else if (contadorLineasEnunciado >= 3 && contadorLineasEnunciado < 7) { //Comprobamos si estamos leyendo las respuestas
+                        tipoImportado = "Tipo" + key.getKey();
 
-                                respuestas.add(resp);
-                            } else if (contadorLineasEnunciado == 7) { //Comprobamos si estamos leyendo la solución.
-
-                                pregCreada.setRespuestas(respuestas);
-
-                                int numSol = 0;
-                                String sol = line2.substring(1, line2.length() - 1);
-                                for (int j = 0; j < formatoOpciones.length; j++) {
-                                    if (String.valueOf(formatoOpciones[j]).equals(sol)) {
-                                        numSol = j + 1;
-                                    }
-                                }
-                                pregCreada.setSolucion(String.valueOf(numSol));
-                                respuestas = new ArrayList<String>();
-                            }
-                            contadorLineasEnunciado++;
-
-                        }
+                        lineasEnun = key.getValue()[0];
+                        numResp = key.getValue()[1];
+                        posAutor = key.getValue()[2];
+                        posTitulo = key.getValue()[3];
+                        posTema = key.getValue()[4];
                     }
-                    numLinea++;
+                }
+
+                if (compatibleTipoOpciones) {
+                    
+                    
+                    in = new BufferedReader(new InputStreamReader(ficheroImp, "UTF-8"));
+
+                    while ((line2 = in.readLine()) != null) {
+
+                        if (numLinea == Integer.parseInt(posAutor)) { //Comprobamos si estamos en la linea del autor.
+                            String[] aut = line2.split(":");
+                            autor = aut[1].substring(0, aut[1].length() - 1);
+                            b.setAutor(autor);
+                        } else if (numLinea == Integer.parseInt(posTema)) {   //Comprobamos si estamos en la linea del titulo.
+                            String tema = line2.substring(0, line2.length() - 1);
+                            b.setTemaJuego(tema);
+
+                        } else if (numLinea == Integer.parseInt(posTitulo)) { //Comprobamos si estamos en la linea del titulo.
+                            String[] tit = line2.split(":");
+                            titulo = tit[1].substring(0, tit[1].length() - 1);
+                            b.setTitulo(titulo);
+                        } else {
+                            int sigPreg = line2.indexOf("PREGUNTA"); //Si la linea actual es PREGUNTA estamos ante una nueva pregunta.
+                            if (sigPreg != -1) { //Si esxiste la  linea, creamos una nueva pregunta en el bean.
+                                numPreguntas++;
+                                contadorLineasEnunciado = 0;
+                                respuestas.removeAll(respuestas);
+                                PreguntaOpciones pregAdd = new PreguntaOpciones(MenuMapTiposOpciones.numOpciones.get("Tipo1"), MenuMapTiposOpciones.formatoOp.get(tipoImportado), MenuMapTiposOpciones.lineasEnun.get(tipoImportado));
+
+                                pregAdd.setId("preg_" + b.getNumber() + 1);
+                                b.setNumber(b.getNumber() + 1);
+                                Preguntas.add(pregAdd);
+                            } else { //Si no, estamos ante el enunciado o sus respuestas.
+                                PreguntaOpciones pregCreada = Preguntas.get(Preguntas.size() - 1);
+                                String enun = line2.substring(1, line2.length() - 1);
+                                String resp = line2.substring(1, line2.length() - 1);
+                                if (contadorLineasEnunciado >= 0 && contadorLineasEnunciado < Integer.parseInt(lineasEnun)) { //Comprobamos si estamos leyendo el enunciado
+
+                                    if (pregCreada.getEnunciado() != null) {
+                                        pregCreada.setEnunciado(pregCreada.getEnunciado() + enun);
+                                    } else {
+                                        pregCreada.setEnunciado(enun);
+                                    }
+
+                                } else if (contadorLineasEnunciado >= Integer.parseInt(lineasEnun) && contadorLineasEnunciado < Integer.parseInt(lineasEnun) + Integer.parseInt(numResp)) { //Comprobamos si estamos leyendo las respuestas
+
+                                    respuestas.add(resp);
+                                } else if (contadorLineasEnunciado == Integer.parseInt(lineasEnun) + Integer.parseInt(numResp)) { //Comprobamos si estamos leyendo la solución.
+
+                                    pregCreada.setRespuestas(respuestas);
+
+                                    int numSol = 0;
+                                    if (line2.startsWith("'")) {
+                                        String sol = line2.substring(1, line2.length() - 1);
+
+                                        for (int j = 0; j < formatoOpciones.length; j++) {
+                                            if (String.valueOf(formatoOpciones[j]).equals(sol)) {
+                                                numSol = j + 1;
+                                            }
+                                        }
+                                        pregCreada.setSolucion(String.valueOf(numSol));
+                                    } else {
+                                        pregCreada.setSolucion(line2);
+                                    }
+                                    respuestas = new ArrayList<String>();
+                                }
+                                contadorLineasEnunciado++;
+
+                            }
+                        }
+                        numLinea++;
+
+                    }
+                } else {
+                    tipoCompatible();
                 }
 
                 in.close();
 
-                // } else {
-            }
-            else{
+            } else {
                 saveMessage();
             }
         }
     }
-
-
 
 }
