@@ -186,6 +186,7 @@ public class ReadTXT {
                                 pregAdd.setId("preg_" + b.getNumber() + 1);
                                 b.setNumber(b.getNumber() + 1);
                                 Preguntas.add(pregAdd);
+                                temaLeído=false;
                             }else if(tipoImportado.equals("Tipo12") && !temaLeído ){  //si es del tipo 12, metemos el tema tras la pregunta
                                 PreguntaOpciones pregCreada = Preguntas.get(Preguntas.size() - 1);
                                 String tem = line2.substring(1, line2.length() - 1);
@@ -194,7 +195,7 @@ public class ReadTXT {
                                 
                             }else { //Si no, estamos ante el enunciado o sus respuestas.
                                 PreguntaOpciones pregCreada = Preguntas.get(Preguntas.size() - 1);
-
+                                
                                 if (contadorLineasEnunciado >= 0 && contadorLineasEnunciado < Integer.parseInt(lineasEnun)) { //Comprobamos si estamos leyendo el enunciado
                                     String enun = line2.substring(1, line2.length() - 1);
                                     if (pregCreada.getEnunciado() != null) {
@@ -224,7 +225,7 @@ public class ReadTXT {
                                         pregCreada.setSolucion(line2);
                                     }
                                     respuestas = new ArrayList<String>();
-                                    temaLeído=false;
+                                    
                                 }
                                 contadorLineasEnunciado++;
                                 

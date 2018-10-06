@@ -142,9 +142,11 @@ public class createXML extends AdminPreguntas implements Serializable {
                 pregunta.setAttribute("comodin50", "");
                 pregunta.setAttribute("EmpiezaPor", "");
 
-                Element tema = document.createElement("tema");
-                tema.appendChild(document.createTextNode(""));
+                if(TipoJuego.equals("Tipo12")){
+                Element tema = document.createElement("temaPregunta");
+                tema.appendChild(document.createTextNode(model.getTema()));
                 pregunta.appendChild(tema);
+                }
                 Element enunciado = document.createElement("enunciado");
                 enunciado.appendChild(document.createTextNode(model.getEnunciado()));
                 enunciado.setAttribute("numLineas", Integer.toString(MenuMapTiposOpciones.lineasEnun.get(preguntas.getAttribute("tipo"))));

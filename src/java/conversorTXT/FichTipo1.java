@@ -50,7 +50,7 @@ public class FichTipo1 {
 
         NodeList soluciones = pregunta.getElementsByTagName("respuesta");
         NodeList enunciado = pregunta.getElementsByTagName("enunciado");
-        NodeList tema = pregunta.getElementsByTagName("tema");
+        NodeList tema = pregunta.getElementsByTagName("temaPregunta");
         int idPreg=Integer.parseInt(id)+1;
 
         for (int l = 0; l < enunciado.getLength(); l++) {
@@ -103,11 +103,15 @@ public class FichTipo1 {
 
                     }
 
-                    if (!preguntaTipo.getAttribute("tipo").equals("TipoLetra")) {
+                    if (!preguntaTipo.getAttribute("tipo").equals("TipoLetra") && !preguntaTipo.getAttribute("tipo").equals("Tipo12")) {
                         ps.println("'PREGUNTA " + (idPreg++) + "'"); // imprimimos los enunciados de las preguntas																							
-                    } else {
+                    } else if (!preguntaTipo.getAttribute("tipo").equals("Tipo12")){
 
                         ps.println("'PANEL " + IdPanel + ". PALABRA " + idPreg + "'");
+                    }else {
+                        
+                        ps.println("'PREGUNTA " + (idPreg++) + "'"); // imprimimos los enunciados de las preguntas
+                        ps.println("'"+ t.getTextContent()+"'"); //tema de la pregunta
                     }
 
                     if (preguntaTipo.getAttribute("tipo").equals("TipoJurado") && (temaJurado == 0 || idPreg == 0)) {

@@ -21,7 +21,7 @@
                 <h:panelGrid id="panelgrid_#{pregunta.id}"  border = "1" 
                              cellpadding = "10" cellspacing = "1" style="width: 100%;" >
                     
-                    <p:column rendered="#{pregunta.tema ne null}">
+                    <p:column rendered="#{pregunta.tema ne null || adminPreguntas.tipo eq 'Tipo12'}">
                         <!-- Enunciado de cada Panel -->
                         <h:outputLabel value = "Tema " />
 
@@ -46,7 +46,7 @@
                             <p:column>
                                 <h:outputLabel value = "Respuesta #{loop.index +1}: " />
                             
-                                <p:inputText  size="50"  value="#{pregunta.respuestas[loop.index]}" required="true"  >
+                                <p:inputText  size="50"  value="#{pregunta.respuestas[loop.index]}"   >
                                     
                                 </p:inputText>
 

@@ -35,7 +35,7 @@
                 <xsl:for-each select="/Gamificacion/preguntas/pregunta">
 				
 				
-				<h3><xsl:value-of select="tema" /></h3>
+				<h3><xsl:value-of select="temaPregunta" /></h3>
                                 <h4>
                                    <strong> <xsl:value-of  select="position()" />:
                                     <xsl:value-of select="enunciado" /></strong>
