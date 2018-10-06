@@ -116,9 +116,11 @@ public class createXML extends AdminPreguntas implements Serializable {
         autor.appendChild(document.createTextNode(autorJuego));
         element.appendChild(autor);
         
+        if(TipoJuego.equals("Tipo5")){
         Element temaJug = document.createElement("tema");
         temaJug.appendChild(document.createTextNode(temaJuego));
         element.appendChild(temaJug);
+        }
 
         Element preguntas = document.createElement("preguntas");
         preguntas.setAttribute("tipo", TipoJuego);

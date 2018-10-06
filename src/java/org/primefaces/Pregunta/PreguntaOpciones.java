@@ -26,6 +26,7 @@ public class PreguntaOpciones implements Serializable {
         private String solucion;
         private List<Integer> solucionList=new ArrayList<Integer>();
         char[] formatoOpciones= new char[] {'A','B','C','D','E','F'};
+        private String tema;
         
         
         
@@ -46,7 +47,7 @@ public class PreguntaOpciones implements Serializable {
 
             
             this.lineasEnunciado=lineasEnunciado;
-            //this.id=UUID.randomUUID().toString();
+            
             
 	}
 	
@@ -115,5 +116,15 @@ public class PreguntaOpciones implements Serializable {
     public void setSolucionList(List<Integer> solucionList) {
         this.solucionList = solucionList;
     }
+
+    public String getTema() {
+        return tema;
+    }
+
+    public void setTema(String tema) {
+        this.tema = tema;
+    }
+    
+    
 
 }

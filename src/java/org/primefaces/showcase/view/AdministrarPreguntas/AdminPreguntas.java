@@ -66,6 +66,9 @@ public class AdminPreguntas implements Serializable {
         PreguntaOpciones pregAdd = new PreguntaOpciones(MenuMapTiposOpciones.numOpciones.get(Tipo), MenuMapTiposOpciones.formatoOp.get(Tipo), MenuMapTiposOpciones.lineasEnun.get(Tipo));
         //this.number = Preguntas.size();
         pregAdd.setId("preg_" + number++);
+        if(Tipo.equals("Tipo12")){
+            pregAdd.setTema("");
+        }
         Preguntas.add(pregAdd);
     }
     //Funcion para añadir respuesta a la lista de respuestas  de tipo test

@@ -100,6 +100,8 @@ public class ReadTXT {
             String tipoSeleccionado = tipos.getTipo();
             List<String> respuestas = new ArrayList<String>();
             BufferedReader in;
+            Boolean compatible=false;
+            Boolean temaLeído=false;
             //Si se ha seleccionado un tipo en la página web podemos seguir leyendo.
             if (TipoJuego != null && !TipoJuego.isEmpty() && tipoSeleccionado != null && !tipoSeleccionado.isEmpty()) {
 
@@ -146,7 +148,16 @@ public class ReadTXT {
                     }
                 }
 
-                if (compatibleTipoOpciones) {
+                //Comprobamos si el tipo es compatible
+                Map<String, String> mapaTiposCompatibles = tipos.getData().get(tipoSeleccionado);   //obtengo el mapa de los tipos compatibles que acepta
+
+                for (String key : mapaTiposCompatibles.keySet()) {
+                    if (mapaTiposCompatibles.get(key).equals(tipoImportado)) {             //recorro el mapa buscando si el tipo del fichero importado aparece en ese mapa
+                        compatible = true;
+                    }
+                }
+
+                if (compatibleTipoOpciones && compatible) {
 
                     in = new BufferedReader(new InputStreamReader(ficheroImp, "UTF-8"));
 
@@ -175,7 +186,13 @@ public class ReadTXT {
                                 pregAdd.setId("preg_" + b.getNumber() + 1);
                                 b.setNumber(b.getNumber() + 1);
                                 Preguntas.add(pregAdd);
-                            } else { //Si no, estamos ante el enunciado o sus respuestas.
+                            }else if(tipoImportado.equals("Tipo12") && !temaLeído ){  //si es del tipo 12, metemos el tema tras la pregunta
+                                PreguntaOpciones pregCreada = Preguntas.get(Preguntas.size() - 1);
+                                String tem = line2.substring(1, line2.length() - 1);
+                                pregCreada.setTema(tem);
+                                temaLeído=true;
+                                
+                            }else { //Si no, estamos ante el enunciado o sus respuestas.
                                 PreguntaOpciones pregCreada = Preguntas.get(Preguntas.size() - 1);
 
                                 if (contadorLineasEnunciado >= 0 && contadorLineasEnunciado < Integer.parseInt(lineasEnun)) { //Comprobamos si estamos leyendo el enunciado
@@ -207,9 +224,10 @@ public class ReadTXT {
                                         pregCreada.setSolucion(line2);
                                     }
                                     respuestas = new ArrayList<String>();
+                                    temaLeído=false;
                                 }
                                 contadorLineasEnunciado++;
-
+                                
                             }
                         }
                         numLinea++;

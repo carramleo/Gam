@@ -21,7 +21,15 @@
                 <h:panelGrid id="panelgrid_#{pregunta.id}"  border = "1" 
                              cellpadding = "10" cellspacing = "1" style="width: 100%;" >
                     
-                    
+                    <p:column rendered="#{pregunta.tema ne null}">
+                        <!-- Enunciado de cada Panel -->
+                        <h:outputLabel value = "Tema " />
+
+                        <p:inputText size="50" value="#{pregunta.tema}" required="true" maxlength="120">
+                            <p:ajax  event="valueChange"  />
+                        </p:inputText>
+
+                    </p:column>
                     <p:column>
                         <!-- Enunciado de cada Panel -->
                         <h:outputLabel value = "Enunciado: " />

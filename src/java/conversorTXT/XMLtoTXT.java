@@ -1,7 +1,6 @@
 /*
  * Clase que en convierte un fichero XML en formato TXT con formato de juego AJDA.
  */
-
 package conversorTXT;
 
 import java.io.File;
@@ -51,9 +50,8 @@ public class XMLtoTXT implements Serializable {
 
     public void conversorXMLtoTXT(InputStream XML) {
 
-
         try {
-            
+
             //Pedimos al servlet que nos mande u fichero descargable de tipo TXT para escribir contenido en él.
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -71,10 +69,11 @@ public class XMLtoTXT implements Serializable {
             Node nombre = Autor.item(0);
             NodeList Titulo = doc.getElementsByTagName("titulo");  //Obtenemos el títilo del XML
             Node tema = Titulo.item(0);
+
             int numId = 0;
             if (nombre.getNodeType() == Node.ELEMENT_NODE && tema.getNodeType() == Node.ELEMENT_NODE) {   //Imprimimos el nombre del autor en el txt
                 //Obtenemos la etiqueta Preguntas donde están todas las preguntas del juego
-                NodeList Preguntas = doc.getElementsByTagName("preguntas");  
+                NodeList Preguntas = doc.getElementsByTagName("preguntas");
 
                 Node preg = Preguntas.item(0);
 
@@ -103,6 +102,16 @@ public class XMLtoTXT implements Serializable {
                     ps.println("60");
                     ps.println("'Compatibilidad " + preg.getAttributes().getNamedItem("tipo").getTextContent() + "'");
                     ps.println("'AUTOR/A: " + nombre.getTextContent() + "'");
+                } else if (preg.getAttributes().getNamedItem("tipo").getTextContent().equals("Tipo5")) {
+
+                    NodeList Tema = doc.getElementsByTagName("tema");  //Obtenemos el títilo del XML
+                    Node temaJug = Tema.item(0);
+                    
+                    ps = new PrintStream(out, false, "UTF-8");
+                    ps.println("'"+temaJug.getTextContent()+"'");
+                    ps.println("'AUTOR/A: " + nombre.getTextContent() + "'");
+                    ps.println("'TEMA: " + tema.getTextContent() + "'");
+
                 } else {
 
                     //Para los demás tipos es igual, autor y tema
@@ -232,9 +241,7 @@ public class XMLtoTXT implements Serializable {
 
                     ps.println("'TEMA: " + tema.getTextContent() + "'");
                 }
-
-                
-                
+                ps.println("'Compatibilidad " + preg.getAttributes().getNamedItem("tipo").getTextContent().substring(4, preg.getAttributes().getNamedItem("tipo").getTextContent().length()) + "'");
                 externalContext.responseFlushBuffer();
 
                 out.close();
