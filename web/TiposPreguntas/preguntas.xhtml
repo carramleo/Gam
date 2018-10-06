@@ -21,7 +21,7 @@
                 <h:panelGrid id="panelgrid_#{pregunta.id}"  border = "1" 
                              cellpadding = "10" cellspacing = "1" style="width: 100%;" >
                     
-                    <p:column rendered="#{pregunta.tema ne null || adminPreguntas.tipo eq 'Tipo12'}">
+                    <p:column rendered="#{adminPreguntas.tipo eq 'Tipo12'}">
                         <!-- Enunciado de cada Panel -->
                         <h:outputLabel value = "Tema " />
 

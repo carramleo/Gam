@@ -100,8 +100,8 @@ public class ReadTXT {
             String tipoSeleccionado = tipos.getTipo();
             List<String> respuestas = new ArrayList<String>();
             BufferedReader in;
-            Boolean compatible=false;
-            Boolean temaLeído=false;
+            Boolean compatible = false;
+            Boolean temaLeído = false;
             //Si se ha seleccionado un tipo en la página web podemos seguir leyendo.
             if (TipoJuego != null && !TipoJuego.isEmpty() && tipoSeleccionado != null && !tipoSeleccionado.isEmpty()) {
 
@@ -163,7 +163,7 @@ public class ReadTXT {
 
                     for (String line2 : leerOtraVez) {
 
-                        if (numLinea == Integer.parseInt(posAutor)) { //Comprobamos si estamos en la linea del autor.
+                        if (!posAutor.equals("x-1") && numLinea == Integer.parseInt(posAutor)) { //Comprobamos si estamos en la linea del autor.
                             String[] aut = line2.split(":");
                             autor = aut[1].substring(0, aut[1].length() - 1);
                             b.setAutor(autor);
@@ -186,16 +186,16 @@ public class ReadTXT {
                                 pregAdd.setId("preg_" + b.getNumber() + 1);
                                 b.setNumber(b.getNumber() + 1);
                                 Preguntas.add(pregAdd);
-                                temaLeído=false;
-                            }else if(tipoImportado.equals("Tipo12") && !temaLeído ){  //si es del tipo 12, metemos el tema tras la pregunta
+                                temaLeído = false;
+                            } else if (tipoImportado.equals("Tipo12") && !temaLeído) {  //si es del tipo 12, metemos el tema tras la pregunta
                                 PreguntaOpciones pregCreada = Preguntas.get(Preguntas.size() - 1);
                                 String tem = line2.substring(1, line2.length() - 1);
                                 pregCreada.setTema(tem);
-                                temaLeído=true;
-                                
-                            }else { //Si no, estamos ante el enunciado o sus respuestas.
+                                temaLeído = true;
+
+                            } else { //Si no, estamos ante el enunciado o sus respuestas.
                                 PreguntaOpciones pregCreada = Preguntas.get(Preguntas.size() - 1);
-                                
+
                                 if (contadorLineasEnunciado >= 0 && contadorLineasEnunciado < Integer.parseInt(lineasEnun)) { //Comprobamos si estamos leyendo el enunciado
                                     String enun = line2.substring(1, line2.length() - 1);
                                     if (pregCreada.getEnunciado() != null) {
@@ -225,13 +225,20 @@ public class ReadTXT {
                                         pregCreada.setSolucion(line2);
                                     }
                                     respuestas = new ArrayList<String>();
-                                    
+
                                 }
                                 contadorLineasEnunciado++;
-                                
+
                             }
+                            if ( line2.equals(leerOtraVez.get(leerOtraVez.size()-2)) && posAutor.equals("x-1") && b.getAutor()==null) {
+                                String[] aut = line2.split(":");
+                                autor = aut[1].substring(0, aut[1].length() - 1);
+                                b.setAutor(autor);
+                            }
+                            
                         }
                         numLinea++;
+                        
 
                     }
                 } else {
