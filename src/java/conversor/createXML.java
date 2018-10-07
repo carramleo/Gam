@@ -64,25 +64,25 @@ public class createXML extends AdminPreguntas implements Serializable {
 
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Generado con éxito", "El fichero se ha guardado en base de datos"));
     }
+
     //Mensaje de error que sale al no corresponderse el número de respuestas actual con el tipo de juego elegido.
     public void errorGenerado(String tipo, int numResp) {
         FacesContext context = FacesContext.getCurrentInstance();
 
-        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Fallo al generar", "El numero de respuestas del juego " +tipo+ " es incorrecto."
-                + " Nº respuestas = " + numResp+" "));
+        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Fallo al generar", "El numero de respuestas del juego " + tipo + " es incorrecto."
+                + " Nº respuestas = " + numResp + " "));
     }
-    
+
     public void errorSinPreguntas() {
         FacesContext context = FacesContext.getCurrentInstance();
 
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Fallo al generar", "Para generar un fichero XML se necesita al menos una pregunta."));
     }
-    
-    
+
     //Función para crear el XML, recibeel bean con las preguntas.
     public void createXML(AdminPreguntas b) throws Exception {
         int num = 0;
-        numRespOk=false;  //Comprueba q el numero de rspuestas sea el correcto en función del tipo elegido.
+        numRespOk = false;  //Comprueba q el numero de rspuestas sea el correcto en función del tipo elegido.
         List<PreguntaOpciones> Preguntas = b.getPreguntas();
         List<PreguntaCifras> PreguntasCifras = b.getPreguntasCifras();
         List<PreguntaCampoTexto> PreguntasCampoTexto = b.getPreguntasCampoTexto();
@@ -115,11 +115,11 @@ public class createXML extends AdminPreguntas implements Serializable {
         Element autor = document.createElement("autor");
         autor.appendChild(document.createTextNode(autorJuego));
         element.appendChild(autor);
-        
-        if(TipoJuego.equals("Tipo5")){
-        Element temaJug = document.createElement("tema");
-        temaJug.appendChild(document.createTextNode(temaJuego));
-        element.appendChild(temaJug);
+
+        if (TipoJuego.equals("Tipo5")) {
+            Element temaJug = document.createElement("tema");
+            temaJug.appendChild(document.createTextNode(temaJuego));
+            element.appendChild(temaJug);
         }
 
         Element preguntas = document.createElement("preguntas");
@@ -132,51 +132,52 @@ public class createXML extends AdminPreguntas implements Serializable {
             for (PreguntaOpciones model : Preguntas) {
                 Element pregunta = document.createElement("pregunta");
                 pregunta.setAttribute("id", model.getId());
-                
-                if(MenuMapTiposOpciones.numOpciones.get(preguntas.getAttribute("tipo")) == model.getRespuestas().size()){
-                if (MenuMapTiposOpciones.formatoOp.get(preguntas.getAttribute("tipo")) == 1) {
-                    pregunta.setAttribute("sol", String.valueOf(formatoOpciones[Integer.parseInt(model.getSolucion()) - 1]));
-                } else {
-                    pregunta.setAttribute("sol", model.getSolucion());
-                }
-                pregunta.setAttribute("comodin50", "");
-                pregunta.setAttribute("EmpiezaPor", "");
 
-                if(TipoJuego.equals("Tipo12")){
-                Element tema = document.createElement("temaPregunta");
-                tema.appendChild(document.createTextNode(model.getTema()));
-                pregunta.appendChild(tema);
-                }
-                Element enunciado = document.createElement("enunciado");
-                enunciado.appendChild(document.createTextNode(model.getEnunciado()));
-                enunciado.setAttribute("numLineas", Integer.toString(MenuMapTiposOpciones.lineasEnun.get(preguntas.getAttribute("tipo"))));
-                pregunta.appendChild(enunciado);
-                
-                
-                    
+                if (MenuMapTiposOpciones.numOpciones.get(preguntas.getAttribute("tipo")) == model.getRespuestas().size()) {
+                    if (MenuMapTiposOpciones.formatoOp.get(preguntas.getAttribute("tipo")) == 1) {
+                        pregunta.setAttribute("sol", String.valueOf(formatoOpciones[Integer.parseInt(model.getSolucion()) - 1]));
+                    } else {
+                        pregunta.setAttribute("sol", model.getSolucion());
+                    }
+                    pregunta.setAttribute("comodin50", "");
+                    pregunta.setAttribute("EmpiezaPor", "");
+
+                    if (TipoJuego.equals("Tipo12")) {
+                        Element tema = document.createElement("temaPregunta");
+                        tema.appendChild(document.createTextNode(model.getTema()));
+                        pregunta.appendChild(tema);
+                    }
+                    Element tema = document.createElement("temaPregunta");
+                    tema.appendChild(document.createTextNode(""));
+                    pregunta.appendChild(tema);
+
+                    Element enunciado = document.createElement("enunciado");
+                    enunciado.appendChild(document.createTextNode(model.getEnunciado()));
+                    enunciado.setAttribute("numLineas", Integer.toString(MenuMapTiposOpciones.lineasEnun.get(preguntas.getAttribute("tipo"))));
+                    pregunta.appendChild(enunciado);
+
                     for (String resp : model.getRespuestas()) {
-                    num++;
+                        num++;
 
-                    Element respuesta = document.createElement("respuesta");
-                    respuesta.appendChild(document.createTextNode(resp));
-                    respuesta.setAttribute("numLineas", "1");
-                    respuesta.setAttribute("num", Integer.toString(num));
-                    respuesta.setAttribute("numLetras", "5");
-                    pregunta.appendChild(respuesta);
-                    
-                }
-                num = 0;
-                Element pista = document.createElement("pista");
-                pista.setAttribute("id", "1");
-                pista.setAttribute("numLineas", "numLineas");
-                pregunta.appendChild(pista);
-                preguntas.appendChild(pregunta);
-                }
-                else{
-                    
+                        Element respuesta = document.createElement("respuesta");
+                        respuesta.appendChild(document.createTextNode(resp));
+                        respuesta.setAttribute("numLineas", "1");
+                        respuesta.setAttribute("num", Integer.toString(num));
+                        respuesta.setAttribute("numLetras", "5");
+                        pregunta.appendChild(respuesta);
+
+                    }
+                    num = 0;
+                    Element pista = document.createElement("pista");
+                    pista.setAttribute("id", "1");
+                    pista.setAttribute("numLineas", "numLineas");
+                    pregunta.appendChild(pista);
+                    preguntas.appendChild(pregunta);
+                } else {
+
                     errorGenerado(TipoJuego, MenuMapTiposOpciones.numOpciones.get(preguntas.getAttribute("tipo")));
-                    numRespOk=true;
-                    
+                    numRespOk = true;
+
                 }
             }
         } else if (PreguntasCampoTexto != null && !PreguntasCampoTexto.isEmpty()) {
@@ -446,36 +447,35 @@ public class createXML extends AdminPreguntas implements Serializable {
                 pregunta.appendChild(pista);
                 preguntas.appendChild(pregunta);
             }
-        }else{
+        } else {
             errorSinPreguntas();
-            
+
         }
-        
-        if(!numRespOk){
-        
-         
-        TransformerFactory transformerFactory = TransformerFactory.newInstance();
-        Transformer transformer = transformerFactory.newTransformer();
-        DOMSource source = new DOMSource(document);
 
-        //Pedimos al servlet que nos mande u fichero descargable de tipo XML para escribir contenido en él.
-        FacesContext context = FacesContext.getCurrentInstance();
-        ExternalContext externalContext = context.getExternalContext();
-        externalContext.responseReset();
-        externalContext.setResponseContentType("text/xml");
-        externalContext.setResponseHeader("Cache-Control", "must-revalidate, post-check=0, pre-check=0");
-        externalContext.setResponseHeader("Pragma", "public");
-        externalContext.setResponseHeader("Content-disposition", "attachment;filename=" + "juego_" +TipoJuego +".xml");
-       
-        OutputStream out = externalContext.getResponseOutputStream();
-       
-        transformer.transform(source, new StreamResult(out));
-         //Pedimos al servlet que nos descargue el fichero en la carpeta de descargas de nuestro equipo.
-        externalContext.responseFlushBuffer();
+        if (!numRespOk) {
 
-        out.close();
-        //b.deleteAllLists();
-        ficheroGenerado(TipoJuego);
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            DOMSource source = new DOMSource(document);
+
+            //Pedimos al servlet que nos mande u fichero descargable de tipo XML para escribir contenido en él.
+            FacesContext context = FacesContext.getCurrentInstance();
+            ExternalContext externalContext = context.getExternalContext();
+            externalContext.responseReset();
+            externalContext.setResponseContentType("text/xml");
+            externalContext.setResponseHeader("Cache-Control", "must-revalidate, post-check=0, pre-check=0");
+            externalContext.setResponseHeader("Pragma", "public");
+            externalContext.setResponseHeader("Content-disposition", "attachment;filename=" + "juego_" + TipoJuego + ".xml");
+
+            OutputStream out = externalContext.getResponseOutputStream();
+
+            transformer.transform(source, new StreamResult(out));
+            //Pedimos al servlet que nos descargue el fichero en la carpeta de descargas de nuestro equipo.
+            externalContext.responseFlushBuffer();
+
+            out.close();
+            //b.deleteAllLists();
+            ficheroGenerado(TipoJuego);
         }
     }
 

@@ -46,7 +46,6 @@ public class ReadXML {
 
     private boolean compatible = false;
 
-   
     private String message;
 
     public String getMessage() {
@@ -62,16 +61,16 @@ public class ReadXML {
 
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al importar", "Tipo de juego incompatible"));
     }
-    
+
     public void errorFile() {
         FacesContext context = FacesContext.getCurrentInstance();
 
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al importar", "No ha seleccionado un fichero"));
     }
 
-    public void readFile(UploadedFile file,AdminPreguntas b, MenuMapTipos tipos, MenuMapTiposOpciones opcionesTipos) throws SAXException, IOException, ParserConfigurationException {
+    public void readFile(UploadedFile file, AdminPreguntas b, MenuMapTipos tipos, MenuMapTiposOpciones opcionesTipos) throws SAXException, IOException, ParserConfigurationException {
 
-        if (file.getFileName() == null || file.getFileName().isEmpty() ) {
+        if (file.getFileName() == null || file.getFileName().isEmpty()) {
             errorFile();
         } else {
 
@@ -108,7 +107,7 @@ public class ReadXML {
                 }
             }
             //Comprobamos si se ha seleccionado un tipo en la página web.
-            if (compatible && TipoJuego!=null && !TipoJuego.isEmpty() && tipoSeleccionado!=null && !tipoSeleccionado.isEmpty()) {
+            if (compatible && TipoJuego != null && !TipoJuego.isEmpty() && tipoSeleccionado != null && !tipoSeleccionado.isEmpty()) {
 
                 NodeList preguntasElement = document.getElementsByTagName("pregunta");
                 //Comprobamos ante qué tipo estamos para crear un tipo de panel u otro.
@@ -178,10 +177,11 @@ public class ReadXML {
 
     private static PreguntaOpciones getPreguntaOpciones(Node node, String tipo, AdminPreguntas bb) {
         PreguntaOpciones preg = new PreguntaOpciones(MenuMapTiposOpciones.numOpciones.get(tipo), MenuMapTiposOpciones.formatoOp.get(tipo), MenuMapTiposOpciones.lineasEnun.get(tipo));
-         char[] formatoOpciones = new char[]{'A', 'B', 'C', 'D', 'E', 'F'};
+        char[] formatoOpciones = new char[]{'A', 'B', 'C', 'D', 'E', 'F'};
         if (node.getNodeType() == Node.ELEMENT_NODE) {
             Element element = (Element) node;
             //creamos el enunciado
+            preg.setTema(getTagValuePregunta("temaPregunta", element));
             preg.setEnunciado(getTagValuePregunta("enunciado", element));
 
             preg.setId("preg_" + bb.getNumber() + 1);
@@ -190,20 +190,28 @@ public class ReadXML {
             ArrayList<String> respuestasXML = new ArrayList<String>(element.getElementsByTagName("respuesta").getLength());
             for (int i = 0; i < element.getElementsByTagName("respuesta").getLength(); i++) {
 
-                NodeList nodeListResp = element.getElementsByTagName("respuesta").item(i).getChildNodes();
-                Node nodeResp = (Node) nodeListResp.item(0);
-                respuestasXML.add(i, nodeResp.getNodeValue()); 
+                Node nodeListResp = element.getElementsByTagName("respuesta").item(i);
+
+                if (nodeListResp.hasChildNodes()) {
+                    respuestasXML.add(i, nodeListResp.getTextContent());
+                } else {
+                    respuestasXML.add(i, "");
+                }
 
             }
             preg.setRespuestas(respuestasXML);
             //Creamos las soluciones
-            int numSol=0;
-            for(int j =0;j<formatoOpciones.length;j++){
-                if(String.valueOf(formatoOpciones[j]).equals(element.getAttributeNode("sol").getValue())){
-                    numSol=j+1;
+            int numSol = 0;
+            if (!tipo.equals("Tipo5") && !tipo.equals("Tipo19")) {
+                for (int j = 0; j < formatoOpciones.length; j++) {
+                    if (String.valueOf(formatoOpciones[j]).equals(element.getAttributeNode("sol").getValue())) {
+                        numSol = j + 1;
+                    }
                 }
+                preg.setSolucion(String.valueOf(numSol));
+            } else {
+                preg.setSolucion(element.getAttributeNode("sol").getValue());
             }
-            preg.setSolucion(String.valueOf(numSol));
 
         }
 
@@ -220,7 +228,6 @@ public class ReadXML {
             preg.setId("preg_" + bb.getNumber() + 1);
             bb.setNumber(bb.getNumber() + 1);
 
-            
             String soluciones[] = new String[MenuMapTiposOpciones.posiblesSol.get(tipo)];
 
             String solSplit = element.getAttribute("sol");
@@ -259,9 +266,7 @@ public class ReadXML {
             preg.setId("preg_" + bb.getNumber() + 1);
             bb.setNumber(bb.getNumber() + 1);
 
-            
             preg.setSolucion(element.getAttribute("sol"));
-            
 
         }
 
@@ -293,7 +298,6 @@ public class ReadXML {
             preg.setRespuestas(respuestasXML);
             preg.setSolucion(solucionesXML);
 
-            
         }
 
         return preg;
@@ -318,7 +322,6 @@ public class ReadXML {
 
             }
             preg.setPistas(pistasXML);
-            
 
         }
 
@@ -359,7 +362,6 @@ public class ReadXML {
 
             h = 0;
 
-           
         }
 
         return preg;
@@ -418,11 +420,15 @@ public class ReadXML {
 
         return preg;
     }
+
     //función para obtener el text value de la etiqueta que se le pasa.
     private static String getTagValuePregunta(String tag, Element element) {
-        NodeList nodeList = element.getElementsByTagName(tag).item(0).getChildNodes();
-        Node node = (Node) nodeList.item(0);
-        return node.getNodeValue();
+        Node nodeList = element.getElementsByTagName(tag).item(0);
+        String resultado = "";
+        if (nodeList.hasChildNodes()) {
+            resultado = nodeList.getTextContent();
+        }
+        return resultado;
     }
 
 }
