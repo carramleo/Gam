@@ -97,7 +97,7 @@
                                 <p:outputLabel for="titulo" value = "Título:"  />
                             <h:inputText id="titulo" size="50" value="#{adminPreguntas.titulo}"  required="true"/>
                             </p:column>
-                            <p:column rendered="#{adminPreguntas.tipo eq 'Tipo5' || adminPreguntas.tipo eq 'Tipo14'}">
+                            <p:column rendered="#{adminPreguntas.tipo eq 'Tipo5' || adminPreguntas.tipo eq 'Tipo14' || adminPreguntas.tipo eq 'Tipo17'}">
                                 <p:outputLabel for="tema" value = "Tema:"  />
                                 <h:inputText id="tema" size="50" value="#{adminPreguntas.temaJuego}"  required="true"/>
                             </p:column>

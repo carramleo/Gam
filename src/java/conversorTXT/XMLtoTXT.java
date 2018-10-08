@@ -109,8 +109,9 @@ public class XMLtoTXT implements Serializable {
                     
                     ps = new PrintStream(out, false, "UTF-8");
                     ps.println("'"+temaJug.getTextContent()+"'");
-                    ps.println("'AUTOR/A: " + nombre.getTextContent() + "'");
                     ps.println("'TEMA: " + tema.getTextContent() + "'");
+                    ps.println("'AUTOR/A: " + nombre.getTextContent() + "'");
+                    
 
                 } else {
 

@@ -102,6 +102,7 @@ public class ReadTXT {
             BufferedReader in;
             Boolean compatible = false;
             Boolean temaLeído = false;
+            int lineasTema=0;
             //Si se ha seleccionado un tipo en la página web podemos seguir leyendo.
             if (TipoJuego != null && !TipoJuego.isEmpty() && tipoSeleccionado != null && !tipoSeleccionado.isEmpty()) {
 
@@ -167,14 +168,24 @@ public class ReadTXT {
                             String[] aut = line2.split(":");
                             autor = aut[1].substring(0, aut[1].length() - 1);
                             b.setAutor(autor);
-                        } else if (numLinea == Integer.parseInt(posTema)) {   //Comprobamos si estamos en la linea del titulo.
+                        } else if (!posTema.equals("2-3") && numLinea == Integer.parseInt(posTema)) {   //Comprobamos si estamos en la linea del tema.
                             String tema = line2.substring(1, line2.length() - 1);
                             b.setTemaJuego(tema);
 
-                        } else if (numLinea == Integer.parseInt(posTitulo)) { //Comprobamos si estamos en la linea del titulo.
+                        }else if (numLinea == Integer.parseInt(posTitulo)) { //Comprobamos si estamos en la linea del titulo.
                             String[] tit = line2.split(":");
                             titulo = tit[1].substring(0, tit[1].length() - 1);
                             b.setTitulo(titulo);
+                        }else if (  posTema.equals("2-3") && (numLinea==2 || numLinea==3)) {
+                                
+                                String tema=line2.substring(1, line2.length() - 1);;
+                                     if (b.getTemaJuego()!= null) {
+                                        b.setTemaJuego(b.getTemaJuego() + tema);
+                                    } else {
+                                        b.setTemaJuego(tema);
+                                    }
+                                     lineasTema++;
+
                         } else {
                             int sigPreg = line2.indexOf("PREGUNTA"); //Si la linea actual es PREGUNTA estamos ante una nueva pregunta.
                             if (sigPreg != -1) { //Si esxiste la  linea, creamos una nueva pregunta en el bean.
@@ -235,6 +246,7 @@ public class ReadTXT {
                                 autor = aut[1].substring(0, aut[1].length() - 1);
                                 b.setAutor(autor);
                             }
+                            
                             
                         }
                         numLinea++;
