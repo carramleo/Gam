@@ -25,6 +25,8 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.Writer;
+import java.util.ArrayList;
+import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
@@ -47,6 +49,9 @@ import org.xml.sax.SAXException;
 public class XMLtoTXT implements Serializable {
 
     public static PrintStream ps;
+    private static String comillas = "''";
+    private static int numCaracteresTema = 18;
+    private static int NumeroLineasTema17 = 2;
 
     public void conversorXMLtoTXT(InputStream XML) {
 
@@ -106,12 +111,46 @@ public class XMLtoTXT implements Serializable {
 
                     NodeList Tema = doc.getElementsByTagName("tema");  //Obtenemos el títilo del XML
                     Node temaJug = Tema.item(0);
-                    
+
                     ps = new PrintStream(out, false, "UTF-8");
-                    ps.println("'"+temaJug.getTextContent()+"'");
+                    ps.println("'" + temaJug.getTextContent() + "'");
                     ps.println("'TEMA: " + tema.getTextContent() + "'");
                     ps.println("'AUTOR/A: " + nombre.getTextContent() + "'");
-                    
+
+                } else if (preg.getAttributes().getNamedItem("tipo").getTextContent().equals("Tipo17")) {
+                    ps = new PrintStream(out, false, "UTF-8");
+                    ps.println("'AUTOR/A: " + nombre.getTextContent() + "'");
+                    ps.println("'TEMA: " + tema.getTextContent() + "'");
+
+                    NodeList TemaJuego = doc.getElementsByTagName("tema");  //Obtenemos el títilo del XML
+                    Node temaJug = TemaJuego.item(0);
+                    String temaJ = temaJug.getTextContent();
+                    //Frgmentamos en tema en tantas lineas como admita el tipo.
+                    List<String> stringsTema = new ArrayList<String>();
+                    int index = 0;
+                    while (index < temaJ.length()) {
+                        stringsTema.add(temaJ.substring(index, Math.min(index + numCaracteresTema, temaJ.length())));
+                        index += numCaracteresTema;
+                    }
+
+                    int numLineas = stringsTema.size();
+
+                    int restriccionLineas = 0;
+                    for (String textoTema : stringsTema) {
+
+                        if (restriccionLineas <= NumeroLineasTema17) {
+                            ps.println("'" + textoTema + "'");
+                            restriccionLineas++;
+                        } else {
+                            break;
+                        }
+                    }
+
+                    for (int h = 0; h < NumeroLineasTema17 - numLineas; h++) {
+
+                        ps.println(comillas); // imprimimos las comillas restantes de las lineas del enunciado sin ocupar
+
+                    }
 
                 } else {
 

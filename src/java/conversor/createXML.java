@@ -66,11 +66,12 @@ public class createXML extends AdminPreguntas implements Serializable {
     }
 
     //Mensaje de error que sale al no corresponderse el número de respuestas actual con el tipo de juego elegido.
-    public void errorGenerado(String tipo, int numResp) {
+    public void errorGenerado(String tipo, int numResp, int minNumResp) {
         FacesContext context = FacesContext.getCurrentInstance();
 
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Fallo al generar", "El numero de respuestas del juego " + tipo + " es incorrecto."
-                + " Nº respuestas = " + numResp + " "));
+                + " Nº respuestas mínimo = " + minNumResp
+                + " Nº respuestas máximo =  " + numResp + ""));
     }
 
     public void errorSinPreguntas() {
@@ -82,6 +83,10 @@ public class createXML extends AdminPreguntas implements Serializable {
     //Función para crear el XML, recibeel bean con las preguntas.
     public void createXML(AdminPreguntas b) throws Exception {
         int num = 0;
+        boolean RespInsuficientes = false;
+        Boolean RespVariables = false;
+        int numMinResp1215 = 2;
+        int numMinResp19 = 4;
         numRespOk = false;  //Comprueba q el numero de rspuestas sea el correcto en función del tipo elegido.
         List<PreguntaOpciones> Preguntas = b.getPreguntas();
         List<PreguntaCifras> PreguntasCifras = b.getPreguntasCifras();
@@ -133,7 +138,29 @@ public class createXML extends AdminPreguntas implements Serializable {
                 Element pregunta = document.createElement("pregunta");
                 pregunta.setAttribute("id", model.getId());
 
-                if (MenuMapTiposOpciones.numOpciones.get(preguntas.getAttribute("tipo")) == model.getRespuestas().size()) {
+                if (TipoJuego.equals("Tipo12") || TipoJuego.equals("Tipo15") || TipoJuego.equals("Tipo19")) {
+
+                    int numRespRellenas = 0;
+                    int numRespMaax = model.getRespuestas().size();
+                    RespVariables = true;
+                    for (int h = 0; h < numRespMaax; h++) {
+                        String resp = model.getRespuestas().get(h);
+                        if (resp != null && !resp.isEmpty() && !resp.equals("")) {
+                            numRespRellenas++;
+                        }
+                    }
+
+                    if ((numRespRellenas < numMinResp1215 && numRespRellenas > MenuMapTiposOpciones.numOpciones.get(preguntas.getAttribute("tipo"))) && (TipoJuego.equals("Tipo12") || TipoJuego.equals("Tipo15"))) {
+                        RespInsuficientes = true;
+                    }
+                    if ((numRespRellenas < numMinResp19 && numRespRellenas > MenuMapTiposOpciones.numOpciones.get(preguntas.getAttribute("tipo"))) && (TipoJuego.equals("Tipo19"))) {
+                        RespInsuficientes = true;
+                    }
+
+                }
+
+                if ((MenuMapTiposOpciones.numOpciones.get(preguntas.getAttribute("tipo")) == model.getRespuestas().size() || RespVariables) && !RespInsuficientes) {
+
                     if (MenuMapTiposOpciones.formatoOp.get(preguntas.getAttribute("tipo")) == 1) {
                         pregunta.setAttribute("sol", String.valueOf(formatoOpciones[Integer.parseInt(model.getSolucion()) - 1]));
                     } else {
@@ -159,13 +186,14 @@ public class createXML extends AdminPreguntas implements Serializable {
                     for (String resp : model.getRespuestas()) {
                         num++;
 
-                        Element respuesta = document.createElement("respuesta");
-                        respuesta.appendChild(document.createTextNode(resp));
-                        respuesta.setAttribute("numLineas", "1");
-                        respuesta.setAttribute("num", Integer.toString(num));
-                        respuesta.setAttribute("numLetras", "5");
-                        pregunta.appendChild(respuesta);
-
+                        if (resp != null && !resp.isEmpty() && !resp.equals("")) {
+                            Element respuesta = document.createElement("respuesta");
+                            respuesta.appendChild(document.createTextNode(resp));
+                            respuesta.setAttribute("numLineas", "1");
+                            respuesta.setAttribute("num", Integer.toString(num));
+                            respuesta.setAttribute("numLetras", "5");
+                            pregunta.appendChild(respuesta);
+                        }
                     }
                     num = 0;
                     Element pista = document.createElement("pista");
@@ -174,9 +202,19 @@ public class createXML extends AdminPreguntas implements Serializable {
                     pregunta.appendChild(pista);
                     preguntas.appendChild(pregunta);
                 } else {
+                    if (RespVariables) {
+                        if (TipoJuego.equals("Tipo19")) {
+                            errorGenerado(TipoJuego, MenuMapTiposOpciones.numOpciones.get(preguntas.getAttribute("tipo")), numMinResp19);
+                            numRespOk = true;
+                        } else {
+                            errorGenerado(TipoJuego, MenuMapTiposOpciones.numOpciones.get(preguntas.getAttribute("tipo")), numMinResp1215);
+                            numRespOk = true;
+                        }
 
-                    errorGenerado(TipoJuego, MenuMapTiposOpciones.numOpciones.get(preguntas.getAttribute("tipo")));
-                    numRespOk = true;
+                    } else {
+                        errorGenerado(TipoJuego, MenuMapTiposOpciones.numOpciones.get(preguntas.getAttribute("tipo")), MenuMapTiposOpciones.numOpciones.get(preguntas.getAttribute("tipo")));
+                        numRespOk = true;
+                    }
 
                 }
             }

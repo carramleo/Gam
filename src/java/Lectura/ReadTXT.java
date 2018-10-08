@@ -131,6 +131,7 @@ public class ReadTXT {
                 String tipoImportado = "";
                 String lineasEnun = "";
                 String numResp = "";
+                String minNumResp="";
                 String posAutor = "";
                 String posTitulo = "";
                 String posTema = "";
@@ -143,9 +144,10 @@ public class ReadTXT {
 
                         lineasEnun = key.getValue()[0];
                         numResp = key.getValue()[1];
-                        posAutor = key.getValue()[2];
-                        posTitulo = key.getValue()[3];
-                        posTema = key.getValue()[4];
+                        minNumResp = key.getValue()[2];
+                        posAutor = key.getValue()[3];
+                        posTitulo = key.getValue()[4];
+                        posTema = key.getValue()[5];
                     }
                 }
 
