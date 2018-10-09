@@ -102,7 +102,8 @@ public class ReadTXT {
             BufferedReader in;
             Boolean compatible = false;
             Boolean temaLeído = false;
-            int lineasTema=0;
+            int lineasTema = 0;
+            int ContadorTema15 = 0;
             //Si se ha seleccionado un tipo en la página web podemos seguir leyendo.
             if (TipoJuego != null && !TipoJuego.isEmpty() && tipoSeleccionado != null && !tipoSeleccionado.isEmpty()) {
 
@@ -131,7 +132,7 @@ public class ReadTXT {
                 String tipoImportado = "";
                 String lineasEnun = "";
                 String numResp = "";
-                String minNumResp="";
+                String minNumResp = "";
                 String posAutor = "";
                 String posTitulo = "";
                 String posTema = "";
@@ -174,85 +175,90 @@ public class ReadTXT {
                             String tema = line2.substring(1, line2.length() - 1);
                             b.setTemaJuego(tema);
 
-                        }else if (numLinea == Integer.parseInt(posTitulo)) { //Comprobamos si estamos en la linea del titulo.
+                        } else if (numLinea == Integer.parseInt(posTitulo)) { //Comprobamos si estamos en la linea del titulo.
                             String[] tit = line2.split(":");
                             titulo = tit[1].substring(0, tit[1].length() - 1);
                             b.setTitulo(titulo);
-                        }else if (  posTema.equals("2-3") && (numLinea==2 || numLinea==3)) {
-                                
-                                String tema=line2.substring(1, line2.length() - 1);;
-                                     if (b.getTemaJuego()!= null) {
-                                        b.setTemaJuego(b.getTemaJuego() + tema);
-                                    } else {
-                                        b.setTemaJuego(tema);
-                                    }
-                                     lineasTema++;
+                        } else if (posTema.equals("2-3") && (numLinea == 2 || numLinea == 3)) {
+
+                            String tema = line2.substring(1, line2.length() - 1);;
+                            if (b.getTemaJuego() != null) {
+                                b.setTemaJuego(b.getTemaJuego() + tema);
+                            } else {
+                                b.setTemaJuego(tema);
+                            }
+                            lineasTema++;
 
                         } else {
-                            int sigPreg = line2.indexOf("PREGUNTA"); //Si la linea actual es PREGUNTA estamos ante una nueva pregunta.
-                            if (sigPreg != -1) { //Si esxiste la  linea, creamos una nueva pregunta en el bean.
-                                numPreguntas++;
-                                contadorLineasEnunciado = 0;
-                                respuestas.removeAll(respuestas);
-                                PreguntaOpciones pregAdd = new PreguntaOpciones(MenuMapTiposOpciones.numOpciones.get(tipoImportado), MenuMapTiposOpciones.formatoOp.get(tipoImportado), MenuMapTiposOpciones.lineasEnun.get(tipoImportado));
+                            if (TipoJuego.equals("Tipo15") && (numLinea==2 || numLinea==48 || numLinea==94)) {
+                                //nada que leer
+                               
+                            } else {
+                                int sigPreg = line2.indexOf("PREGUNTA"); //Si la linea actual es PREGUNTA estamos ante una nueva pregunta.
+                                if (sigPreg != -1) { //Si esxiste la  linea, creamos una nueva pregunta en el bean.
+                                    numPreguntas++;
+                                    
+                                    contadorLineasEnunciado = 0;
+                                    respuestas.removeAll(respuestas);
+                                    PreguntaOpciones pregAdd = new PreguntaOpciones(MenuMapTiposOpciones.numOpciones.get(tipoImportado), MenuMapTiposOpciones.formatoOp.get(tipoImportado), MenuMapTiposOpciones.lineasEnun.get(tipoImportado));
 
-                                pregAdd.setId("preg_" + b.getNumber() + 1);
-                                b.setNumber(b.getNumber() + 1);
-                                Preguntas.add(pregAdd);
-                                temaLeído = false;
-                            } else if (tipoImportado.equals("Tipo12") && !temaLeído) {  //si es del tipo 12, metemos el tema tras la pregunta
-                                PreguntaOpciones pregCreada = Preguntas.get(Preguntas.size() - 1);
-                                String tem = line2.substring(1, line2.length() - 1);
-                                pregCreada.setTema(tem);
-                                temaLeído = true;
+                                    pregAdd.setId("preg_" + b.getNumber() + 1);
+                                    b.setNumber(b.getNumber() + 1);
+                                    Preguntas.add(pregAdd);
+                                    temaLeído = false;
+                                } else if (tipoImportado.equals("Tipo12") && !temaLeído) {  //si es del tipo 12, metemos el tema tras la pregunta
+                                    PreguntaOpciones pregCreada = Preguntas.get(Preguntas.size() - 1);
+                                    String tem = line2.substring(1, line2.length() - 1);
+                                    pregCreada.setTema(tem);
+                                    temaLeído = true;
 
-                            } else { //Si no, estamos ante el enunciado o sus respuestas.
-                                PreguntaOpciones pregCreada = Preguntas.get(Preguntas.size() - 1);
+                                } else { //Si no, estamos ante el enunciado o sus respuestas.
+                                    PreguntaOpciones pregCreada = Preguntas.get(Preguntas.size() - 1);
 
-                                if (contadorLineasEnunciado >= 0 && contadorLineasEnunciado < Integer.parseInt(lineasEnun)) { //Comprobamos si estamos leyendo el enunciado
-                                    String enun = line2.substring(1, line2.length() - 1);
-                                    if (pregCreada.getEnunciado() != null) {
-                                        pregCreada.setEnunciado(pregCreada.getEnunciado() + enun);
-                                    } else {
-                                        pregCreada.setEnunciado(enun);
-                                    }
-
-                                } else if (contadorLineasEnunciado >= Integer.parseInt(lineasEnun) && contadorLineasEnunciado < Integer.parseInt(lineasEnun) + Integer.parseInt(numResp)) { //Comprobamos si estamos leyendo las respuestas
-                                    String resp = line2.substring(1, line2.length() - 1);
-                                    respuestas.add(resp);
-                                } else if (contadorLineasEnunciado == Integer.parseInt(lineasEnun) + Integer.parseInt(numResp)) { //Comprobamos si estamos leyendo la solución.
-
-                                    pregCreada.setRespuestas(respuestas);
-
-                                    int numSol = 0;
-                                    if (line2.startsWith("'")) {
-                                        String sol = line2.substring(1, line2.length() - 1);
-
-                                        for (int j = 0; j < formatoOpciones.length; j++) {
-                                            if (String.valueOf(formatoOpciones[j]).equals(sol)) {
-                                                numSol = j + 1;
-                                            }
+                                    if (contadorLineasEnunciado >= 0 && contadorLineasEnunciado < Integer.parseInt(lineasEnun)) { //Comprobamos si estamos leyendo el enunciado
+                                        String enun = line2.substring(1, line2.length() - 1);
+                                        if (pregCreada.getEnunciado() != null) {
+                                            pregCreada.setEnunciado(pregCreada.getEnunciado() + enun);
+                                        } else {
+                                            pregCreada.setEnunciado(enun);
                                         }
-                                        pregCreada.setSolucion(String.valueOf(numSol));
-                                    } else {
-                                        pregCreada.setSolucion(line2);
+
+                                    } else if (contadorLineasEnunciado >= Integer.parseInt(lineasEnun) && contadorLineasEnunciado < Integer.parseInt(lineasEnun) + Integer.parseInt(numResp)) { //Comprobamos si estamos leyendo las respuestas
+                                        String resp = line2.substring(1, line2.length() - 1);
+                                        respuestas.add(resp);
+                                    } else if (contadorLineasEnunciado == Integer.parseInt(lineasEnun) + Integer.parseInt(numResp)) { //Comprobamos si estamos leyendo la solución.
+
+                                        pregCreada.setRespuestas(respuestas);
+
+                                        int numSol = 0;
+                                        if (line2.startsWith("'")) {
+                                            String sol = line2.substring(1, line2.length() - 1);
+
+                                            for (int j = 0; j < formatoOpciones.length; j++) {
+                                                if (String.valueOf(formatoOpciones[j]).equals(sol)) {
+                                                    numSol = j + 1;
+                                                }
+                                            }
+                                            pregCreada.setSolucion(String.valueOf(numSol));
+                                        } else {
+                                            pregCreada.setSolucion(line2);
+                                        }
+                                        respuestas = new ArrayList<String>();
+
                                     }
-                                    respuestas = new ArrayList<String>();
+                                    contadorLineasEnunciado++;
 
                                 }
-                                contadorLineasEnunciado++;
+                                if (line2.equals(leerOtraVez.get(leerOtraVez.size() - 2)) && posAutor.equals("x-1") && b.getAutor() == null) {
+                                    String[] aut = line2.split(":");
+                                    autor = aut[1].substring(0, aut[1].length() - 1);
+                                    b.setAutor(autor);
+                                }
 
                             }
-                            if ( line2.equals(leerOtraVez.get(leerOtraVez.size()-2)) && posAutor.equals("x-1") && b.getAutor()==null) {
-                                String[] aut = line2.split(":");
-                                autor = aut[1].substring(0, aut[1].length() - 1);
-                                b.setAutor(autor);
-                            }
-                            
-                            
+                             ContadorTema15++;
                         }
                         numLinea++;
-                        
 
                     }
                 } else {

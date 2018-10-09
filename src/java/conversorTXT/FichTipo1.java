@@ -26,6 +26,7 @@ public class FichTipo1 {
     private static int numOpcionesSolucion19 = 5;
     private static int numOpcionesSoluciontrampa = 9;
     private static int numLineasSol50x50 = 2;
+    private static int contadorTema15=1;
     private static String comillas = "''";
     private static int numCaracteres = 80; //numero de caracteres alfanumericos que caben en una linea del generador de juegos tipo1
     private static int IdRonda = 1;
@@ -103,11 +104,18 @@ public class FichTipo1 {
 
                     }
 
-                    if (!preguntaTipo.getAttribute("tipo").equals("TipoLetra") && !preguntaTipo.getAttribute("tipo").equals("Tipo12")) {
+                    if (!preguntaTipo.getAttribute("tipo").equals("TipoLetra") && !preguntaTipo.getAttribute("tipo").equals("Tipo12") && !preguntaTipo.getAttribute("tipo").equals("Tipo15")) {
                         ps.println("'PREGUNTA " + (idPreg++) + "'"); // imprimimos los enunciados de las preguntas																							
-                    } else if (!preguntaTipo.getAttribute("tipo").equals("Tipo12")){
-
-                        ps.println("'PANEL " + IdPanel + ". PALABRA " + idPreg + "'");
+                    }else if(preguntaTipo.getAttribute("tipo").equals("Tipo15")){
+                        
+                        if((idPreg-1) % 5 == 0){
+                            ps.println("'PREGUNTAS DE "+contadorTema15 +" PUNTOS'");
+                            contadorTema15++;
+                        }
+                        
+                        ps.println("'PREGUNTA " + (idPreg++) + "'"); // imprimimos los enunciados de las preguntas
+                       
+                        
                     }else {
                         
                         ps.println("'PREGUNTA " + (idPreg++) + "'"); // imprimimos los enunciados de las preguntas

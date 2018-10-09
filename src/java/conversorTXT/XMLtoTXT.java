@@ -87,7 +87,7 @@ public class XMLtoTXT implements Serializable {
                 //Comprobamos ante qué tipo estamos para imprimir en el orden y con los datos que necesita la aplicación web AJDA
                 //para procesar cada tipo de juego
                 if (preg.getAttributes().getNamedItem("tipo").getTextContent().equals("TipoSabios")
-                        || preg.getAttributes().getNamedItem("tipo").getTextContent().equals("Tipo14")
+                        
                         || preg.getAttributes().getNamedItem("tipo").getTextContent().equals("Tipo123")
                         || preg.getAttributes().getNamedItem("tipo").getTextContent().equals("TipoPocasPalabras")
                         || preg.getAttributes().getNamedItem("tipo").getTextContent().equals("TipoPistas")
@@ -151,6 +151,14 @@ public class XMLtoTXT implements Serializable {
                         ps.println(comillas); // imprimimos las comillas restantes de las lineas del enunciado sin ocupar
 
                     }
+
+                } else if (preg.getAttributes().getNamedItem("tipo").getTextContent().equals("Tipo14")) {
+                    NodeList TemaJuego = doc.getElementsByTagName("tema");  //Obtenemos el títilo del XML
+                    Node temaJug = TemaJuego.item(0);
+                    String temaJ = temaJug.getTextContent();
+
+                    ps = new PrintStream(out, false, "UTF-8");
+                    ps.println("'" + temaJ + "'");
 
                 } else {
 
@@ -263,7 +271,6 @@ public class XMLtoTXT implements Serializable {
                 }
                 //Comprobamos el tipo de fichero que es para saber la información que hay que añadir al final de las pregutas.
                 if (preg.getAttributes().getNamedItem("tipo").getTextContent().equals("TipoSabios")
-                        || preg.getAttributes().getNamedItem("tipo").getTextContent().equals("Tipo14")
                         || preg.getAttributes().getNamedItem("tipo").getTextContent().equals("Tipo123")
                         || preg.getAttributes().getNamedItem("tipo").getTextContent().equals("TipoPocasPalabras")
                         || preg.getAttributes().getNamedItem("tipo").getTextContent().equals("TipoPistas")
@@ -274,7 +281,8 @@ public class XMLtoTXT implements Serializable {
 
                     ps.println("'AUTOR/A: " + nombre.getTextContent() + "'");
                     ps.println("'" + tema.getTextContent() + "'");
-                } else if (preg.getAttributes().getNamedItem("tipo").getTextContent().equals("TipoIdentity")) {
+                } else if (preg.getAttributes().getNamedItem("tipo").getTextContent().equals("TipoIdentity")
+                        || preg.getAttributes().getNamedItem("tipo").getTextContent().equals("Tipo14")) {
 
                     ps.println("'AUTOR/A: " + nombre.getTextContent() + "'");
                 } else if (preg.getAttributes().getNamedItem("tipo").getTextContent().equals("TipoImposible")) {

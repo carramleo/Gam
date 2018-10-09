@@ -93,7 +93,7 @@
                                 <p:outputLabel for="autor"  value = "Autor:" />
                                 <h:inputText id="autor" size="50" value="#{adminPreguntas.autor}" required="true"/>
                             </p:column>
-                            <p:column>
+                            <p:column rendered="#{adminPreguntas.tipo ne 'Tipo14'}">
                                 <p:outputLabel for="titulo" value = "Título:"  />
                             <h:inputText id="titulo" size="50" value="#{adminPreguntas.titulo}"  required="true"/>
                             </p:column>

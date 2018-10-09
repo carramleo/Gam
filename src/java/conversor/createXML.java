@@ -112,16 +112,22 @@ public class createXML extends AdminPreguntas implements Serializable {
         Attr attr = document.createAttribute("Id");
         attr.setValue("1");
         element.setAttributeNode(attr);
-
+        
         Element titulo = document.createElement("titulo");
-        titulo.appendChild(document.createTextNode(tituloJuego));
-        element.appendChild(titulo);
+        if (!TipoJuego.equals("Tipo14")) {
+            
+            titulo.appendChild(document.createTextNode(tituloJuego));
+            element.appendChild(titulo);
+        }else{
+            titulo.appendChild(document.createTextNode("Sin Título"));
+            element.appendChild(titulo);
+        }
 
         Element autor = document.createElement("autor");
         autor.appendChild(document.createTextNode(autorJuego));
         element.appendChild(autor);
 
-        if (TipoJuego.equals("Tipo5") || TipoJuego.equals("Tipo17")) {
+        if (TipoJuego.equals("Tipo5") || TipoJuego.equals("Tipo17") || TipoJuego.equals("Tipo14")) {
             Element temaJug = document.createElement("tema");
             temaJug.appendChild(document.createTextNode(temaJuego));
             element.appendChild(temaJug);

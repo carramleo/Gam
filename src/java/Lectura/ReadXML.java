@@ -106,6 +106,12 @@ public class ReadXML {
                     compatible = true;
                 }
             }
+            
+            if(TipoJuego.equals("Tipo5") || TipoJuego.equals("Tipo14") || TipoJuego.equals("Tipo17")){
+                String tema=document.getElementsByTagName("tema").item(0).getTextContent();
+                b.setTemaJuego(tema);
+            }
+            
             //Comprobamos si se ha seleccionado un tipo en la página web.
             if (compatible && TipoJuego != null && !TipoJuego.isEmpty() && tipoSeleccionado != null && !tipoSeleccionado.isEmpty()) {
 
