@@ -16,18 +16,18 @@
         <h:body>
 
             <p:layout fullPage="true" >
-                
+
                 <!-- Titular página -->
                 <p:layoutUnit position="north" style="text-align: center; font-size: xx-large;" size="100" resizable="true" closable="true" collapsible="true">
                     <h:outputText value="Generador de Juegos"></h:outputText>
                 </p:layoutUnit>
-                
-                
+
+
                 <!-- Pie de página -->
                 <p:layoutUnit position="south" style="text-align: center; font-size: x-large;" size="100" closable="true" collapsible="true">
                     <h:outputText value="Aplicación de juegos didácticos en el aula"></h:outputText>
                 </p:layoutUnit>
-                
+
                 <!-- Menú de acciones -->
                 <p:layoutUnit position="west" size="340"  header="Opciones" collapsible="true" >
                     <h:form id="menu" enctype='multipart/form-data' >
@@ -65,7 +65,7 @@
                         </p:menu>
                     </h:form>
                 </p:layoutUnit>
-                
+
                 <!-- Paneles de preguntas -->
                 <p:layoutUnit position="center">
 
@@ -81,29 +81,37 @@
                         </p:selectOneMenu>
                         <br/>
                         <br/>
-                        <p:commandButton  value="Borrar Preguntas" id="BorrarTodo" action="#{adminPreguntas.deleteAllLists()}" rendered="#{menuMapTipos.tipo ne null}" update=":juego" immediate="true" />
+                        <p:commandButton  value="Borrar Preguntas" id="BorrarTodo" action="#{adminPreguntas.deleteAllLists()}" rendered="#{menuMapTipos.tipo ne null}" update=":juego" immediate="true" >
+                             <p:confirm header="Confirmación" message="¿Seguro que quieres borrar todas las preguntas?" />
+                        </p:commandButton>
 
                         <h:outputText value="Selecciona un tipo de formato y de juego para crear un nuevo fichero o para importarlo"  rendered="#{menuMapTipos.tipo eq null}" />
 
                         <p:panelGrid id="datosJuego" columns="1"  style="width: auto;"  rendered="#{menuMapTipos.tipo ne null}" >
-                            
-                               
-                            
+
+
+
                             <p:column>
                                 <p:outputLabel for="autor"  value = "Autor:" />
                                 <h:inputText id="autor" size="50" value="#{adminPreguntas.autor}" required="true"/>
                             </p:column>
                             <p:column rendered="#{adminPreguntas.tipo ne 'Tipo14'}">
                                 <p:outputLabel for="titulo" value = "Título:"  />
-                            <h:inputText id="titulo" size="50" value="#{adminPreguntas.titulo}"  required="true"/>
+                                <h:inputText id="titulo" size="50" value="#{adminPreguntas.titulo}"  required="true"/>
                             </p:column>
                             <p:column rendered="#{adminPreguntas.tipo eq 'Tipo5' || adminPreguntas.tipo eq 'Tipo14' || adminPreguntas.tipo eq 'Tipo17'}">
                                 <p:outputLabel for="tema" value = "Tema:"  />
                                 <h:inputText id="tema" size="50" value="#{adminPreguntas.temaJuego}"  required="true"/>
                             </p:column>
-                            
+
+
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                                <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes"  />
+                                <p:commandButton value="No" type="button"  styleClass="ui-confirmdialog-no"/>
+                            </p:confirmDialog>
+
                         </p:panelGrid>
-                        
+
                         <!-- Todos los paneles de los distintos tipos de juegos agrupados y ocultos hasta que en la lista de preguntas de cada tipo exista al menos un elemento -->
                         <p:panelGrid id="panelesJuego"  columns="1" style="width: 100%;" rendered="#{menuMapTipos.tipo eq 'TipoOpciones'}"  >
 

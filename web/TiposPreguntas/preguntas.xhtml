@@ -13,19 +13,26 @@
         <ui:composition  >
 
             <p:panel id="#{pregunta.id}" widgetVar="wid_#{pregunta.id}"  toggleable="true"   >
+                
+                
+                
                 <f:facet name = "header">
                     <h:outputText value="Pregunta #{adminPreguntas.preguntas.indexOf(pregunta)+1} "/>
-                    <p:commandButton style="" value="Eliminar pregunta" action="#{adminPreguntas.deletePregunta(pregunta.id)}" update=":juego"  /> 
-                    </f:facet>
+                    <p:commandButton value="Eliminar pregunta" action="#{adminPreguntas.deletePregunta(pregunta.id)}" update=":juego"  >
+                        <p:confirm header="Confirmación" message="¿Seguro que quieres borrar la pregunta #{adminPreguntas.preguntas.indexOf(pregunta)+1}?" />
+                    </p:commandButton> 
+
+                    
+                </f:facet>
 
                 <h:panelGrid id="panelgrid_#{pregunta.id}"  border = "1" 
                              cellpadding = "10" cellspacing = "1" style="width: 100%;" >
-                    
+
                     <p:column rendered="#{adminPreguntas.tipo eq 'Tipo12'}">
                         <!-- Enunciado de cada Panel -->
                         <h:outputLabel value = "Tema " />
 
-                        <p:inputText size="50" value="#{pregunta.tema}" required="true" maxlength="120">
+                        <p:inputText size="50" value="#{pregunta.tema}" required="true" requiredMessage="Tema requerido en Pregunta #{adminPreguntas.preguntas.indexOf(pregunta)+1}" maxlength="120">
                             <p:ajax  event="valueChange"  />
                         </p:inputText>
 
@@ -34,41 +41,41 @@
                         <!-- Enunciado de cada Panel -->
                         <h:outputLabel value = "Enunciado: " />
 
-                        <p:inputText size="100" value="#{pregunta.enunciado}" required="true" maxlength="240">
+                        <p:inputText size="100" value="#{pregunta.enunciado}" required="true" requiredMessage="Enunciado reuqerido en Pregunta #{adminPreguntas.preguntas.indexOf(pregunta)+1}" maxlength="240">
                             <p:ajax  event="valueChange"  />
                         </p:inputText>
 
                     </p:column>
 
-                    
+
                     <ui:repeat  value="#{pregunta.respuestas}" var="resp" varStatus="loop"  >
                         <!-- Lista de respuestas de cada panel -->
-                            <p:column>
-                                <h:outputLabel value = "Respuesta #{loop.index +1}: " />
-                            
-                                <p:inputText  size="50"  value="#{pregunta.respuestas[loop.index]}"   >
-                                    
-                                </p:inputText>
+                        <p:column>
+                            <h:outputLabel value = "Respuesta #{loop.index +1}: " />
 
-                                <p:commandButton value="X" action="#{adminPreguntas.deleteRespPregunta(pregunta, loop.index)}" update=":juego:panelesJuego"  />
-                                <h:outputText value="&lt;br/&gt;" escape="false" />
-                            </p:column>
-                            
+                            <p:inputText  size="50"  value="#{pregunta.respuestas[loop.index]}"   >
+
+                            </p:inputText>
+
+                            <p:commandButton value="X" action="#{adminPreguntas.deleteRespPregunta(pregunta, loop.index)}" update=":juego:panelesJuego"  />
+                            <h:outputText value="&lt;br/&gt;" escape="false" />
+                        </p:column>
+
                     </ui:repeat>
 
-                        <p:column>
-                            <p:commandButton value="Añadir Respuesta"  action="#{adminPreguntas.addRespPregunta(pregunta)}" update=":juego:panelesJuego"   />
+                    <p:column>
+                        <p:commandButton value="Añadir Respuesta"  action="#{adminPreguntas.addRespPregunta(pregunta)}" update=":juego:panelesJuego"   />
 
-                            </p:column>
+                    </p:column>
 
-                    
-                    
+
+
                     <f:facet  name = "footer">
                         <!-- Respuestas de cada panel -->
-                        <h:selectOneRadio value="#{pregunta.solucion}" label="Solución" required="true">
+                        <h:selectOneRadio value="#{pregunta.solucion}" label="Solución" required="true" requiredMessage="Solución requerida en pregunta #{adminPreguntas.preguntas.indexOf(pregunta)+1}">
 
                             <f:selectItems value="#{pregunta.solucionList}" var="sol" itemLabel="Respuesta #{sol}" itemValue="#{sol}" />
-                            
+
                         </h:selectOneRadio>	
                     </f:facet>                        
 

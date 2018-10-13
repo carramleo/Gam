@@ -66,10 +66,10 @@ public class createXML extends AdminPreguntas implements Serializable {
     }
 
     //Mensaje de error que sale al no corresponderse el número de respuestas actual con el tipo de juego elegido.
-    public void errorGenerado(String tipo, int numResp, int minNumResp) {
+    public void errorGenerado(int pregunta, int numResp, int minNumResp) {
         FacesContext context = FacesContext.getCurrentInstance();
 
-        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Fallo al generar", "El numero de respuestas del juego " + tipo + " es incorrecto."
+        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Fallo al generar en pregunta " +pregunta, "El numero de respuestas de la pregunta " + pregunta + " es incorrecto."
                 + " Nº respuestas mínimo = " + minNumResp
                 + " Nº respuestas máximo =  " + numResp + ""));
     }
@@ -210,15 +210,15 @@ public class createXML extends AdminPreguntas implements Serializable {
                 } else {
                     if (RespVariables) {
                         if (TipoJuego.equals("Tipo19")) {
-                            errorGenerado(TipoJuego, MenuMapTiposOpciones.numOpciones.get(preguntas.getAttribute("tipo")), numMinResp19);
+                            errorGenerado(Preguntas.indexOf(model)+1, MenuMapTiposOpciones.numOpciones.get(preguntas.getAttribute("tipo")), numMinResp19);
                             numRespOk = true;
                         } else {
-                            errorGenerado(TipoJuego, MenuMapTiposOpciones.numOpciones.get(preguntas.getAttribute("tipo")), numMinResp1215);
+                            errorGenerado(Preguntas.indexOf(model)+1, MenuMapTiposOpciones.numOpciones.get(preguntas.getAttribute("tipo")), numMinResp1215);
                             numRespOk = true;
                         }
 
                     } else {
-                        errorGenerado(TipoJuego, MenuMapTiposOpciones.numOpciones.get(preguntas.getAttribute("tipo")), MenuMapTiposOpciones.numOpciones.get(preguntas.getAttribute("tipo")));
+                        errorGenerado(Preguntas.indexOf(model)+1, MenuMapTiposOpciones.numOpciones.get(preguntas.getAttribute("tipo")), MenuMapTiposOpciones.numOpciones.get(preguntas.getAttribute("tipo")));
                         numRespOk = true;
                     }
 

@@ -69,8 +69,13 @@ public class FichTipo1 {
             List<String> stringsEnunciado = new ArrayList<String>();
             int index = 0;
             while (index < enunciadoStr.length()) {
-                stringsEnunciado.add(enunciadoStr.substring(index, Math.min(index + numCaracteres, enunciadoStr.length())));
-                index += numCaracteres;
+                
+                for (String s : enunciadoStr.split("(?<=\\G.{80,}\\s)")) {
+			stringsEnunciado.add(s);
+                        index += numCaracteres;
+		}
+                //stringsEnunciado.add(enunciadoStr.substring(index, Math.min(index + numCaracteres, enunciadoStr.length())));
+                
             }
             
             int numLineas = stringsEnunciado.size();
