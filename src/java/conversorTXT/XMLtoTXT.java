@@ -289,7 +289,7 @@ public class XMLtoTXT implements Serializable {
 
                     ps.println("'TEMA: " + tema.getTextContent() + "'");
                 }
-                ps.println("'Compatibilidad " + preg.getAttributes().getNamedItem("tipo").getTextContent().substring(4, preg.getAttributes().getNamedItem("tipo").getTextContent().length()) + "'");
+                ps.print("'Compatibilidad " + preg.getAttributes().getNamedItem("tipo").getTextContent().substring(4, preg.getAttributes().getNamedItem("tipo").getTextContent().length()) + "'");
                 externalContext.responseFlushBuffer();
 
                 out.close();

@@ -10,7 +10,7 @@
 
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
-<xsl:output method="html" encoding="UTF-8" indent="yes"/>
+    <xsl:output method="html" encoding="UTF-8" indent="yes"/>
     <xsl:template match="/Gamificacion">
         <html>
             <head>
@@ -35,21 +35,40 @@
                 <xsl:for-each select="/Gamificacion/preguntas/pregunta">
 				
 				
-				<h3><xsl:value-of select="temaPregunta" /></h3>
-                                <h4>
-                                   <strong> <xsl:value-of  select="position()" />:
-                                    <xsl:value-of select="enunciado" /></strong>
-                                </h4>
-					 <xsl:for-each select="respuesta">
+                    <h3>
+                        <xsl:value-of select="temaPregunta" />
+                    </h3>
+                    <h4>
+                        <strong> 
+                            <xsl:value-of  select="position()" />:
+                            <xsl:value-of select="enunciado" />
+                        </strong>
+                    </h4>
+			
+                    <xsl:if test="string(number(@sol)) != 'NaN'">	 
+                                
+                    <xsl:for-each select="respuesta">
 						
-							<p><xsl:number value="position()" format="A"/>: <xsl:value-of select="." /></p>
+                        <p>
+                            <xsl:number value="position()"/>: <xsl:value-of select="." />
+                        </p>
 						
-					</xsl:for-each>
+                    </xsl:for-each>
+                    </xsl:if><xsl:if test="string(number(@sol)) = 'NaN'">	 
+                                
+                    <xsl:for-each select="respuesta">
+						
+                        <p>
+                            <xsl:number value="position()" format="A"/>: <xsl:value-of select="." />
+                        </p>
+						
+                    </xsl:for-each>
+                    </xsl:if>
                                         
-                                        <p style="text-decoration: underline;" >Solucion: <xsl:value-of select="@sol" /></p>
-                                        <br></br>
+                    <p style="text-decoration: underline;" >Solucion: <xsl:value-of select="@sol" /></p>
+                    <br></br>
             
-			</xsl:for-each>
+                </xsl:for-each>
             </body>
         </html>
     </xsl:template>
