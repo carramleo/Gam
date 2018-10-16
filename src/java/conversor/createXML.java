@@ -144,11 +144,10 @@ public class createXML extends AdminPreguntas implements Serializable {
                 Element pregunta = document.createElement("pregunta");
                 pregunta.setAttribute("id", model.getId());
 
-                if (TipoJuego.equals("Tipo12") || TipoJuego.equals("Tipo15") || TipoJuego.equals("Tipo19")) {
+                //if (TipoJuego.equals("Tipo12") || TipoJuego.equals("Tipo15") || TipoJuego.equals("Tipo19")) {
 
                     int numRespRellenas = 0;
                     int numRespMaax = model.getRespuestas().size();
-                    RespVariables = true;
                     for (int h = 0; h < numRespMaax; h++) {
                         String resp = model.getRespuestas().get(h);
                         if (resp != null && !resp.isEmpty() && !resp.equals("")) {
@@ -163,9 +162,9 @@ public class createXML extends AdminPreguntas implements Serializable {
                         RespInsuficientes = true;
                     }
 
-                }
+                //}
 
-                if ((MenuMapTiposOpciones.numOpciones.get(preguntas.getAttribute("tipo")) == model.getRespuestas().size() || RespVariables) && !RespInsuficientes) {
+                if (MenuMapTiposOpciones.numOpciones.get(preguntas.getAttribute("tipo")) == numRespRellenas  && !RespInsuficientes) {
 
                     if (MenuMapTiposOpciones.formatoOp.get(preguntas.getAttribute("tipo")) == 1) {
                         pregunta.setAttribute("sol", String.valueOf(formatoOpciones[Integer.parseInt(model.getSolucion()) - 1]));
