@@ -96,6 +96,7 @@ public class ReadXML {
             b.setAutor(autor);
             b.setTitulo(titulo);
             String TipoJuego = b.getTipo();
+            
 
             String tipoSeleccionado = tipos.getTipo();  //tipo  seleccionado en el menu de la izq
 
@@ -107,7 +108,7 @@ public class ReadXML {
                 }
             }
             
-            if(TipoJuego.equals("Tipo5") || TipoJuego.equals("Tipo14") || TipoJuego.equals("Tipo17")){
+            if((TipoJuego.equals("Tipo5") || TipoJuego.equals("Tipo14") || TipoJuego.equals("Tipo17")) && !tipo.equals("Tipo15")){
                 String tema=document.getElementsByTagName("tema").item(0).getTextContent();
                 b.setTemaJuego(tema);
             }

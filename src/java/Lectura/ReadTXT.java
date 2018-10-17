@@ -190,7 +190,7 @@ public class ReadTXT {
                             lineasTema++;
 
                         } else {
-                            if (TipoJuego.equals("Tipo15") && (numLinea==2 || numLinea==48 || numLinea==94)) {
+                            if ((TipoJuego.equals("Tipo15") || tipoImportado.equals("Tipo15")) && (numLinea==2 || numLinea==48 || numLinea==94)) {
                                 //nada que leer
                                
                             } else {
