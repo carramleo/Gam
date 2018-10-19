@@ -24,14 +24,14 @@
                         <h:outputText value = "Pregunta"/>
                     </f:facet>
                     <h:outputLabel value = "Enunciado:" />
-                    <h:inputText size="100" value="#{pregunta.enunciado}" >
+                    <h:inputText size="100" value="#{pregunta.enunciado}"  required="#{not empty param[btnCrearFichPreguntaCampoTexto.clientId]}">
                          <p:ajax  event="valueChange"  />
                     </h:inputText>
                     
                     <f:facet name = "footer">
                         <h:outputLabel value = "Posibles soluciones:" />
                         <c:forEach items="#{pregunta.solucion}" var="sol" varStatus="solLoop">
-                            <h:inputText size="10" value="#{sol}" >
+                            <h:inputText size="10" value="#{sol}" required="#{not empty param[btnCrearFichPreguntaCampoTexto.clientId]}">
                                  <p:ajax  event="valueChange"  />
                             </h:inputText>
                         </c:forEach>

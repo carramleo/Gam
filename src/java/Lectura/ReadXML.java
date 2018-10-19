@@ -108,7 +108,7 @@ public class ReadXML {
                 }
             }
             
-            if((TipoJuego.equals("Tipo5") || TipoJuego.equals("Tipo14") || TipoJuego.equals("Tipo17")) && !tipo.equals("Tipo15")){
+            if((tipo.equals("Tipo5") || tipo.equals("Tipo14") || tipo.equals("Tipo17")) && !tipo.equals("Tipo15")){
                 String tema=document.getElementsByTagName("tema").item(0).getTextContent();
                 b.setTemaJuego(tema);
             }

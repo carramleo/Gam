@@ -27,7 +27,7 @@
                 </h2>
                 <br></br>
                 <h2>
-                    <strong>Tema: <xsl:value-of select="tema" /></strong>
+                    <strong><xsl:value-of select="tema" /></strong>
                 </h2>
                 <br></br>
                 <h3>Preguntas:</h3>

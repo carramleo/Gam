@@ -18,7 +18,7 @@
                 
                 <f:facet name = "header">
                     <h:outputText value="Pregunta #{adminPreguntas.preguntas.indexOf(pregunta)+1} "/>
-                    <p:commandButton value="Eliminar pregunta" action="#{adminPreguntas.deletePregunta(pregunta.id)}" update=":juego"  >
+                    <p:commandButton value="Eliminar pregunta" action="#{adminPreguntas.deletePregunta(pregunta.id)}"  update=":juego"  >
                         <p:confirm header="Confirmación" message="¿Seguro que quieres borrar la pregunta #{adminPreguntas.preguntas.indexOf(pregunta)+1}?" />
                     </p:commandButton> 
 
@@ -32,7 +32,7 @@
                         <!-- Enunciado de cada Panel -->
                         <h:outputLabel value = "Tema " />
 
-                        <p:inputText size="50" value="#{pregunta.tema}" required="true" requiredMessage="Tema requerido en Pregunta #{adminPreguntas.preguntas.indexOf(pregunta)+1}" maxlength="120">
+                        <p:inputText size="50" value="#{pregunta.tema}" required="#{not empty param[btnCrearFichPregunta.clientId]}" requiredMessage="Tema requerido en Pregunta #{adminPreguntas.preguntas.indexOf(pregunta)+1}" maxlength="120">
                             <p:ajax  event="valueChange"  />
                         </p:inputText>
 
@@ -41,7 +41,7 @@
                         <!-- Enunciado de cada Panel -->
                         <h:outputLabel value = "Enunciado: " />
 
-                        <p:inputText size="100" value="#{pregunta.enunciado}" required="true" requiredMessage="Enunciado reuqerido en Pregunta #{adminPreguntas.preguntas.indexOf(pregunta)+1}" maxlength="240">
+                        <p:inputText size="100" value="#{pregunta.enunciado}" required="#{not empty param[btnCrearFichPregunta.clientId]}" requiredMessage="Enunciado reuqerido en Pregunta #{adminPreguntas.preguntas.indexOf(pregunta)+1}" maxlength="240">
                             <p:ajax  event="valueChange"  />
                         </p:inputText>
 
@@ -72,7 +72,7 @@
 
                     <f:facet  name = "footer">
                         <!-- Respuestas de cada panel -->
-                        <h:selectOneRadio value="#{pregunta.solucion}" label="Solución" required="true" requiredMessage="Solución requerida en pregunta #{adminPreguntas.preguntas.indexOf(pregunta)+1}">
+                        <h:selectOneRadio value="#{pregunta.solucion}" label="Solución" required="#{not empty param[btnCrearFichPregunta.clientId]}" requiredMessage="Solución requerida en pregunta #{adminPreguntas.preguntas.indexOf(pregunta)+1}">
 
                             <f:selectItems value="#{pregunta.solucionList}" var="sol" itemLabel="Respuesta #{sol}" itemValue="#{sol}" />
 

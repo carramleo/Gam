@@ -249,7 +249,7 @@ public class ReadTXT {
                                     contadorLineasEnunciado++;
 
                                 }
-                                if (line2.equals(leerOtraVez.get(leerOtraVez.size() - 2)) && posAutor.equals("x-1") && b.getAutor() == null) {
+                                if (line2.equals(leerOtraVez.get(leerOtraVez.size() - 2)) && posAutor.equals("x-1") && b.getAutor().isEmpty()) {
                                     String[] aut = line2.split(":");
                                     autor = aut[1].substring(0, aut[1].length() - 1);
                                     b.setAutor(autor);

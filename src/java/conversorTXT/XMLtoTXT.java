@@ -129,8 +129,10 @@ public class XMLtoTXT implements Serializable {
                     List<String> stringsTema = new ArrayList<String>();
                     int index = 0;
                     while (index < temaJ.length()) {
-                        stringsTema.add(temaJ.substring(index, Math.min(index + numCaracteresTema, temaJ.length())));
-                        index += numCaracteresTema;
+                        for (String s : temaJ.split("(?<=\\G.{80,}\\s)")) {
+                            stringsTema.add(s);
+                            index += numCaracteresTema;
+                        }
                     }
 
                     int numLineas = stringsTema.size();

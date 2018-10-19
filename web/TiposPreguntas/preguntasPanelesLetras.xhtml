@@ -26,7 +26,7 @@
                         <h:outputText value = "Pregunta"/>
                     </f:facet>
                     <h:outputLabel value = "Enunciado:" />
-                    <h:inputText size="100" value="#{pregunta.enunciado}" maxlength="63" >
+                    <h:inputText size="100" value="#{pregunta.enunciado}" maxlength="63" required="#{not empty param[btnCrearFichPreguntaPanelesLetras.clientId]}" >
                          <p:ajax  event="valueChange"  />
                     </h:inputText>
                     
@@ -37,7 +37,7 @@
                         <h:outputLabel value = "Pistas: " />
                         <p:spacer width="10" height="10"  />
                         <c:forEach items="#{pregunta.pistas}" var="pista" varStatus="pistaLoop">
-                            <h:inputText size="9" value="#{pista}" >
+                            <h:inputText size="9" value="#{pista}" required="#{not empty param[btnCrearFichPreguntaPanelesLetras.clientId]}">
                                  <p:ajax  event="valueChange"  />
                             </h:inputText>
                         <p:spacer width="10" height="10"  />

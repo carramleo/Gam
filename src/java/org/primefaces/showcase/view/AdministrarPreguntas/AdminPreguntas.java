@@ -59,6 +59,9 @@ public class AdminPreguntas implements Serializable {
         PreguntasRelacionar.removeAll(PreguntasRelacionar);
         PreguntasRespAbierta.removeAll(PreguntasRespAbierta);
         PreguntasSiNo.removeAll(PreguntasSiNo);
+        autor="";
+        titulo="";
+        TemaJuego="";
     }
     //Funcion para añadir pregunta a la lista  de tipo test
     public void addPregunta() {
