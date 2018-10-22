@@ -46,7 +46,7 @@
                             </p:submenu>
                             <p:submenu label="Cargar"  >
                                 <p:menuitem value="Local">
-                                    <p:fileUpload  update=":juego" value="#{importador.file}"  style="width: 300px;"  mode="simple"  allowTypes="/(\.|\/)(xml|doc|docx|xls|txt|pdf)$/"/>
+                                    <p:fileUpload  update=":juego" value="#{importador.file}"  style="width: 300px;"  mode="simple"  multiple="false" allowTypes="/(\.|\/)(xml|txt)$/"/>
                                     <h:commandButton value="Importar"  action="#{importador.importador(adminPreguntas, menuMapTipos, menuMapTiposOpciones)}"  ></h:commandButton>
                                 </p:menuitem>
                                 <p:separator/>
@@ -55,7 +55,7 @@
                             </p:submenu>
                             <p:submenu label="Exportar"  >
                                 <p:menuitem >
-                                    <p:fileUpload update=":juego" value="#{exportador.fileExp}" widgetVar="fichexp"  style="width: 300px;"  mode="simple"  allowTypes="/(\.|\/)(xml|doc|docx|xls|txt|pdf)$/"/>
+                                    <p:fileUpload update=":juego" value="#{exportador.fileExp}" widgetVar="fichexp"  style="width: 300px;"  mode="simple" multiple="false"  allowTypes="/(\.|\/)(xml)$/"/>
                                     <h:commandButton value="PDF"   action="#{exportador.exportadorPDF()}"  ></h:commandButton>
                                     <h:commandButton value="TXT"  action="#{exportador.exportadorTXT()}"  ></h:commandButton>
                                 </p:menuitem>
@@ -82,7 +82,7 @@
                         <br/>
                         <br/>
                         <p:commandButton  value="Borrar Preguntas" id="BorrarTodo" action="#{adminPreguntas.deleteAllLists()}" rendered="#{menuMapTipos.tipo ne null}" update=":juego"  >
-                             <p:confirm header="Confirmación" message="¿Seguro que quieres borrar todas las preguntas?" />
+                             <p:confirm header="Confirmación" message="¿Seguro que quieres borrar todas las preguntas?" icon="ui-icon-alert" />
                         </p:commandButton>
 
                         <h:outputText value="Selecciona un tipo de formato y de juego para crear un nuevo fichero o para importarlo"  rendered="#{menuMapTipos.tipo eq null}" />

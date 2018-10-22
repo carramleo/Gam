@@ -23,6 +23,7 @@ import org.primefaces.model.UploadedFile;
 @ManagedBean
 @SessionScoped
 public class exportador implements Serializable {
+
     //Fichero que se sube en la aplicación.
     private UploadedFile fileExp;
 
@@ -40,31 +41,43 @@ public class exportador implements Serializable {
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al exportar", "No ha seleccionado un fichero"));
     }
 
+    public void errorFileExpFormato() {
+        FacesContext context = FacesContext.getCurrentInstance();
+
+        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al exportar", "No ha seleccionado un fichero válido (sólo xml)"));
+    }
+
     public void exportadorPDF() throws IOException, DocumentException, TransformerException {
         if (fileExp.getFileName() == null || fileExp.getFileName().isEmpty()) {
             errorFileExp();
+        } else if (!fileExp.getContentType().equals("text/xml")) {
+            errorFileExpFormato();
+            
         } else {
-            
+
             XMLtoPDF pdf = new XMLtoPDF();
-            
+
             InputStream fichero = fileExp.getInputstream();
-            
+
             pdf.convertXMLtoPDF(fichero);
-            
+
         }
     }
-    
+
     public void exportadorTXT() throws IOException, DocumentException, TransformerException {
         if (fileExp.getFileName() == null || fileExp.getFileName().isEmpty()) {
             errorFileExp();
+        } else if (!fileExp.getContentType().equals("text/xml")) {
+            errorFileExpFormato();
+            
         } else {
-            
+
             XMLtoTXT txt = new XMLtoTXT();
-            
+
             InputStream fichero = fileExp.getInputstream();
-            
+
             txt.conversorXMLtoTXT(fichero);
-            
+
         }
     }
 }

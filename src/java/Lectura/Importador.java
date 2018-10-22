@@ -50,6 +50,11 @@ public class Importador implements Serializable{
 
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al importar", "No ha seleccionado ningún tipo"));
     }
+     public void errorFileExpFormato() {
+        FacesContext context = FacesContext.getCurrentInstance();
+
+        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al exportar", "No ha seleccionado un fichero válido (sólo xml y txt)"));
+    }
     
     public void importador(AdminPreguntas b, MenuMapTipos tipos, MenuMapTiposOpciones opcionesTipos) throws SAXException, IOException, ParserConfigurationException{
         
@@ -77,6 +82,8 @@ public class Importador implements Serializable{
                 ReadTXT txt = new ReadTXT();
                 
                 txt.readFile(file, b, tipos, opcionesTipos);
+            }else{
+                errorFileExpFormato();
             }
         }
     }
