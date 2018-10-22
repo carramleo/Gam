@@ -69,7 +69,8 @@ public class ReadXML {
     }
 
     public void readFile(UploadedFile file, AdminPreguntas b, MenuMapTipos tipos, MenuMapTiposOpciones opcionesTipos) throws SAXException, IOException, ParserConfigurationException {
-
+        
+        try{
         if (file.getFileName() == null || file.getFileName().isEmpty()) {
             errorFile();
         } else {
@@ -171,6 +172,9 @@ public class ReadXML {
             } else {
                 saveMessage();
             }
+        }
+        }catch(Exception e ){
+            System.out.println("Uy! algo ha pasado");
         }
     }
 
