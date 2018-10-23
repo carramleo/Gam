@@ -69,111 +69,110 @@ public class ReadXML {
     }
 
     public void readFile(UploadedFile file, AdminPreguntas b, MenuMapTipos tipos, MenuMapTiposOpciones opcionesTipos) throws SAXException, IOException, ParserConfigurationException {
-        
-        try{
-        if (file.getFileName() == null || file.getFileName().isEmpty()) {
-            errorFile();
-        } else {
 
-            InputStream fichero = file.getInputstream();
-
-            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-            Document document = documentBuilder.parse(fichero);
-
-            String titulo = document.getElementsByTagName("titulo").item(0).getTextContent();
-            String autor = document.getElementsByTagName("autor").item(0).getTextContent();
-
-            String tipo = document.getElementsByTagName("preguntas").item(0).getAttributes().getNamedItem("tipo").getNodeValue();
-            //Creamos todas las listas de preguntas vacías.
-            List<PreguntaOpciones> Preguntas = b.getPreguntas();
-            List<PreguntaCifras> PreguntasCifras = b.getPreguntasCifras();
-            List<PreguntaCampoTexto> PreguntasCampoTexto = b.getPreguntasCampoTexto();
-            List<PreguntaSiNo> PreguntasSiNo = b.getPreguntasSiNo();
-            List<PreguntaPanelesLetras> PreguntasPanelesLetras = b.getPreguntasPanelesLetras();
-            List<PreguntaRelacionar> PreguntasRelacionar = b.getPreguntasRelacionar();
-            List<PreguntaRespAbierta> PreguntasRespAbierta = b.getPreguntasRespAbierta();
-            List<PreguntaContarLetras> PreguntasContarLetras = b.getPreguntasContarLetras();
-            b.setAutor(autor);
-            b.setTitulo(titulo);
-            String TipoJuego = b.getTipo();
-            
-
-            String tipoSeleccionado = tipos.getTipo();  //tipo  seleccionado en el menu de la izq
-
-            Map<String, String> mapaTiposCompatibles = tipos.getData().get(tipoSeleccionado);   //obtengo el mapa de los tipos compatibles que acepta
-
-            for (String key : mapaTiposCompatibles.keySet()) {
-                if (mapaTiposCompatibles.get(key).equals(tipo)) {             //recorro el mapa buscando si el tipo del fichero importado aparece en ese mapa
-                    compatible = true;
-                }
-            }
-            
-            if((tipo.equals("Tipo5") || tipo.equals("Tipo14") || tipo.equals("Tipo17")) && !tipo.equals("Tipo15")){
-                String tema=document.getElementsByTagName("tema").item(0).getTextContent();
-                b.setTemaJuego(tema);
-            }
-            
-            //Comprobamos si se ha seleccionado un tipo en la página web.
-            if (compatible && TipoJuego != null && !TipoJuego.isEmpty() && tipoSeleccionado != null && !tipoSeleccionado.isEmpty()) {
-
-                NodeList preguntasElement = document.getElementsByTagName("pregunta");
-                //Comprobamos ante qué tipo estamos para crear un tipo de panel u otro.
-                if (tipoSeleccionado.equals("TipoOpciones")) {
-
-                    for (int i = 0; i < preguntasElement.getLength(); i++) {
-
-                        Preguntas.add(getPreguntaOpciones(preguntasElement.item(i), tipo, b)); //añadimos una pregunta del tipo que corresponde.
-                    }
-                } else if (tipoSeleccionado.equals("TipoCampoTexto")) {
-
-                    for (int i = 0; i < preguntasElement.getLength(); i++) {
-
-                        PreguntasCampoTexto.add(getPreguntaCampoTexto(preguntasElement.item(i), tipo, b));
-                    }
-                } else if (tipoSeleccionado.equals("TipoCifras")) {
-
-                    for (int i = 0; i < preguntasElement.getLength(); i++) {
-
-                        PreguntasCifras.add(getPreguntaCifras(preguntasElement.item(i), tipo, b));
-                    }
-                } else if (tipoSeleccionado.equals("TipoSiNo")) {
-
-                    for (int i = 0; i < preguntasElement.getLength(); i++) {
-
-                        PreguntasSiNo.add(getPreguntaSiNo(preguntasElement.item(i), tipo, b));
-                    }
-                } else if (tipoSeleccionado.equals("TipoPanelesLetras")) {
-
-                    for (int i = 0; i < preguntasElement.getLength(); i++) {
-
-                        PreguntasPanelesLetras.add(getPreguntaPanelesLetras(preguntasElement.item(i), tipo, b));
-                    }
-                } else if (tipoSeleccionado.equals("TipoRelacionar")) {
-
-                    for (int i = 0; i < preguntasElement.getLength(); i++) {
-
-                        PreguntasRelacionar.add(getPreguntaRelacionar(preguntasElement.item(i), tipo, b));
-                    }
-                } else if (tipoSeleccionado.equals("TipoRespAbierta")) {
-
-                    for (int i = 0; i < preguntasElement.getLength(); i++) {
-
-                        PreguntasRespAbierta.add(getPreguntaRespAbierta(preguntasElement.item(i), tipo, b));
-                    }
-                } else if (tipoSeleccionado.equals("TipoContarLetras")) {
-
-                    for (int i = 0; i < preguntasElement.getLength(); i++) {
-
-                        PreguntasContarLetras.add(getPreguntaContarLetras(preguntasElement.item(i), tipo, b));
-                    }
-                }
-
+        try {
+            if (file.getFileName() == null || file.getFileName().isEmpty()) {
+                errorFile();
             } else {
-                saveMessage();
+
+                InputStream fichero = file.getInputstream();
+
+                DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+                DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+                Document document = documentBuilder.parse(fichero);
+
+                String titulo = document.getElementsByTagName("titulo").item(0).getTextContent();
+                String autor = document.getElementsByTagName("autor").item(0).getTextContent();
+
+                String tipo = document.getElementsByTagName("preguntas").item(0).getAttributes().getNamedItem("tipo").getNodeValue();
+                //Creamos todas las listas de preguntas vacías.
+                List<PreguntaOpciones> Preguntas = b.getPreguntas();
+                List<PreguntaCifras> PreguntasCifras = b.getPreguntasCifras();
+                List<PreguntaCampoTexto> PreguntasCampoTexto = b.getPreguntasCampoTexto();
+                List<PreguntaSiNo> PreguntasSiNo = b.getPreguntasSiNo();
+                List<PreguntaPanelesLetras> PreguntasPanelesLetras = b.getPreguntasPanelesLetras();
+                List<PreguntaRelacionar> PreguntasRelacionar = b.getPreguntasRelacionar();
+                List<PreguntaRespAbierta> PreguntasRespAbierta = b.getPreguntasRespAbierta();
+                List<PreguntaContarLetras> PreguntasContarLetras = b.getPreguntasContarLetras();
+                b.setAutor(autor);
+                b.setTitulo(titulo);
+                String TipoJuego = b.getTipo();
+
+                String tipoSeleccionado = tipos.getTipo();  //tipo  seleccionado en el menu de la izq
+
+                Map<String, String> mapaTiposCompatibles = tipos.getData().get(tipoSeleccionado);   //obtengo el mapa de los tipos compatibles que acepta
+
+                for (String key : mapaTiposCompatibles.keySet()) {
+                    if (mapaTiposCompatibles.get(key).equals(tipo)) {             //recorro el mapa buscando si el tipo del fichero importado aparece en ese mapa
+                        compatible = true;
+                    }
+                }
+
+                if ((tipo.equals("Tipo5") || tipo.equals("Tipo14") || tipo.equals("Tipo17")) && !tipo.equals("Tipo15")) {
+                    String tema = document.getElementsByTagName("tema").item(0).getTextContent();
+                    b.setTemaJuego(tema);
+                }
+
+                //Comprobamos si se ha seleccionado un tipo en la página web.
+                if (compatible && TipoJuego != null && !TipoJuego.isEmpty() && tipoSeleccionado != null && !tipoSeleccionado.isEmpty()) {
+
+                    NodeList preguntasElement = document.getElementsByTagName("pregunta");
+                    //Comprobamos ante qué tipo estamos para crear un tipo de panel u otro.
+                    if (tipoSeleccionado.equals("TipoOpciones")) {
+
+                        for (int i = 0; i < preguntasElement.getLength(); i++) {
+
+                            Preguntas.add(getPreguntaOpciones(preguntasElement.item(i), tipo, b)); //añadimos una pregunta del tipo que corresponde.
+                        }
+                    } else if (tipoSeleccionado.equals("TipoCampoTexto")) {
+
+                        for (int i = 0; i < preguntasElement.getLength(); i++) {
+
+                            PreguntasCampoTexto.add(getPreguntaCampoTexto(preguntasElement.item(i), tipo, b));
+                        }
+                    } else if (tipoSeleccionado.equals("TipoCifras")) {
+
+                        for (int i = 0; i < preguntasElement.getLength(); i++) {
+
+                            PreguntasCifras.add(getPreguntaCifras(preguntasElement.item(i), tipo, b));
+                        }
+                    } else if (tipoSeleccionado.equals("TipoSiNo")) {
+
+                        for (int i = 0; i < preguntasElement.getLength(); i++) {
+
+                            PreguntasSiNo.add(getPreguntaSiNo(preguntasElement.item(i), tipo, b));
+                        }
+                    } else if (tipoSeleccionado.equals("TipoPanelesLetras")) {
+
+                        for (int i = 0; i < preguntasElement.getLength(); i++) {
+
+                            PreguntasPanelesLetras.add(getPreguntaPanelesLetras(preguntasElement.item(i), tipo, b));
+                        }
+                    } else if (tipoSeleccionado.equals("TipoRelacionar")) {
+
+                        for (int i = 0; i < preguntasElement.getLength(); i++) {
+
+                            PreguntasRelacionar.add(getPreguntaRelacionar(preguntasElement.item(i), tipo, b));
+                        }
+                    } else if (tipoSeleccionado.equals("TipoRespAbierta")) {
+
+                        for (int i = 0; i < preguntasElement.getLength(); i++) {
+
+                            PreguntasRespAbierta.add(getPreguntaRespAbierta(preguntasElement.item(i), tipo, b));
+                        }
+                    } else if (tipoSeleccionado.equals("TipoContarLetras")) {
+
+                        for (int i = 0; i < preguntasElement.getLength(); i++) {
+
+                            PreguntasContarLetras.add(getPreguntaContarLetras(preguntasElement.item(i), tipo, b));
+                        }
+                    }
+
+                } else {
+                    saveMessage();
+                }
             }
-        }
-        }catch(Exception e ){
+        } catch (Exception e) {
             System.out.println("Uy! algo ha pasado");
         }
     }
@@ -212,6 +211,14 @@ public class ReadXML {
             }
             preg.setRespuestas(respuestasXML);
             //Creamos las soluciones
+            if (respuestasXML.size() != preg.getSolucionList().size()) {
+                preg.getSolucionList().removeAll(preg.getSolucionList());
+
+                for (int j = 0; j < respuestasXML.size(); j++) {
+                    preg.setlistaSoluciones(j);
+                }
+
+            }
             int numSol = 0;
             if (!tipo.equals("Tipo5") && !tipo.equals("Tipo19")) {
                 for (int j = 0; j < formatoOpciones.length; j++) {
@@ -219,7 +226,9 @@ public class ReadXML {
                         numSol = j + 1;
                     }
                 }
+
                 preg.setSolucion(String.valueOf(numSol));
+
             } else {
                 preg.setSolucion(element.getAttributeNode("sol").getValue());
             }

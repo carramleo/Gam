@@ -42,20 +42,20 @@ public class MenuMapTipos implements Serializable{
         Map<String, String> map = new HashMap<String, String>();
         map.put("Tipo 1", "Tipo1");
         map.put("Tipo 5", "Tipo5");
-        map.put("Tipo 7", "Tipo7");
+       // map.put("Tipo 7", "Tipo7");
         map.put("Tipo 12", "Tipo12");
         map.put("Tipo 13", "Tipo13");
         map.put("Tipo 14", "Tipo14");
         map.put("Tipo 15", "Tipo15");
         map.put("Tipo 17", "Tipo17");
         map.put("Tipo 19", "Tipo19");
-        map.put("Tipo 50x50", "Tipo50x50");
-        map.put("Tipo Arco iris", "TipoArcoIris");
-        map.put("Tipo Bomba dorada", "TipoBombaDorada");
-        map.put("Tipo BombaPlateada", "TipoBombaPlateada");
-        map.put("Tipo El Duelo", "TipoDuelo");
-        map.put("Tipo La trampa", "TipoTrampa");
-        map.put("Tipo Los Sabios", "TipoSabios");
+       // map.put("Tipo 50x50", "Tipo50x50");
+       // map.put("Tipo Arco iris", "TipoArcoIris");
+       // map.put("Tipo Bomba dorada", "TipoBombaDorada");
+       // map.put("Tipo BombaPlateada", "TipoBombaPlateada");
+       // map.put("Tipo El Duelo", "TipoDuelo");
+       // map.put("Tipo La trampa", "TipoTrampa");
+       // map.put("Tipo Los Sabios", "TipoSabios");
         data.put("TipoOpciones", map);
 
         map = new HashMap<String, String>();

@@ -41,7 +41,7 @@
                         <!-- Enunciado de cada Panel -->
                         <h:outputLabel value = "Enunciado: " />
 
-                        <p:inputText size="100" value="#{pregunta.enunciado}" required="#{not empty param[btnCrearFichPregunta.clientId]}" requiredMessage="Enunciado reuqerido en Pregunta #{adminPreguntas.preguntas.indexOf(pregunta)+1}" maxlength="240">
+                        <p:inputText size="100" value="#{pregunta.enunciado}" required="#{not empty param[btnCrearFichPregunta.clientId]}" requiredMessage="Enunciado requerido en Pregunta #{adminPreguntas.preguntas.indexOf(pregunta)+1}" maxlength="240">
                             <p:ajax  event="valueChange"  />
                         </p:inputText>
 

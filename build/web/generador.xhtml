@@ -37,7 +37,7 @@
                                 <p:menuitem      >
                                     <p:selectOneMenu id="tipo"   var="tipo"  widgetVar="tipo" value="#{menuMapTipos.tipo}" effect="fold"   >
                                         <p:ajax event="change"  listener="#{menuMapTipos.onTipoChange()}" update=":juego:tipoSeleccionado" />
-                                        <f:selectItem itemLabel="Selecciona tipo" itemValue="" />
+                                        <f:selectItem itemLabel="Selecciona formato de juego" itemValue="" />
                                         <f:selectItems   value="#{menuMapTipos.tipos}" itemValue="#{tipo}"  />
 
                                     </p:selectOneMenu>
@@ -75,17 +75,18 @@
 
                         <p:selectOneMenu id="tipoSeleccionado"   var="tipoSeleccionado"  widgetVar="tipoSel" value="#{adminPreguntas.tipo}" effect="fold"   >
                             <p:ajax event="change"  listener="#{adminPreguntas.deleteAllLists()}" update="juego" />
-                            <f:selectItem itemLabel="Selecciona tipo" itemValue="" />
+                            <f:selectItem itemLabel="Selecciona tipo de juego" itemValue="" />
                             <f:selectItems   value="#{menuMapTipos.tiposSeleccionados}" itemValue="#{tipoSeleccionado}"   />
 
-                        </p:selectOneMenu>
+                        </p:selectOneMenu> 
+                         <h:outputText value=" Al cambiar el tipo de juego, se borrarán las preguntas de otro tipo."  rendered="#{menuMapTipos.tipo ne null}" />
                         <br/>
                         <br/>
                         <p:commandButton  value="Borrar Preguntas" id="BorrarTodo" action="#{adminPreguntas.deleteAllLists()}" rendered="#{menuMapTipos.tipo ne null}" update=":juego"  >
                              <p:confirm header="Confirmación" message="¿Seguro que quieres borrar todas las preguntas?" icon="ui-icon-alert" />
                         </p:commandButton>
 
-                        <h:outputText value="Selecciona un tipo de formato y de juego para crear un nuevo fichero o para importarlo"  rendered="#{menuMapTipos.tipo eq null}" />
+                        <h:outputText value="Selecciona un formato y un tipo de juego para crear un nuevo fichero o para importarlo desde una carpeta local."  rendered="#{menuMapTipos.tipo eq null}" />
 
                         <p:panelGrid id="datosJuego" columns="1"  style="width: auto;"  rendered="#{menuMapTipos.tipo ne null}" >
 

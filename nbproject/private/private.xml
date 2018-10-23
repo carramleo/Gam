@@ -3,16 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/carlo/Documents/NetBeansProjects/Gam/src/java/org/primefaces/showcase/view/AdministrarPreguntas/AdminPreguntas.java</file>
             <file>file:/C:/Users/carlo/Documents/NetBeansProjects/Gam/src/java/conversor/createXML.java</file>
             <file>file:/C:/Users/carlo/Documents/NetBeansProjects/Gam/src/java/Lectura/ReadXML.java</file>
             <file>file:/C:/Users/carlo/Documents/NetBeansProjects/Gam/src/java/conversorTXT/XMLtoTXT.java</file>
             <file>file:/C:/Users/carlo/Documents/NetBeansProjects/Gam/web/TiposPreguntas/preguntas.xhtml</file>
+            <file>file:/C:/Users/carlo/Documents/NetBeansProjects/Gam/src/java/conversor/exportador.java</file>
+            <file>file:/C:/Users/carlo/Documents/NetBeansProjects/Gam/src/java/Lectura/Importador.java</file>
             <file>file:/C:/Users/carlo/Documents/NetBeansProjects/Gam/web/WEB-INF/web.xml</file>
-            <file>file:/C:/Users/carlo/Documents/NetBeansProjects/Gam/src/java/conversorTXT/FichTipo1.java</file>
+            <file>file:/C:/Users/carlo/Documents/NetBeansProjects/Gam/src/java/org/primefaces/showcase/view/MapaTipos/MenuMapTipos.java</file>
             <file>file:/C:/Users/carlo/Documents/NetBeansProjects/Gam/src/java/Lectura/ReadTXT.java</file>
             <file>file:/C:/Users/carlo/Documents/NetBeansProjects/Gam/src/java/org/primefaces/showcase/view/MapaTipos/Tipos.property</file>
-            <file>file:/C:/Users/carlo/Documents/NetBeansProjects/Gam/src/java/conversor/convertToPDF.xsl</file>
+            <file>file:/C:/Users/carlo/Documents/NetBeansProjects/Gam/src/java/org/primefaces/Pregunta/PreguntaOpciones.java</file>
             <file>file:/C:/Users/carlo/Documents/NetBeansProjects/Gam/web/generador.xhtml</file>
         </group>
     </open-files>

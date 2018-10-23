@@ -39,7 +39,7 @@ public class PreguntaOpciones implements Serializable {
             }
             
             
-            for (int i=0; i<numResp;i++){
+            for (int i=0; i<respuestas.size();i++){
                 
                 solucionList.add(i+1);
             }
@@ -125,6 +125,9 @@ public class PreguntaOpciones implements Serializable {
         this.tema = tema;
     }
     
+    public void setlistaSoluciones(int i){
+        solucionList.add(i+1);
+    }
     
 
 }
