@@ -1,5 +1,5 @@
 /*
-* Clase que lee un fichero de tipo TXT con formato Juego Tipo 1 del proyecto AJDA
+* Clase que lee un fichero de tipo TXT con formato Juego Tipo opciones del proyecto AJDA
  */
 package Lectura;
 
@@ -172,22 +172,22 @@ public class ReadTXT {
                             if (!posAutor.equals("x-1") && numLinea == Integer.parseInt(posAutor)) { //Comprobamos si estamos en la linea del autor.
                                 String[] aut = line2.split(":");
                                 autor = aut[1].substring(0, aut[1].length() - 1);
-                                b.setAutor(autor);
+                               // b.setAutor(autor);
                             } else if (!posTema.equals("2-3") && numLinea == Integer.parseInt(posTema)) {   //Comprobamos si estamos en la linea del tema.
                                 String tema = line2.substring(1, line2.length() - 1);
-                                b.setTemaJuego(tema);
+                               // b.setTemaJuego(tema);
 
                             } else if (numLinea == Integer.parseInt(posTitulo)) { //Comprobamos si estamos en la linea del titulo.
                                 String[] tit = line2.split(":");
                                 titulo = tit[1].substring(0, tit[1].length() - 1);
-                                b.setTitulo(titulo);
+                               // b.setTitulo(titulo);
                             } else if (posTema.equals("2-3") && (numLinea == 2 || numLinea == 3)) {
 
                                 String tema = line2.substring(1, line2.length() - 1);;
                                 if (b.getTemaJuego() != null) {
-                                    b.setTemaJuego(b.getTemaJuego() + tema);
+                                   // b.setTemaJuego(b.getTemaJuego() + tema);
                                 } else {
-                                    b.setTemaJuego(tema);
+                                    //b.setTemaJuego(tema);
                                 }
                                 lineasTema++;
 

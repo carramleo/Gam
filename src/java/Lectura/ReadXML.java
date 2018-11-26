@@ -81,8 +81,8 @@ public class ReadXML {
                 DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
                 Document document = documentBuilder.parse(fichero);
 
-                String titulo = document.getElementsByTagName("titulo").item(0).getTextContent();
-                String autor = document.getElementsByTagName("autor").item(0).getTextContent();
+                //String titulo = document.getElementsByTagName("titulo").item(0).getTextContent();
+                //String autor = document.getElementsByTagName("autor").item(0).getTextContent();
 
                 String tipo = document.getElementsByTagName("preguntas").item(0).getAttributes().getNamedItem("tipo").getNodeValue();
                 //Creamos todas las listas de preguntas vacías.
@@ -94,8 +94,8 @@ public class ReadXML {
                 List<PreguntaRelacionar> PreguntasRelacionar = b.getPreguntasRelacionar();
                 List<PreguntaRespAbierta> PreguntasRespAbierta = b.getPreguntasRespAbierta();
                 List<PreguntaContarLetras> PreguntasContarLetras = b.getPreguntasContarLetras();
-                b.setAutor(autor);
-                b.setTitulo(titulo);
+               // b.setAutor(autor);
+                //b.setTitulo(titulo);
                 String TipoJuego = b.getTipo();
 
                 String tipoSeleccionado = tipos.getTipo();  //tipo  seleccionado en el menu de la izq
@@ -108,10 +108,10 @@ public class ReadXML {
                     }
                 }
 
-                if ((tipo.equals("Tipo5") || tipo.equals("Tipo14") || tipo.equals("Tipo17")) && !tipo.equals("Tipo15")) {
+                /*if ((tipo.equals("Tipo5") || tipo.equals("Tipo14") || tipo.equals("Tipo17")) && !tipo.equals("Tipo15")) {
                     String tema = document.getElementsByTagName("tema").item(0).getTextContent();
                     b.setTemaJuego(tema);
-                }
+                }*/
 
                 //Comprobamos si se ha seleccionado un tipo en la página web.
                 if (compatible && TipoJuego != null && !TipoJuego.isEmpty() && tipoSeleccionado != null && !tipoSeleccionado.isEmpty()) {

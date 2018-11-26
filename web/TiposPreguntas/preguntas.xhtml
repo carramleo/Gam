@@ -18,6 +18,7 @@
                 
                 <f:facet name = "header">
                     <h:outputText value="Pregunta #{adminPreguntas.preguntas.indexOf(pregunta)+1} "/>
+                    <h:outputText  value="Pregunta con errores! " style="color: red;" rendered="#{pregunta.fallo}"/>
                     <p:commandButton value="Eliminar pregunta" action="#{adminPreguntas.deletePregunta(pregunta.id)}"  update=":juego"  >
                         <p:confirm header="Confirmación" icon="ui-icon-alert" message="¿Seguro que quieres borrar la pregunta #{adminPreguntas.preguntas.indexOf(pregunta)+1}?" />
                     </p:commandButton> 

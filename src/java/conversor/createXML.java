@@ -50,6 +50,7 @@ public class createXML extends AdminPreguntas implements Serializable {
 
     private String message;
     private boolean numRespOk;
+    
 
     public String getMessage() {
         return message;
@@ -66,10 +67,10 @@ public class createXML extends AdminPreguntas implements Serializable {
     }
 
     //Mensaje de error que sale al no corresponderse el número de respuestas actual con el tipo de juego elegido.
-    public void errorGenerado(int pregunta, int numResp, int minNumResp) {
+    public void errorGenerado(int numerr, int numResp, int minNumResp) {
         FacesContext context = FacesContext.getCurrentInstance();
 
-        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Fallo al generar en pregunta " + pregunta, "El numero de respuestas de la pregunta " + pregunta + " es incorrecto."
+        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Fallo al generar, número de preguntas erróneas: " + numerr, "El numero de respuestas de la pregunta es incorrecto."
                 + " Nº respuestas mínimo = " + minNumResp
                 + " Nº respuestas máximo =  " + numResp + ""));
     }
@@ -88,6 +89,9 @@ public class createXML extends AdminPreguntas implements Serializable {
             Boolean RespVariables = false;
             int numMinResp121517 = 2;
             int numMinResp19 = 4;
+             int error19 = 0;
+             int error121517 = 0;
+             int errorResp = 0;
             numRespOk = false;  //Comprueba q el numero de rspuestas sea el correcto en función del tipo elegido.
             List<PreguntaOpciones> Preguntas = b.getPreguntas();
             List<PreguntaCifras> PreguntasCifras = b.getPreguntasCifras();
@@ -209,15 +213,21 @@ public class createXML extends AdminPreguntas implements Serializable {
                     } else {
                         if (RespVariables) {
                             if (TipoJuego.equals("Tipo19")) {
-                                errorGenerado(Preguntas.indexOf(model) + 1, MenuMapTiposOpciones.numOpciones.get(preguntas.getAttribute("tipo")), numMinResp19);
+                                error19++;
+                                model.setFallo(true);
+                                //errorGenerado(Preguntas.indexOf(model) + 1, MenuMapTiposOpciones.numOpciones.get(preguntas.getAttribute("tipo")), numMinResp19);
                                 numRespOk = true;
                             } else {
-                                errorGenerado(Preguntas.indexOf(model) + 1, MenuMapTiposOpciones.numOpciones.get(preguntas.getAttribute("tipo")), numMinResp121517);
+                                error121517++;
+                                model.setFallo(true);
+                                //errorGenerado(Preguntas.indexOf(model) + 1, MenuMapTiposOpciones.numOpciones.get(preguntas.getAttribute("tipo")), numMinResp121517);
                                 numRespOk = true;
                             }
                             RespVariables = false;
                         } else {
-                            errorGenerado(Preguntas.indexOf(model) + 1, MenuMapTiposOpciones.numOpciones.get(preguntas.getAttribute("tipo")), MenuMapTiposOpciones.numOpciones.get(preguntas.getAttribute("tipo")));
+                            errorResp++;
+                            model.setFallo(true);
+                            // errorGenerado(Preguntas.indexOf(model) + 1, MenuMapTiposOpciones.numOpciones.get(preguntas.getAttribute("tipo")), MenuMapTiposOpciones.numOpciones.get(preguntas.getAttribute("tipo")));
                             numRespOk = true;
                         }
                         RespInsuficientes = false;
@@ -495,30 +505,39 @@ public class createXML extends AdminPreguntas implements Serializable {
 
             }
 
-            if (!numRespOk) {
+            if (errorResp > 0) {
+                errorGenerado(errorResp, MenuMapTiposOpciones.numOpciones.get(preguntas.getAttribute("tipo")), MenuMapTiposOpciones.numOpciones.get(preguntas.getAttribute("tipo")));
+            } else if (error19 > 0) {
+                errorGenerado(error19, MenuMapTiposOpciones.numOpciones.get(preguntas.getAttribute("tipo")), numMinResp19);
+            } else if (error121517 > 0) {
+                errorGenerado(error121517, MenuMapTiposOpciones.numOpciones.get(preguntas.getAttribute("tipo")), numMinResp121517);
+            } else {
 
-                TransformerFactory transformerFactory = TransformerFactory.newInstance();
-                Transformer transformer = transformerFactory.newTransformer();
-                DOMSource source = new DOMSource(document);
+                if (!numRespOk) {
 
-                //Pedimos al servlet que nos mande u fichero descargable de tipo XML para escribir contenido en él.
-                FacesContext context = FacesContext.getCurrentInstance();
-                ExternalContext externalContext = context.getExternalContext();
-                externalContext.responseReset();
-                externalContext.setResponseContentType("text/xml");
-                externalContext.setResponseHeader("Cache-Control", "must-revalidate, post-check=0, pre-check=0");
-                externalContext.setResponseHeader("Pragma", "public");
-                externalContext.setResponseHeader("Content-disposition", "attachment;filename=" + "juego_" + TipoJuego + ".xml");
+                    TransformerFactory transformerFactory = TransformerFactory.newInstance();
+                    Transformer transformer = transformerFactory.newTransformer();
+                    DOMSource source = new DOMSource(document);
 
-                OutputStream out = externalContext.getResponseOutputStream();
+                    //Pedimos al servlet que nos mande u fichero descargable de tipo XML para escribir contenido en él.
+                    FacesContext context = FacesContext.getCurrentInstance();
+                    ExternalContext externalContext = context.getExternalContext();
+                    externalContext.responseReset();
+                    externalContext.setResponseContentType("text/xml");
+                    externalContext.setResponseHeader("Cache-Control", "must-revalidate, post-check=0, pre-check=0");
+                    externalContext.setResponseHeader("Pragma", "public");
+                    externalContext.setResponseHeader("Content-disposition", "attachment;filename=" + "juego_" + TipoJuego + ".xml");
 
-                transformer.transform(source, new StreamResult(out));
-                //Pedimos al servlet que nos descargue el fichero en la carpeta de descargas de nuestro equipo.
-                externalContext.responseFlushBuffer();
+                    OutputStream out = externalContext.getResponseOutputStream();
 
-                out.close();
-                //b.deleteAllLists();
-                ficheroGenerado(TipoJuego);
+                    transformer.transform(source, new StreamResult(out));
+                    //Pedimos al servlet que nos descargue el fichero en la carpeta de descargas de nuestro equipo.
+                    externalContext.responseFlushBuffer();
+
+                    out.close();
+                    //b.deleteAllLists();
+                    ficheroGenerado(TipoJuego);
+                }
             }
         } catch (Exception e) {
             System.out.println("Uy! algo ha pasado");

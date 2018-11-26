@@ -9,7 +9,7 @@
         <h:head>
             <f:facet name="first">
 
-                <title>Generador de ficheros</title>
+                <title>Generador de ficheros de ficheros</title>
             </f:facet>
         </h:head>
 
@@ -19,7 +19,7 @@
 
                 <!-- Titular página -->
                 <p:layoutUnit position="north" style="text-align: center; font-size: xx-large;" size="100" resizable="true" closable="true" collapsible="true">
-                    <h:outputText value="Generador de Juegos"></h:outputText>
+                    <h:outputText value="Generador de ficheros de Juegos"></h:outputText>
                 </p:layoutUnit>
 
 
@@ -49,8 +49,7 @@
                                     <p:fileUpload  update=":juego" value="#{importador.file}"  style="width: 300px;"  mode="simple"  multiple="false" allowTypes="/(\.|\/)(xml|txt)$/"/>
                                     <h:commandButton value="Importar"  action="#{importador.importador(adminPreguntas, menuMapTipos, menuMapTiposOpciones)}"  ></h:commandButton>
                                 </p:menuitem>
-                                <p:separator/>
-                                <p:menuitem value="Buscador" url="faces/buscador.xhtml"  />
+                                <p:menuitem />
 
                             </p:submenu>
                             <p:submenu label="Exportar"  >
@@ -118,7 +117,7 @@
 
                             <c:forEach items="#{adminPreguntas.preguntas}" var="pregunta"  varStatus="preguntaLoop">
 
-                                <ui:include  src="TiposPreguntas/preguntas.xhtml" />
+                                <ui:include src="TiposPreguntas/preguntas.xhtml" />
                             </c:forEach>
 
                             <p:commandButton id="btnNuevoPregunta" value="Nueva Pregunta"  update="panelesJuego"  action="#{adminPreguntas.addPregunta()}"   />
